@@ -107,6 +107,43 @@
         font-style: italic;
 }
 
+/* Style des balises prédéfinis */
+h1{
+    font-family: 'Satoshi-Regular', sans-serif;
+    color: var(--prussian-blue);
+    font-size:x-large;
+}
+
+h2{
+    font-family: 'Satoshi-Regular', sans-serif;
+    color: var(--prussian-blue);
+    font-size:larger;
+}
+
+h3{
+    font-family: 'Satoshi-Regular', sans-serif;
+    color: var(--prussian-blue);
+    font-size:large;
+}
+
+h4{
+    font-family: 'Satoshi-Regular', sans-serif;
+    color: var(--prussian-blue);
+    font-size:medium;
+}
+
+h5{
+    font-family: 'Satoshi-Regular', sans-serif;
+    color: var(--prussian-blue);
+    font-size: small;
+}
+
+h6{
+    font-family: 'Satoshi-Regular', sans-serif;
+    color: var(--prussian-blue);
+    font-size:smaller;
+}
+
 /* Mise en page des différentes parties du site */
 
 /* Body */
