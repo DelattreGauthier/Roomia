@@ -107,52 +107,15 @@
         font-style: italic;
 }
 
-/* Style des balises prédéfinis */
-h1{
-    font-family: 'Satoshi-Regular', sans-serif;
-    color: var(--prussian-blue);
-    font-size:x-large;
-}
-
-h2{
-    font-family: 'Satoshi-Regular', sans-serif;
-    color: var(--prussian-blue);
-    font-size:larger;
-}
-
-h3{
-    font-family: 'Satoshi-Regular', sans-serif;
-    color: var(--prussian-blue);
-    font-size:large;
-}
-
-h4{
-    font-family: 'Satoshi-Regular', sans-serif;
-    color: var(--prussian-blue);
-    font-size:medium;
-}
-
-h5{
-    font-family: 'Satoshi-Regular', sans-serif;
-    color: var(--prussian-blue);
-    font-size: small;
-}
-
-h6{
-    font-family: 'Satoshi-Regular', sans-serif;
-    color: var(--prussian-blue);
-    font-size:smaller;
-}
-
 /* Mise en page des différentes parties du site */
 
-/* Body */
+/*------------- Body -------------*/
 body{
     background-color:var(--white-background);
     margin: 0;
 }
 
-/* Header */
+/*------------- Header -------------*/
 header {
     display:flex;
     padding:15px 50px;
@@ -161,7 +124,7 @@ header {
     box-shadow: 0px 0px 10px var(--gray-blue);
 }
 
-/*Nav */
+/*------------- Nav -------------*/
 
 nav li{
     display:inline-block;
@@ -182,16 +145,6 @@ header a{
     transition-duration: 0.123s;
 }
 
-.logo_accueil:hover, header a:hover{
-    background-color: rgba(238, 105, 105, 0.89);
-    transition-duration: 0.3s;
-    border-radius: 15px;
-}
-
-header a:hover{
-    color: var(--white-background);
-}
-
 .logo_accueil{
     padding:8px;
     margin:6px;
@@ -202,12 +155,19 @@ header a:hover{
     vertical-align: middle;
 }
 
-/* Main */
-main{
-    display: grid;
+/* Transition au survol des boutons du header */
+
+.logo_accueil:hover, header nav a:hover, .connexion:hover{
+    background-color: rgba(238, 105, 105, 0.89);
+    transition-duration: 0.3s;
+    border-radius: 15px;
 }
 
-/* Footer */
-footer{
-    display: grid;
+header a:hover{
+    color: var(--white-background);
 }
+
+/*------------- Main -------------*/
+
+
+/*------------- Footer -------------*/
