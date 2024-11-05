@@ -10,6 +10,55 @@
     --prussian-blue:#1D2D44;
 }
 
+/* Style des balises prédéfinis */
+h1{
+    font-family: 'Satoshi-Regular', sans-serif;
+    color: var(--prussian-blue);
+    font-size:xx-large;
+    margin: 0%;
+    padding: 0%;
+}
+
+h2{
+    font-family: 'Satoshi-Regular', sans-serif;
+    color: var(--prussian-blue);
+    font-size:x-large;
+    margin: 0%;
+    padding: 0%;
+}
+
+h3{
+    font-family: 'Satoshi-Regular', sans-serif;
+    color: var(--prussian-blue);
+    font-size:larger;
+    margin: 0%;
+    padding: 0%;
+}
+
+h4{
+    font-family: 'Satoshi-Regular', sans-serif;
+    color: var(--prussian-blue);
+    font-size:large;
+    margin: 0%;
+    padding: 0%;
+}
+
+h5{
+    font-family: 'Satoshi-Regular', sans-serif;
+    color: var(--prussian-blue);
+    font-size:medium;
+    margin: 0%;
+    padding: 0%;
+}
+
+h6{
+    font-family: 'Satoshi-Regular', sans-serif;
+    color: var(--prussian-blue);
+    font-size:small;
+    margin: 0%;
+    padding: 0%;
+}
+
 /* Fonts */
 @font-face {
     font-family: 'Satoshi-Variable';
@@ -122,6 +171,9 @@ header {
     justify-content:space-between;
     align-items: center;
     box-shadow: 0px 0px 10px var(--gray-blue);
+    position:fixed;
+    background-color: var(--white-background);
+    width: 100%;
 }
 
 /*------------- Nav -------------*/
@@ -143,6 +195,11 @@ header a{
     font-family: 'Satoshi-Bold', sans-serif;
     border-radius: 15px;
     transition-duration: 0.123s;
+    cursor:default; 
+}
+
+header a:hover{
+    color: var(--white-background);
 }
 
 .logo_accueil{
@@ -164,15 +221,34 @@ header a{
     cursor: pointer;
 }
 
-header a:hover{
-    color: var(--white-background);
-}
-
-header a{
-    cursor:default;   /*Permet d'empêcher le curseur de deveinir un pointeur lorsqu'on survole autour de l'image*/      
-}
-
 /*------------- Main -------------*/
 
+#page_bienvenue{
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-template-rows: 1fr 2fr 1fr 2fr;
+    padding: 0% 7%;
+    padding-top: 180px;
+    align-items: center;
+}
 
+#page_bienvenue h1{
+    margin: 20px 0px;
+}
+
+#page_bienvenue div.gauche{
+    grid-column: 1/3;
+    grid-row: 1/2;
+    padding-right:8%;
+}
+
+#page_bienvenue .droite{
+    grid-column: 3/4;
+    grid-row: 1/3;
+}
+
+#page_bienvenue .img_droite img{
+    width: 100%;
+
+}
 /*------------- Footer -------------*/
