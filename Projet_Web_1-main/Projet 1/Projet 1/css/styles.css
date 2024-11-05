@@ -226,7 +226,7 @@ header a:hover{
 #page_bienvenue{
     display: grid;
     grid-template-columns: 2fr 1fr 2fr;
-    grid-template-rows: 1fr 2fr 1fr 2fr;
+    grid-template-rows: 1fr 2fr 1fr 2fr 1fr 2fr;
     padding: 0% 7%;
     padding-top: 180px;
     align-items: center;
@@ -236,19 +236,40 @@ header a:hover{
     margin: 20px 0px;
 }
 
-#page_bienvenue div.gauche{
+#page_bienvenue h1.gauche{
     grid-column: 1/3;
     grid-row: 1/2;
     padding-right:8%;
 }
 
-#page_bienvenue .droite{
+#page_bienvenue h5.gauche{
+    grid-column: 1/3;
+    grid-row: 1/3;
+    padding-right:8%;
+}
+
+#page_bienvenue img.droite{
     grid-column: 3/4;
     grid-row: 1/3;
-}
-
-#page_bienvenue .img_droite img{
     width: 100%;
-
 }
+
+#page_bienvenue h1.droite{
+    grid-column: 2/4;
+    grid-row: 3/4;
+    padding-left:8%;
+}
+
+#page_bienvenue h5.droite{
+    grid-column: 2/4;
+    grid-row: 3/5;
+    padding-left:8%;
+}
+
+#page_bienvenue img.gauche{
+    grid-column: 1/2;
+    grid-row: 3/5;
+    width: 100%;
+}
+
 /*------------- Footer -------------*/
