@@ -8,53 +8,15 @@
     --gray-blue:#3E5C76;
     --rich-black:#0D1321;
     --prussian-blue:#1D2D44;
+    --default-orange: rgba(238, 105, 105, 0.89);
 }
 
 /* Style des balises prédéfinis */
-h1{
+/* Les tailles définies ont été ignorées pour économiser une quarantaine de lignes.
+Toutefois, les tailles d'écriture sont plus petites d'un cran. */
+h1, h2, h3, h4, h5, h6 {
     font-family: 'Satoshi-Regular', sans-serif;
     color: var(--prussian-blue);
-    font-size:xx-large;
-    margin: 0%;
-    padding: 0%;
-}
-
-h2{
-    font-family: 'Satoshi-Regular', sans-serif;
-    color: var(--prussian-blue);
-    font-size:x-large;
-    margin: 0%;
-    padding: 0%;
-}
-
-h3{
-    font-family: 'Satoshi-Regular', sans-serif;
-    color: var(--prussian-blue);
-    font-size:larger;
-    margin: 0%;
-    padding: 0%;
-}
-
-h4{
-    font-family: 'Satoshi-Regular', sans-serif;
-    color: var(--prussian-blue);
-    font-size:large;
-    margin: 0%;
-    padding: 0%;
-}
-
-h5{
-    font-family: 'Satoshi-Regular', sans-serif;
-    color: var(--prussian-blue);
-    font-size:medium;
-    margin: 0%;
-    padding: 0%;
-}
-
-h6{
-    font-family: 'Satoshi-Regular', sans-serif;
-    color: var(--prussian-blue);
-    font-size:small;
     margin: 0%;
     padding: 0%;
 }
@@ -212,10 +174,17 @@ header a:hover{
     vertical-align: middle;
 }
 
+#current { /* Indication de la page actuelle */
+    padding:8px 0;
+    color: var(--white-background);
+    border-radius: 15px;
+    background-color: var(--default-orange);
+}
+
 /* Transition au survol des boutons du header */
 
 .logo_accueil:hover, header nav a:hover, .connexion:hover{
-    background-color: rgba(238, 105, 105, 0.89);
+    background-color: var(--default-orange);
     transition-duration: 0.3s;
     border-radius: 15px;
     cursor: pointer;
@@ -313,4 +282,27 @@ header a:hover{
    - Et enfin COMMENTER UN MAXIMUM LE CODE. Faut rendre le code le plus lisible possible, ça fait gagner des points en plus mine de rien
 */
 
+/* ------------- Images -------------*/
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 /*------------- Footer -------------*/
+
+/* Style de l'iframe */
+.map {
+    position: fixed; /* Permet de le fixer en bas à gauche */
+    bottom: 0; /* Positionne l'iframe en bas */
+    left: 0; /* Positionne l'iframe à gauche */
+    width: 7vw; /* Largeur de 10% de la largeur de la fenêtre */
+    height: 7vw; /* Hauteur équivalente pour un carré */
+    transition: width 0.5s ease, height 0.5s ease; /* Transition douce pour la largeur et la hauteur */
+    overflow: hidden;
+}
+
+/* Effet de survol */
+.map:hover {
+    width: 30vw; /* Prend 100% de la largeur de la fenêtre */
+    height: 50vh; /* Prend 100% de la hauteur de la fenêtre */
+}
