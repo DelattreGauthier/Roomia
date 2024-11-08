@@ -12,13 +12,35 @@
 }
 
 /* Style des balises prédéfinis */
-/* Les tailles définies ont été ignorées pour économiser une quarantaine de lignes.
-Toutefois, les tailles d'écriture sont plus petites d'un cran. */
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6{
     font-family: 'Satoshi-Regular', sans-serif;
     color: var(--prussian-blue);
     margin: 0%;
     padding: 0%;
+}
+
+h1{
+    font-size:xx-large;
+}
+
+h2{
+    font-size:x-large;
+}
+
+h3{
+    font-size:larger;
+}
+
+h4{
+    font-size:large;
+}
+
+h5{
+    font-size:medium;
+}
+
+h6{
+    font-size:small;
 }
 
 /* Fonts */
@@ -176,7 +198,10 @@ header a:hover{
 
 #current { /* Indication de la page actuelle */
     padding:8px 0;
-    color: var(--white-background);
+}
+
+#current a{
+    color:var(--white-background);
     border-radius: 15px;
     background-color: var(--default-orange);
 }
@@ -281,12 +306,6 @@ header a:hover{
    - Commencer à rédiger les textes du site
    - Et enfin COMMENTER UN MAXIMUM LE CODE. Faut rendre le code le plus lisible possible, ça fait gagner des points en plus mine de rien
 */
-
-/* ------------- Images -------------*/
-img {
-    max-width: 100%;
-    height: auto;
-}
 
 /*------------- Footer -------------*/
 
