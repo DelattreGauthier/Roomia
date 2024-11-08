@@ -170,7 +170,7 @@ nav{
 
 nav li{
     display:inline-block;
-    line-height: 40px;
+    vertical-align: middle;
 }
 
 nav ul li{
@@ -227,7 +227,7 @@ header a:hover{
 .logo_menu img{
     display:none;
     cursor:pointer;
-    width:27px;
+    width:1.9rem;
     margin: auto 23.5px;
     z-index:3;
     position:relative;
