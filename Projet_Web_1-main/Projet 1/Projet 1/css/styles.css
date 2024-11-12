@@ -2,6 +2,7 @@
     list-style: none;
     box-sizing: border-box
 }
+
 :root{
     --white-background:#e8e7f5;
     --silver-blue:#748CAB;
@@ -242,13 +243,14 @@ header a:hover{
     width: 100vw;
     overflow: hidden;
     backdrop-filter: blur(100px);
-    background-color: rgba(232, 231, 245, 0.3);
+    background-color: rgba(232, 231, 245);
     z-index: 1;
     align-items: center;
     justify-content: center;
     transition: all 0.5s ease;
     transform: translateX(100%);  /*Anime le menu déroulant de droite à gauche*/
 }
+
 .menu_toggle{
     display:none;
 }
@@ -274,7 +276,7 @@ header a:hover{
 }
 
 
-/*------------- Main -------------*/
+/*------------- Main (page d'accueil) -------------*/
 
 #page_bienvenue{
     display: grid;
@@ -284,6 +286,11 @@ header a:hover{
     padding-top: 180px;
     align-items: center;
     row-gap: 40px;
+}
+
+#page_salles{
+    padding: 100px 0px 0px 0px;
+    margin: 0px;
 }
 
 h1.texte_gauche{    
@@ -296,7 +303,7 @@ h5.texte_gauche{
     grid-column: 1/3;
     grid-row: 2/3;
     padding-right:10%;
-    margin-top: -20px;      /* Réduit le gap de la grille nécessaire pour séparer les 3 blocs de texte/image (il sépare aussi les h1 des h5 puisqu'ils sont dans des cellules différentes) */
+    margin-top: -20px; /* Réduit le gap de la grille nécessaire pour séparer les 3 blocs de texte/image (il sépare aussi les h1 des h5 puisqu'ils sont dans des cellules différentes) */
     align-self: start;
 }
 
@@ -348,6 +355,71 @@ img.img_droite2{
     grid-row: 5/7;
     width: 100%;
     justify-self: center;
+}
+
+#page_bienvenue img{
+    border-radius: 15px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+}
+
+/*------------- Main (Page de choix de salles) -------------*/
+
+#page_salles img{
+    display: inline-block;
+    position: absolute;
+    width: 25%;
+    height: 83%;
+    margin: 0px;
+    padding: 0px;
+    object-fit: cover;
+    object-position: center;
+    max-width: 100%;
+    max-height: 100%;
+    transition-duration: 0.3s;
+    filter: blur(0px);
+}
+
+#page_salles img:hover{
+    object-position: 45%;
+    max-width: 100%;
+    transition-duration: 0.3s ;
+    filter: blur(2px);
+}
+
+#ic1{
+    left: 0%;
+}
+
+#ic2{
+    left: 25%;
+}
+
+#alg{
+    left: 50%;
+}
+
+#ns{
+    left: 75%;
+}
+
+/*------------- Main (Page de connexion) -------------*/
+#page_connexion{
+    padding-top: 140px;
+    display: flex;
+    justify-content: center;
+}
+
+#page_connexion legend h3{
+    padding: 10px;
+}
+
+#page_connexion legend{
+    margin:auto;
+}
+
+#page_connexion fieldset{
+    border: 2px solid var(--prussian-blue);
+    border-radius: 15px;
 }
 
 /*------------- Footer -------------*/
@@ -432,6 +504,11 @@ img.img_droite2{
 
 }
 
+@media screen and (min-width: 851px) {
+    .dropdown_menu {
+        display: none; /* Masquer le menu */
+    }
+}
 /* 
    - Réduire un maximum les lignes de css ; un peu brouillon avec toutes les classes texte / gauche / droite, trouver un moyen plus simple ?
    - Ajouter un max width aux images ? A voir lors des tests sur différents écrans + quand on ajoutera de vraies images.
