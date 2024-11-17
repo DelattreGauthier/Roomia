@@ -3,41 +3,68 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="../css/styles.css">
-        <title>Projet 1</title>
+        <title>IC1</title>
     </head>
     <body>
         <header>
             <a href="../index.html"><img class="logo_accueil" onmouseout="this.src='../images/logo_home_black.png';" onmouseover="this.src='../images/logo_home_white.png';" src="../images/logo_home_black.png" alt="ACCUEIL"></a>
             <nav>
                 <ul>
-                    <li id="current"><a href="IC1.html">IC1</a></li> <!-- Page actuelle -->
-                    <li><a href="IC2.html">IC2</a></li>
-                    <li><a href="NS.html">NS</a></li>
-                    <li><a href="ALG.html">ALG</a> </li>
+                    <li><a href="../html/salles.html">Choisir une salle</a></li>
                 </ul>
+                <input type="checkbox" id="menu_toggle" class="menu_toggle">
+                <label for="menu_toggle" class="logo_menu">
+                    <img src="../images/menu.png" alt="Menu">
+                </label>
+                <div class="dropdown_menu">
+                    <ul>
+                        <li><a href="../html/salles.html">Choisir une salle</a></li>
+                        <li><a class="connexion" href="connexion.html">Connexion</a></li>
+                    </ul>
+                </div>
             </nav>
-            <a class="connexion" href="#">Connexion</a>
+            <a class="connexion" href="connexion.html">Connexion</a>
         </header> 
            
-        <main id="page_bienvenue">
-                <h1 class="texte-gauche">Le Lorem Ipsum</h1>
-                <h5 class="texte-gauche">Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.</h5>
-                <img class="img-droite" src="../images/Test.jpg">
-                <h1 class="texte-droite">Le Lorem Ipsum</h1>
-                <h5 class="texte-droite">Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.</h5>
-                <img class="img-gauche"src="../images/Test.jpg">
-                <h1 class="texte-gauche2">Le Lorem Ipsum</h1>
-                <h5 class="texte-gauche2">Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.</h5>
-                <img class="img-droite2" src="../images/Test.jpg">
+        <main id="IC1">
+            <div class="titre">
+                <h1>Bâtiment IC1</h1>
+            </div>
+            <div class="grille">
+                <section class="classique">
+                    <h2>Salles Classiques</h2>
+                    <ul>
+                        <li><h5><a href="IC1/B804.html">B802</a></h5></li>
+                        <li><h5><a href="#">B803</a></h5></li>
+                        <li><h5><a href="#">B804</a></h5></li>
+                    </ul>
+                </section>
+                <section class="amphi">
+                    <h2>Amphithéâtres</h2>
+                    <ul>
+                        <li><h5><a>Amphi 1</a></h5></li>
+                        <li><h5><a>Amphi 2</a></h5></li>
+                        <li><h5><a>Amphi 3</a></h5></li>
+                    </ul>
+                </section>
+                <section class="td">
+                    <h2>Salles de TD</h2>
+                    <ul>
+                        <li><h5><a>Salle TD 101</a></h5></li>
+                        <li><h5><a>Salle TD 102</a></h5></li>
+                        <li><h5><a>Salle TD 103</a></h5></li>
+                    </ul>
+                </section>
+                <section class="specialise">
+                    <h2>Salles Spécialisées</h2>
+                    <ul>
+                        <li><h5>Salle Info 1</h5></li>
+                        <li><h5>Salle Info 2</h5></li>
+                        <li><h5>Salle Info 3</h5></li>  
+                    </ul>
+                </section>
+            </div>
         </main>
-        <footer>
-            <iframe 
-                class="map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2530.66396591373!2d3.046353276568079!3d50.63335897162778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d578c0998405%3A0x45b8af90cad33362!2s16%20Rue%20Colson%2C%2059800%20Lille!5e0!3m2!1sfr!2sfr!4v1730890465501!5m2!1sfr!2sfr" 
-                style="border:0;"  
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </footer>
+
     </body>
 </html>
