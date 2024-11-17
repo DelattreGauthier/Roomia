@@ -403,23 +403,81 @@ img.img_droite2{
 }
 
 /*------------- Main (Page de connexion) -------------*/
-#page_connexion{
-    padding-top: 140px;
+
+#page_connexion {
+    background-color: var(--white-background);
+    width: 400px;
+    overflow: hidden;
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Satoshi-Bold', sans-serif;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#page_connexion legend h3{
-    padding: 10px;
+fieldset {
+    border: none;
 }
 
-#page_connexion legend{
-    margin:auto;
+form {
+    padding: 20px;
+    text-align: center;
+    border: solid var(--rich-black) 2.5px;
+    border-radius: 10px;
 }
 
-#page_connexion fieldset{
-    border: 2px solid var(--prussian-blue);
-    border-radius: 15px;
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 1em;
+    color: var(--rich-black);
+}
+
+input[type="text"], input[type="email"] {
+    width: 100%;
+    text-align: center;
+    padding: 10px 40px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1em;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: center;
+    font-family: 'Satoshi-Regular', sans-serif;
+    gap: 15px;
+    margin: 10px;
+}
+
+input[type="radio"] {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked + .radio-label {
+    font-family: 'Satoshi-Bold', sans-serif;
+}
+
+.btn-submit {
+    background-color: var(--white-background);
+    font-family: 'Satoshi-Bold', sans-serif;
+    color: var(--rich-black);
+    padding: 10px 50px;
+    border: solid var(--rich-black) 2px;
+    border-radius: 200px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 50px;
+}
+
+.btn-submit:hover {
+    background-color: var(--default-orange);
+    transition-duration: 0.3s;
+    color: white;
 }
 
 /*------------- Footer -------------*/
