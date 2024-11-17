@@ -141,6 +141,24 @@ h6{
         font-style: italic;
 }
 
+/* Scrollbar personnalisée */
+
+body::-webkit-scrollbar {
+    width: 13px; 
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--white-background);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #d2ceee; 
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px;
+}
+
+
+
 /* Mise en page des différentes parties du site */
 
 /*------------- Body -------------*/
@@ -174,6 +192,10 @@ nav li{
     vertical-align: middle;
 }
 
+nav ul{
+    padding:0;
+}
+
 nav ul li{
     margin: 5px;
 }
@@ -187,7 +209,8 @@ header a{
     font-family: 'Satoshi-Bold', sans-serif;
     border-radius: 15px;
     transition-duration: 0.123s;
-    cursor:default; 
+    cursor:default;
+    min-width: 140px;
 }
 
 header a:hover{
@@ -212,6 +235,10 @@ header a:hover{
     color:var(--white-background);
     border-radius: 15px;
     background-color: var(--default-orange);
+}
+
+.connexion{
+    min-width: 140px;
 }
 
 /* Transition au survol des boutons du header */
@@ -480,6 +507,78 @@ input[type="radio"]:checked + .radio-label {
     color: white;
 }
 
+/*------------- Main (Page IC1) -------------*/
+
+#IC1{
+    padding-top: 130px;
+}
+.titre{
+    display: flex;
+    justify-content: center ;
+}
+
+.titre h1{
+    padding:10px;
+    background-color:var(--silver-blue);
+    color:var(--white-background);
+    border-radius:15px;
+}
+
+#IC1 .grille{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    padding: 40px;
+    padding-top:40px;
+}
+
+#IC1 .grille section ul li a:link, #IC1 .grille section ul li a:visited{
+    color: #456a9e;
+    
+}
+
+#IC1 .grille section.classique{
+    grid-column: 1/2;
+    border: solid 2px var(--prussian-blue);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+#IC1 .grille section.amphi{
+    grid-column: 2/3;
+    border: solid 2px var(--prussian-blue);
+    border-left:none;
+}
+
+#IC1 .grille section.td{
+    grid-column: 3/4;
+    border: solid 2px var(--prussian-blue);
+    border-left:none;
+}
+
+#IC1 .grille section.specialise{
+    grid-column: 4/5;
+    border: solid 2px var(--prussian-blue);
+    border-left:none;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#IC1 .grille h2{
+    text-align: center;
+    border-bottom:solid 2px var(--prussian-blue);
+    padding:7px;
+}
+
+#IC1 section ul li{
+    list-style-type: initial;
+}
+
+/* #IC1 .grille .amphi h2, #IC1 .grille .td h2, #IC1 .grille .informatique h2{
+    border-left:none;
+} */
+
+
+
 /*------------- Footer -------------*/
 
 /* Style de l'iframe */
@@ -582,3 +681,4 @@ input[type="radio"]:checked + .radio-label {
    - Et enfin COMMENTER UN MAXIMUM LE CODE. Faut rendre le code le plus lisible possible, ça fait gagner des points en plus mine de rien
    - Navbar très petite sur mobile je comprends pas pourquoi
 */
+
