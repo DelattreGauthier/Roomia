@@ -154,7 +154,7 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
     background-color: #d2ceee; 
     box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.1); 
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 
@@ -403,14 +403,14 @@ img.img_droite2{
     max-width: 100%;
     max-height: 100%;
     transition-duration: 0.3s;
-    filter: blur(0px);
+    filter: grayscale(40%);
 }
 
 #page_salles img:hover{
     object-position: 45%;
     max-width: 100%;
     transition-duration: 0.3s ;
-    filter: blur(2px);
+    filter: grayscale(0%);
 }
 
 #ic1{
@@ -434,7 +434,7 @@ img.img_droite2{
 #page_connexion {
     background-color: var(--white-background);
     width: 400px;
-    overflow: hidden;
+    overflow:visible;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -442,6 +442,7 @@ img.img_droite2{
     font-family: 'Satoshi-Bold', sans-serif;
     margin-left: auto;
     margin-right: auto;
+    padding-top: 180px;
 }
 
 fieldset {
@@ -452,7 +453,7 @@ form {
     padding: 20px;
     text-align: center;
     border: solid var(--rich-black) 2.5px;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 label {
@@ -468,7 +469,7 @@ input[type="text"], input[type="email"] {
     padding: 10px 40px;
     margin: 5px 0;
     border: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: 15px;
     font-size: 1em;
 }
 
@@ -490,19 +491,21 @@ input[type="radio"]:checked + .radio-label {
 }
 
 .btn-submit {
-    background-color: var(--white-background);
+    background-color: var(--silver-blue);
     font-family: 'Satoshi-Bold', sans-serif;
     color: var(--rich-black);
     padding: 10px 50px;
-    border: solid var(--rich-black) 2px;
-    border-radius: 200px;
+    border-radius: 15px;
     font-size: 1em;
     cursor: pointer;
     margin-top: 50px;
+    transition-duration: 0.3s;
+    border: none;
+    color: var(--white-background);
 }
 
 .btn-submit:hover {
-    background-color: var(--default-orange);
+    background-color: var(--gray-blue);
     transition-duration: 0.3s;
     color: white;
 }
