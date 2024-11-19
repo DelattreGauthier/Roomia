@@ -305,14 +305,17 @@ header a:hover{
 
 /*------------- Main (page d'accueil) -------------*/
 
-#page_bienvenue{
+#page_bienvenue, #salles{
     display: grid;
     grid-template-columns: 2fr 1fr 2fr;
-    grid-template-rows: 1fr 2fr 1fr 2fr 1fr 2fr;
     padding: 0% 7%;
     padding-top: 180px;
     align-items: center;
     row-gap: 40px;
+}
+
+#page_bienvenue{
+    grid-template-rows: 1fr 2fr 1fr 2fr 1fr 2fr;
 }
 
 #page_salles{
@@ -384,7 +387,7 @@ img.img_droite2{
     justify-self: center;
 }
 
-#page_bienvenue img{
+#page_bienvenue img, #salles img{
     border-radius: 15px;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
 }
@@ -438,11 +441,16 @@ img.img_droite2{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: calc(100vh + 15%);
     font-family: 'Satoshi-Bold', sans-serif;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 180px;
+    padding-top: 140px;
+}
+
+#page_connexion .radio-label{
+    margin : 5px;
+    cursor:pointer;
 }
 
 fieldset {
@@ -468,9 +476,15 @@ input[type="text"], input[type="email"] {
     text-align: center;
     padding: 10px 40px;
     margin: 5px 0;
-    border: 1px solid #ddd;
     border-radius: 15px;
     font-size: 1em;
+    border:none;
+    outline: none;
+    border:solid var(--white-background) 2px;
+}
+
+#page_connexion input:focus{
+    border: solid var(--rich-black) 2px;
 }
 
 .radio-group {
@@ -513,7 +527,7 @@ input[type="radio"]:checked + .radio-label {
 /*------------- Main (Page IC1) -------------*/
 
 #IC1{
-    padding-top: 130px;
+    padding-top: 140px;
 }
 .titre{
     display: flex;
@@ -522,8 +536,7 @@ input[type="radio"]:checked + .radio-label {
 
 .titre h1{
     padding:10px;
-    background-color:var(--silver-blue);
-    color:var(--white-background);
+    color:var(--prussian-blue);
     border-radius:15px;
 }
 
@@ -576,11 +589,43 @@ input[type="radio"]:checked + .radio-label {
     list-style-type: initial;
 }
 
-/* #IC1 .grille .amphi h2, #IC1 .grille .td h2, #IC1 .grille .informatique h2{
-    border-left:none;
-} */
+/*------------- Main (Page générique des salles) -------------*/
 
+#salles{
+    grid-template-rows: 1fr 2fr 1fr 1fr;
+    min-height:100vh;
+}
 
+#salles .img_gauche{
+    grid-column: 1/2;
+    grid-row: 1/3;
+    justify-self: center;
+}
+
+#salles h1.texte_droite{
+    grid-column: 2/4;
+    grid-row: 1/2;
+}
+
+#salles h5.texte_droite{
+    grid-column: 2/4;
+    grid-row: 2/3;
+    text-align:initial;
+}
+
+#salles .infos{
+    grid-column:1/4;
+    grid-row: 3/4;
+    justify-self: center;
+}
+
+#salles h5{
+    grid-column: 1/4;
+    grid-row:4/5;
+    margin-top:-50px;
+    width:100%;
+    text-align: center;
+}
 
 /*------------- Footer -------------*/
 
@@ -606,14 +651,14 @@ input[type="radio"]:checked + .radio-label {
 @media only screen and (max-aspect-ratio: 6/9),
        only screen and (max-width: 850px) { /* Responsive Navbar */
     
-    /* Main */
+    /* Main (page d'accueil) */
     
     #page_bienvenue{
         grid-template-columns: 1fr;
         grid-template-rows:repeat(10, auto);
         padding-top:140px;
     }
-    #page_bienvenue h1.texte_gauche, h5.texte_gauche, img.img_droite, h1.texte_droite, h5.texte_droite, img.img_gauche, h1.texte_gauche2, h5.texte_gauche2, img.img_droite2{
+    #page_bienvenue h1.texte_gauche,#page_bienvenue h5.texte_gauche,#page_bienvenue img.img_droite,#page_bienvenue h1.texte_droite,#page_bienvenue h5.texte_droite,#page_bienvenue img.img_gauche,#page_bienvenue h1.texte_gauche2,#page_bienvenue h5.texte_gauche2,#page_bienvenue img.img_droite2{
         grid-column: 1/2;
         padding: 0px;
     }
@@ -643,6 +688,35 @@ input[type="radio"]:checked + .radio-label {
     }
     #page_bienvenue img.img_droite2{
         grid-row: 9/10;
+    }
+
+    /* Main (Page générique des salles) */
+
+    #salles{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+    }
+
+    #salles h1.texte_droite{
+        grid-row: 1/2;
+        padding:0;
+    }
+
+    #salles .img_gauche{
+        grid-row: 2/3;        
+    }
+    #salles h5.texte_droite{
+        grid-row: 3/4;
+        padding:0;
+        margin-top:0;
+    }
+
+    #salles .infos{
+        grid-row: 4/5;
+    }
+
+    #salles h5{
+        grid-row:5/6;
     }
 
     /* Responsive Navbar */
