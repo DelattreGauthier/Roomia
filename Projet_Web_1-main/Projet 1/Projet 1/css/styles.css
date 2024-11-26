@@ -318,11 +318,6 @@ header a:hover{
     grid-template-rows: 1fr 2fr 1fr 2fr 1fr 2fr;
 }
 
-#page_salles{
-    padding: 100px 0px 0px 0px;
-    margin: 0px;
-}
-
 h1.texte_gauche{    
     grid-column: 1/3;
     grid-row: 1/2;
@@ -394,6 +389,15 @@ img.img_droite2{
 
 /*------------- Main (Page de choix de salles) -------------*/
 
+#page_salles{
+    padding: 100px 0px 0px 0px;
+    margin: 0px;
+}
+
+span{
+    font-weight:bold;
+}
+
 #page_salles img{
     display: inline-block;
     position: absolute;
@@ -406,14 +410,16 @@ img.img_droite2{
     max-width: 100%;
     max-height: 100%;
     transition-duration: 0.3s;
-    filter: grayscale(40%);
+    filter: grayscale(70%);
+    filter: brightness(80%);
 }
 
 #page_salles img:hover{
-    object-position: 45%;
+    object-position: 70%;
     max-width: 100%;
-    transition-duration: 0.3s ;
+    transition-duration: 0.3s;
     filter: grayscale(0%);
+    filter: brightness(100%);
 }
 
 #ic1{
@@ -524,9 +530,9 @@ input[type="radio"]:checked + .radio-label {
     color: white;
 }
 
-/*------------- Main (Page IC1) -------------*/
+/*------------- Main (Page pour chaque batiment) -------------*/
 
-#IC1{
+#batiment{
     padding-top: 140px;
 }
 .titre{
@@ -540,52 +546,39 @@ input[type="radio"]:checked + .radio-label {
     border-radius:15px;
 }
 
-#IC1 .grille{
+#batiment .grille{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     padding: 40px;
     padding-top:40px;
 }
 
-#IC1 .grille section ul li a:link, #IC1 .grille section ul li a:visited{
+#batiment .grille section ul li a:link, #batiment .grille section ul li a:visited{
     color: #456a9e;
-    
 }
 
-#IC1 .grille section.classique{
+#batiment .grille section.classique{
     grid-column: 1/2;
     border: solid 2px var(--prussian-blue);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
-#IC1 .grille section.amphi{
+#batiment .grille section.amphi{
     grid-column: 2/3;
-    border: solid 2px var(--prussian-blue);
-    border-left:none;
-}
-
-#IC1 .grille section.td{
-    grid-column: 3/4;
-    border: solid 2px var(--prussian-blue);
-    border-left:none;
-}
-
-#IC1 .grille section.specialise{
-    grid-column: 4/5;
     border: solid 2px var(--prussian-blue);
     border-left:none;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
 
-#IC1 .grille h2{
+#batiment .grille h2{
     text-align: center;
     border-bottom:solid 2px var(--prussian-blue);
     padding:7px;
 }
 
-#IC1 section ul li{
+#batiment section ul li{
     list-style-type: initial;
 }
 
@@ -613,6 +606,11 @@ input[type="radio"]:checked + .radio-label {
     text-align:initial;
 }
 
+#salles h5 ul li{
+    list-style-type: initial;
+    line-height: 2.5rem;
+}
+
 #salles .infos{
     grid-column:1/4;
     grid-row: 3/4;
@@ -629,22 +627,6 @@ input[type="radio"]:checked + .radio-label {
 
 /*------------- Footer -------------*/
 
-/* Style de l'iframe */
-.map {
-    position: fixed; /* Permet de le fixer en bas à gauche */
-    bottom: 0; /* Positionne l'iframe en bas */
-    left: 0; /* Positionne l'iframe à gauche */
-    width: 7vw; /* Largeur de 10% de la largeur de la fenêtre */
-    height: 7vw; /* Hauteur équivalente pour un carré */
-    transition: width 0.5s ease, height 0.5s ease; /* Transition douce pour la largeur et la hauteur */
-    overflow: hidden;
-}
-
-/* Effet de survol */
-.map:hover {
-    width: 30vw; /* Prend 100% de la largeur de la fenêtre */
-    height: 50vh; /* Prend 100% de la hauteur de la fenêtre */
-}
 
 /*------------- Media Queries -------------*/
 
@@ -690,11 +672,62 @@ input[type="radio"]:checked + .radio-label {
         grid-row: 9/10;
     }
 
+/*------------- Main (Page de choix de salles) -------------*/
+#page_salles{
+    padding: 100px 0px 0px 0px;
+    margin: 0px;
+}
+
+#page_salles img{
+    display: inline-block;
+    position: absolute;
+    width: 25%;
+    height: 83%;
+    margin: 0px;
+    padding: 0px;
+    object-fit: cover;
+    object-position: center;
+    max-width: 100%;
+    max-height: 100%;
+    transition-duration: 0.3s;
+    filter: grayscale(70%);
+    filter: brightness(80%);
+}
+
+#page_salles img:hover{
+    object-position: 70%;
+    max-width: 100%;
+    transition-duration: 0.3s ;
+    filter: grayscale(0%);
+    filter: brightness(100%);
+}
+
+#ic1{
+    left: 0%;
+}
+
+#ic2{
+    left: 25%;
+}
+
+#alg{
+    left: 50%;
+}
+
+#ns{
+    left: 75%;
+}
+
     /* Main (Page générique des salles) */
 
     #salles{
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr 1fr 1fr;
+    }
+
+    #salles h1.texte_gauche,#salles h5.texte_gauche,#salles img.img_droite,#salles h1.texte_droite,#salles h5.texte_droite,#salles img.img_gauche,#salles h1.texte_gauche2,#salles h5.texte_gauche2,#salles img.img_droite2{
+        grid-column: 1/2;
+        padding: 0px;
     }
 
     #salles h1.texte_droite{
@@ -736,6 +769,7 @@ input[type="radio"]:checked + .radio-label {
         display:block;
     }
 
+    
 }
 
 @media screen and (min-width: 851px) {
@@ -759,3 +793,4 @@ input[type="radio"]:checked + .radio-label {
    - Navbar très petite sur mobile je comprends pas pourquoi
 */
 
+/* FINIR LE RESPONSIVE DE LA PAGE DES SALLES */
