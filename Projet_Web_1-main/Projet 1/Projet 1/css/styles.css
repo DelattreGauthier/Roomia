@@ -783,6 +783,8 @@ input[type="radio"]:checked + .radio-label {
 
 footer {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    bottom: 0%;
+    width: 100%;
 }
 
 footer h2 {

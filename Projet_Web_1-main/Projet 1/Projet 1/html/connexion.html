@@ -26,43 +26,69 @@
             <a class="connexion" href="#">Connexion</a>
         </header>
         
-<main id="page_connexion">
+        <main id="page_connexion">
 
-    <form class="form-container">
-        <fieldset>
+            <form class="form-container">
+                <fieldset>
 
-            <!-- Genre -->
-            <div class="form-group">
-                <label>Genre :</label>
-                <div class="radio-group">
-                    <input type="radio" name="genre" id="madame">
-                    <label class="radio-label" for="madame">Madame</label>
-                    <input type="radio" name="genre" id="monsieur">
-                    <label class="radio-label" for="monsieur">Monsieur</label>
+                    <!-- Genre -->
+                    <div class="form-group">
+                        <label>Genre :</label>
+                        <div class="radio-group">
+                            <input type="radio" name="genre" id="madame">
+                            <label class="radio-label" for="madame">Madame</label>
+                            <input type="radio" name="genre" id="monsieur">
+                            <label class="radio-label" for="monsieur">Monsieur</label>
+                        </div>
+                    </div>
+
+                    <!-- Nom -->
+                    <div class="form-group">
+                        <label for="lname">Nom :</label>
+                        <input type="text" id="lname" placeholder="Votre nom">
+                    </div>
+
+                    <!-- Prénom -->
+                    <div class="form-group">
+                        <label for="fname">Prénom :</label>
+                        <input type="text" id="fname" placeholder="Votre prénom">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Adresse email :</label>
+                        <input type="email" id="email" placeholder="Votre email">
+                    </div>
+
+                    <!-- Boutons -->
+                    <button type="submit" class="btn-submit">S'INSCRIRE</button>
+                </fieldset>
+            </form>
+        </main>
+
+        <br>
+        <br>
+        <footer>
+            <br>
+            
+            <div class="grid-container">
+                <div class="gauche">
+                    <h2>Nous contacter : </h2><br>
+                    <a href="mailto:roomiacontact@gmail.com">roomiacontact@gmail.com</a>
+                </div>
+                <div class="milieu-gauche"></div>
+                <div class="milieu-droite">
+                    <h2> Souscrivez à notre newsletter :</h2><br>
+                    <div id="Newsletter">
+                        <input type="email" id="email" placeholder="Votre email">
+                    </div>
+                </div>
+                <div class="droite">
+                    <button type="submit" class="btn-footer"> > </button>
                 </div>
             </div>
 
-            <!-- Nom -->
-            <div class="form-group">
-                <label for="lname">Nom :</label>
-                <input type="text" id="lname" placeholder="Votre nom">
-            </div>
+        </footer>
 
-            <!-- Prénom -->
-            <div class="form-group">
-                <label for="fname">Prénom :</label>
-                <input type="text" id="fname" placeholder="Votre prénom">
-            </div>
-
-            <!-- Email -->
-            <div class="form-group">
-                <label for="email">Adresse email :</label>
-                <input type="email" id="email" placeholder="Votre email">
-            </div>
-
-            <!-- Boutons -->
-            <button type="submit" class="btn-submit">S'INSCRIRE</button>
-        </fieldset>
-    </form>
-</main>
     </body>
+</html>
