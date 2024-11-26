@@ -777,6 +777,78 @@ input[type="radio"]:checked + .radio-label {
         display: none; /* Masquer le menu */
     }
 }
+
+
+/* ----------- Footer ----------- */
+
+footer {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+footer h2 {
+    text-decoration: underline;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr .1fr;
+    gap: 0;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.gauche, .milieu-gauche,.milieu-droite, .droite {
+    text-align: left;
+}
+
+#Newsletter {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#Newsletter input[type="email"] {
+    padding: 10px;
+    max-width: 100%;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    font-size: 16px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.droite {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.btn-footer {
+    padding: 10.7px 20px;
+    border: none;
+    background-color: var(--silver-blue);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    top: 25px;
+}
+
+.btn-footer:hover {
+    background-color: var(--gray-blue);
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+footer pre { /* Si besoin pour faire une zone de texte qui se sépare du reste */
+    background-color: #f4f4f4; padding: 10px; border-radius: 5px;
+    text-decoration: underline;
+}
+
+
 /* 
    - Réduire un maximum les lignes de css ; un peu brouillon avec toutes les classes texte / gauche / droite, trouver un moyen plus simple ?
    - Ajouter un max width aux images ? A voir lors des tests sur différents écrans + quand on ajoutera de vraies images.
