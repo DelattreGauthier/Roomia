@@ -739,6 +739,7 @@ footer .btn-footer {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     margin:5px 0 5px 0px;
     width:40px;
+    margin-left:-33.95px;
 }
 
 footer .btn-footer:hover {
