@@ -167,6 +167,10 @@ body{
     margin: 0;
 }
 
+main{
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), -10px -10px 10px var(--rich-black);
+}
+
 /*------------- Header -------------*/
 header {
     display:flex;
@@ -310,6 +314,7 @@ header a:hover{
     grid-template-columns: 2fr 1fr 2fr;
     padding: 0% 7%;
     padding-top: 180px;
+    padding-bottom: 80px;
     align-items: center;
     row-gap: 40px;
 }
@@ -385,6 +390,7 @@ img.img_droite2{
 #page_bienvenue img, #salles img{
     border-radius: 15px;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+    min-width:300px;
 }
 
 /*------------- Main (Page de choix de salles) -------------*/
@@ -392,6 +398,8 @@ img.img_droite2{
 #page_salles{
     padding: 100px 0px 0px 0px;
     margin: 0px;
+    height:100vh;
+    margin-bottom:10px;
 }
 
 span{
@@ -402,7 +410,7 @@ span{
     display: inline-block;
     position: absolute;
     width: 25%;
-    height: 83%;
+    height: calc(100vh - 100px);
     margin: 0px;
     padding: 0px;
     object-fit: cover;
@@ -451,7 +459,7 @@ span{
     font-family: 'Satoshi-Bold', sans-serif;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 140px;
+    padding-top: 180px;
 }
 
 #page_connexion .radio-label{
@@ -775,6 +783,125 @@ input[type="radio"]:checked + .radio-label {
 
 /*------------- Footer -------------*/
 
+footer {
+    bottom: 0%;
+    width: 100%;
+    padding-inline:40px;
+    line-height: 1rem;
+    padding-top:10px;
+}
+
+footer h4{
+    font-size:large;
+}
+
+footer h4{
+    margin:0 20px 0 20px;
+}
+
+
+footer .grid-container {
+    display: grid;
+    grid-template-rows:1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+footer div.gauche{
+    grid-column: 1/2;
+}
+
+footer div.gauche div{
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    outline: none;
+    font-size: 16px;
+    box-sizing: border-box;
+    max-height:40.33px;
+    margin:5px 20px 5px 20px;
+    background-color:white;
+    
+}
+
+footer div.droite{
+    grid-column: 4/5;
+}
+
+footer a{
+    color: var(--silver-blue);
+    text-decoration: underline;
+    font-size: 0.9em;
+}
+
+footer .droite, footer .gauche{
+    text-align: center;
+    min-width:219px;
+    
+}
+
+footer .centre{
+    grid-column: 2/4;
+    text-align: center;
+    white-space: nowrap;
+}
+
+footer #Newsletter {
+    display: flex;
+    justify-content: flex-end;
+    margin-left:20px;
+    margin-right:20px;
+}
+
+footer #Newsletter input[type="email"] {
+    padding: 10px;
+    max-width: 100%;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    font-size: 16px;
+    box-sizing: border-box;
+    width: 100%;
+    max-height:40.33px;
+    min-height: 40.33px;
+
+}
+footer .gauche div{
+    height:50px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+footer .btn-footer {
+    border: none;
+    background-color: var(--silver-blue);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin:5px 0 5px 0px;
+    width:40px;
+    margin-left:-33.95px;
+}
+
+footer .btn-footer:hover {
+    background-color: var(--gray-blue);
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+footer pre { /* Si besoin pour faire une zone de texte qui se sépare du reste */
+    background-color: #f4f4f4; padding: 10px; border-radius: 5px;
+    text-decoration: underline;
+}
+
+
+
 
 /*------------- Media Queries -------------*/
 
@@ -787,6 +914,7 @@ input[type="radio"]:checked + .radio-label {
         grid-template-columns: 1fr;
         grid-template-rows:repeat(10, auto);
         padding-top:140px;
+        padding-bottom: 20px;
     }
     #page_bienvenue h1.texte_gauche,#page_bienvenue h5.texte_gauche,#page_bienvenue img.img_droite,#page_bienvenue h1.texte_droite,#page_bienvenue h5.texte_droite,#page_bienvenue img.img_gauche,#page_bienvenue h1.texte_gauche2,#page_bienvenue h5.texte_gauche2,#page_bienvenue img.img_droite2{
         grid-column: 1/2;
@@ -821,56 +949,14 @@ input[type="radio"]:checked + .radio-label {
     }
 
 /*------------- Main (Page de choix de salles) -------------*/
-#page_salles{
-    padding: 100px 0px 0px 0px;
-    margin: 0px;
-}
 
-#page_salles img{
-    display: inline-block;
-    position: absolute;
-    width: 25%;
-    height: 83%;
-    margin: 0px;
-    padding: 0px;
-    object-fit: cover;
-    object-position: center;
-    max-width: 100%;
-    max-height: 100%;
-    transition-duration: 0.3s;
-    filter: grayscale(70%);
-    filter: brightness(80%);
-}
-
-#page_salles img:hover{
-    object-position: 70%;
-    max-width: 100%;
-    transition-duration: 0.3s ;
-    filter: grayscale(0%);
-    filter: brightness(100%);
-}
-
-#ic1{
-    left: 0%;
-}
-
-#ic2{
-    left: 25%;
-}
-
-#alg{
-    left: 50%;
-}
-
-#ns{
-    left: 75%;
-}
 
     /* Main (Page générique des salles) */
 
     #salles{
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr 1fr 1fr;
+        padding-bottom: 20px;
     }
 
     #salles h1.texte_gauche,#salles h5.texte_gauche,#salles img.img_droite,#salles h1.texte_droite,#salles h5.texte_droite,#salles img.img_gauche,#salles h1.texte_gauche2,#salles h5.texte_gauche2,#salles img.img_droite2{
@@ -925,20 +1011,25 @@ input[type="radio"]:checked + .radio-label {
         display: none; /* Masquer le menu */
     }
 }
+
+@media screen and (max-width: 700px) {
+    footer{
+        padding: 0px;
+    }
+
+}
+
+@media screen and (max-width: 580px) {
+    footer .centre{
+        display:none;
+    }
+}
+
 /* 
-   - Réduire un maximum les lignes de css ; un peu brouillon avec toutes les classes texte / gauche / droite, trouver un moyen plus simple ?
-   - Ajouter un max width aux images ? A voir lors des tests sur différents écrans + quand on ajoutera de vraies images.
-   - Media queries
    - Ajouter des animations ? Au moins y réfléchir car il faut montrer ce qu'on sait faire au maximum.
    - Trouver un logo ?
-   - Commencer les autres pages -> trouver un layout ergonomique pour accéder aux pages voulues facilement et rapidement + rediriger vers les différentes salles de cours sans que ce soit fouillis.
-   - Faire une nav bar responsive avec media queries (pas simple à faire je m'en occuperai sûrement (Ezéchiel))
-   - Trouver des éléments pour le footer 
-   - J'avais pensé à intégrer une petite carte maps pour localiser les différents bâtiments (pour chaque page IC1, IC2...) 
+   - Prendre un max de photos pour les salles + bat IC1
    - Peaufiner, suggérer des idées, etc. 
-   - Commencer à rédiger les textes du site
    - Et enfin COMMENTER UN MAXIMUM LE CODE. Faut rendre le code le plus lisible possible, ça fait gagner des points en plus mine de rien
-   - Navbar très petite sur mobile je comprends pas pourquoi
+   - Revoir la scrollbar pour qu'elle soit plus jolie
 */
-
-/* FINIR LE RESPONSIVE DE LA PAGE DES SALLES */
