@@ -533,7 +533,8 @@ input[type="radio"]:checked + .radio-label {
 /*------------- Main (Page pour chaque batiment) -------------*/
 
 #batiment{
-    padding-top: 140px;
+    padding-top: 100px;
+    overflow-y: hidden;
 }
 .titre{
     display: flex;
@@ -580,6 +581,153 @@ input[type="radio"]:checked + .radio-label {
 
 #batiment section ul li{
     list-style-type: initial;
+}
+
+#showsallesSC, #showsallesAMP{
+    display: none;
+    clear:both;
+    flex-wrap: wrap;
+    align-content: space-between;
+    height: 350px;
+    padding: 0 4%;
+    overflow: scroll;
+
+}
+
+#salless{
+    font-family: 'Satoshi-Bold', sans-serif;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+#salless #SC{
+    background-color: var(--silver-blue);
+}
+
+#salless #AMP{
+    background-color: var(--silver-blue);
+}
+
+#SC {
+    position: relative;
+    padding: 5%;
+    border: solid 3px var(--prussian-blue);
+    border-radius: 20px;
+    width: 20%;
+    left: 20%;
+    cursor: default;
+}
+
+#AMP {
+    position: relative;
+    padding: 5%;
+    border: solid 3px var(--prussian-blue);
+    border-radius: 20px;
+    width: 20%;
+    right: 20%;
+    cursor: default;
+}
+
+#batiment #SC:hover, #batiment:has(#neant1:hover) #SC, #batiment:has(#showsallesSC:hover) #SC {
+    background-color: var(--prussian-blue);
+    color: white;
+}
+
+#batiment #AMP:hover, #batiment:has(#neant2:hover) #AMP, #batiment:has(#showsallesAMP:hover) #AMP {
+    background-color: var(--prussian-blue);
+    color: white;
+}
+
+#batiment:has(#SC:hover) #showsallesSC, #batiment:has(#AMP:hover) #showsallesAMP,#batiment:has(#neant1:hover) #showsallesSC, #batiment:has(#neant2:hover) #showsallesAMP{
+    display: flex;
+}
+
+#batiment:has(#SC:hover) #neant1, #batiment:has(#showsallesSC:hover) #neant1, #neant1:hover {
+    display: flex;
+}
+
+#batiment:has(#AMP:hover) #neant2, #batiment:has(#showsallesAMP:hover) #neant2, #neant2:hover {
+    display: flex;
+}
+
+#showsallesSC:hover, #showsallesAMP:hover{
+    display:flex;
+}
+
+#BTEST {
+    border: solid 3px var(--rich-black);
+    border-radius: 5px;
+    width: 47.5%;
+    height: 275px;
+    margin: 1%;
+    display: flex;
+    flex-direction: column; /* Organise les éléments verticalement */
+    align-items: center; /* Centre horizontalement le contenu */
+    position: relative;
+}
+
+#BTEST h3 {
+    font-family: 'Satoshi-Bold', sans-serif;
+    font-weight: bold;
+    text-decoration: underline;
+    margin: 0; /* Supprime les marges par défaut */
+    padding: 5px 0; /* Ajoute un petit espace autour du titre */
+    text-align: center; /* Centre le texte horizontalement */
+    width: 100%; /* S'étend sur toute la largeur */
+}
+
+#content {
+    display: flex;
+    flex-direction: row; /* Organise l'image et les infos côte à côte */
+    justify-content: space-between; /* Ajoute de l'espace entre l'image et les infos */
+    width: 100%; /* S'étend sur toute la largeur */
+    flex: 1; /* Remplit l'espace vertical disponible */
+    padding: 5px; /* Ajoute un petit espacement autour des éléments */
+    box-sizing: border-box; /* Inclut le padding dans les dimensions */
+}
+
+#BTEST img {
+    width: 45%; /* L'image occupe 45% de la largeur */
+    height: auto; /* Conserve le ratio de l'image */
+    align-self: flex-start; /* Aligne l'image en haut */
+    padding-left: 2%;
+    object-position: center;
+    object-fit: cover;
+}
+
+#infosalle {
+    font-family: 'Satoshi-Bold', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre verticalement le contenu */
+    padding-left: 20px; /* Ajoute un espacement entre l'image et les infos */
+    flex: 1; /* Le texte occupe tout l'espace restant */
+}
+
+#neant1, #neant2 {
+    display: none;
+    height: 30px;
+    width: 100%;
+}
+
+.btn-reserver {
+    position: absolute;
+    bottom: 3%; /* À 10px du bas */
+    right: 1.75%; /* À 10px du côté droit */
+    padding: 10px 15px;
+    height: 15%;
+    background-color: var(--silver-blue); /* Couleur du bouton */
+    color: white;
+    text-decoration: none; /* Retire le souligné du lien */
+    border-radius: 5px; /* Bord arrondi */
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn-reserver:hover {
+    background-color: var(--gray-blue);
+    transition-duration: 0.3s;
 }
 
 /*------------- Main (Page générique des salles) -------------*/
