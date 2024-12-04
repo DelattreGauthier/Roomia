@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="../css/styles.css">
         <title>Roomia - IC1</title>
+        <link rel="icon" href="../images/Logo Roomia.png" type="image/x-icon">
     </head>
     <body>
         <header>
@@ -27,121 +28,240 @@
         </header> 
            
         <main id="batiment">
-            <div class="titre">
+            <div class="titre"> 
                 <h1>Bâtiment IC1</h1>
             </div>
-            <br><br>
-            <div id="salless">
-                <div id="SC">
-                    Salles Classiques
-                </div>
-            
-                <div id="AMP">
-                    Amphithéatres
+
+            <div class="dropdownSC">
+                <!-- Checkbox pour activer/désactiver -->
+                <input type="checkbox" id="dropdown-toggleSC">
+                <label for="dropdown-toggleSC"> Salles Classiques</label>
+                <!-- Contenu qui s'affiche directement sur la page -->
+                <div class="dropdownSC-content">
+                    <!-- Conteneur principal pour toutes les salles -->
+                    <div class="salles-container">
+                        <!-- Salle 1 -->
+                        <div class="salle">
+                            <div class="nom-salle">Salle 1</div>
+
+                            <!-- Liste des équipements de la salle -->
+                            <div class="equipements">
+                                <ul>
+                                    <li>Vidéo projecteur : 1</li>
+                                    <li>Prises : 10</li>
+                                    <li>Places : 10</li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Conteneur des horaires pour la salle -->
+                            <div class="horaires-container">
+                                <ul>
+                                    <li class="horaire">08:00 - 09:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">09:00 - 10:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">10:00 - 11:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">11:00 - 12:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">12:00 - 13:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">13:00 - 14:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">14:00 - 15:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">15:00 - 16:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">16:00 - 17:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">17:00 - 18:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Salle 2 -->
+                        <div class="salle">
+                            <div class="nom-salle">Salle 2</div>
+                            <div class="horaires-container">
+                                <ul>
+                                    <li class="horaire">08:00 - 09:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">09:00 - 10:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">10:00 - 11:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">11:00 - 12:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">12:00 - 13:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">13:00 - 14:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">14:00 - 15:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">15:00 - 16:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">16:00 - 17:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">17:00 - 18:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Salle 3 -->
+                        <div class="salle">
+                            <div class="nom-salle">Salle 3</div>
+                            <div class="horaires-container">
+                                <ul>
+                                    <li class="horaire">08:00 - 09:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">09:00 - 10:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">10:00 - 11:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">11:00 - 12:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">12:00 - 13:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">13:00 - 14:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">14:00 - 15:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">15:00 - 16:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">16:00 - 17:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">17:00 - 18:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Salle 4 -->
+                        <div class="salle">
+                            <div class="nom-salle">Salle 4</div>
+                            <div class="horaires-container">
+                                <ul>
+                                    <li class="horaire">08:00 - 09:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">09:00 - 10:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">10:00 - 11:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">11:00 - 12:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">12:00 - 13:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">13:00 - 14:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">14:00 - 15:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">15:00 - 16:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">16:00 - 17:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">17:00 - 18:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Salle 5 -->
+                        <div class="salle">
+                            <div class="nom-salle">Salle 5</div>
+                            <div class="horaires-container">
+                                <ul>
+                                    <li class="horaire">08:00 - 09:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">09:00 - 10:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">10:00 - 11:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">11:00 - 12:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">12:00 - 13:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">13:00 - 14:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">14:00 - 15:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">15:00 - 16:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">16:00 - 17:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">17:00 - 18:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Salle 6 -->
+                        <div class="salle">
+                            <div class="nom-salle">Salle 6</div>
+                            <div class="horaires-container">
+                                <ul>
+                                    <li class="horaire">08:00 - 09:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">09:00 - 10:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">10:00 - 11:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">11:00 - 12:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">12:00 - 13:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">13:00 - 14:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">14:00 - 15:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">15:00 - 16:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">16:00 - 17:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">17:00 - 18:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div id="neant1"></div>
-            <div id="neant2"></div>
+            <div class="dropdownAMP">
+                <!-- Checkbox pour activer/désactiver -->
+                <input type="checkbox" id="dropdown-toggleAMP">
+                <label for="dropdown-toggleAMP">Amphithéâtres</label>
+                <!-- Contenu qui s'affiche directement sur la page -->
+                <div class="dropdownAMP-content">
+                    <!-- Conteneur principal pour toutes les salles -->
+                    <div class="salles-container">
+                        <!-- Salle 1 -->
+                        <div class="salle">
+                            <div class="nom-salle">Salle 1</div>
 
-            <div id="showsallesSC">
-                <div id="BTEST">
-                    <h3>B101</h3>
-                    <div id="content">
-                        <img src="../images/Test.jpg">
-                        <div id="infosalle">
-                            <p>Vidéoprojecteur : Oui</p>
-                            <p>Places : XX</p>
-                            <p>Prises : XX</p>
+                            <!-- Liste des équipements de la salle -->
+                            <div class="equipements">
+                                <ul>
+                                    <li>Vidéo projecteur : 1</li>
+                                    <li>Prises : 10</li>
+                                    <li>Places : 10</li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Conteneur des horaires pour la salle -->
+                            <div class="horaires-container">
+                                <ul>
+                                    <li class="horaire">08:00 - 09:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">09:00 - 10:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">10:00 - 11:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">11:00 - 12:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">12:00 - 13:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">13:00 - 14:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">14:00 - 15:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">15:00 - 16:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">16:00 - 17:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">17:00 - 18:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                </ul>
+                            </div>
                         </div>
-                        <a href="reservation.html" class="btn-reserver">Réserver</a>
-                    </div>
-                </div>
-                <div id="BTEST">
-                    <h3>B102</h3>
-                    <div id="content">
-                        <img src="../images/Test.jpg">
-                        <div id="infosalle">
-                            <p>Vidéoprojecteur : Oui</p>
-                            <p>Places : XX</p>
-                            <p>Prises : XX</p>
-                        </div>
-                        <a href="reservation.html" class="btn-reserver">Réserver</a>
-                    </div>
-                </div>
-                <div id="BTEST">
-                    <h3>B103</h3>
-                    <div id="content">
-                        <img src="../images/Test.jpg">
-                        <div id="infosalle">
-                            <p>Vidéoprojecteur : Oui</p>
-                            <p>Places : XX</p>
-                            <p>Prises : XX</p>
-                        </div>
-                        <a href="reservation.html" class="btn-reserver">Réserver</a>
-                    </div>
-                </div>
-                <div id="BTEST">
-                    <h3>B104</h3>
-                    <div id="content">
-                        <img src="../images/Test.jpg">
-                        <div id="infosalle">
-                            <p>Vidéoprojecteur : Oui</p>
-                            <p>Places : XX</p>
-                            <p>Prises : XX</p>
-                        </div>
-                        <a href="reservation.html" class="btn-reserver">Réserver</a>
-                    </div>
-                </div>
-            </div>
 
-            <div id="showsallesAMP">
-                <div id="BTEST">
-                    <h3>B101</h3>
-                    <div id="content">
-                        <img src="../images/Test.jpg">
-                        <div id="infosalle">
-                            <p>Vidéoprojecteur : Oui</p>
-                            <p>Places : XX</p>
-                            <p>Prises : XX</p>
+                        <!-- Salle 2 -->
+                        <div class="salle">
+                            <div class="nom-salle">Salle 2</div>
+                            <div class="horaires-container">
+                                <ul>
+                                    <li class="horaire">08:00 - 09:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">09:00 - 10:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">10:00 - 11:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">11:00 - 12:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">12:00 - 13:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">13:00 - 14:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">14:00 - 15:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">15:00 - 16:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">16:00 - 17:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">17:00 - 18:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                </ul>
+                            </div>
                         </div>
-                        <a href="reservation.html" class="btn-reserver">Réserver</a>
-                    </div>
-                </div>
-                <div id="BTEST">
-                    <h3>B102</h3>
-                    <div id="content">
-                        <img src="../images/Test.jpg">
-                        <div id="infosalle">
-                            <p>Vidéoprojecteur : Oui</p>
-                            <p>Places : XX</p>
-                            <p>Prises : XX</p>
+
+                        <!-- Salle 3 -->
+                        <div class="salle">
+                            <div class="nom-salle">Salle 3</div>
+                            <div class="horaires-container">
+                                <ul>
+                                    <li class="horaire">08:00 - 09:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">09:00 - 10:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">10:00 - 11:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">11:00 - 12:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">12:00 - 13:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">13:00 - 14:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">14:00 - 15:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">15:00 - 16:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">16:00 - 17:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">17:00 - 18:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                </ul>
+                            </div>
                         </div>
-                        <a href="reservation.html" class="btn-reserver">Réserver</a>
-                    </div>
-                </div>
-                <div id="BTEST">
-                    <h3>B103</h3>
-                    <div id="content">
-                        <img src="../images/Test.jpg">
-                        <div id="infosalle">
-                            <p>Vidéoprojecteur : Oui</p>
-                            <p>Places : XX</p>
-                            <p>Prises : XX</p>
+
+                        <!-- Salle 4 -->
+                        <div class="salle">
+                            <div class="nom-salle">Salle 4</div>
+                            <div class="horaires-container">
+                                <ul>
+                                    <li class="horaire">08:00 - 09:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">09:00 - 10:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">10:00 - 11:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">11:00 - 12:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">12:00 - 13:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">13:00 - 14:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">14:00 - 15:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">15:00 - 16:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">16:00 - 17:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                    <li class="horaire">17:00 - 18:00 : Libre<form action="#" method="get" id="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
+                                </ul>
+                            </div>
                         </div>
-                        <a href="reservation.html" class="btn-reserver">Réserver</a>
-                    </div>
-                </div>
-                <div id="BTEST">
-                    <h3>B104</h3>
-                    <div id="content">
-                        <img src="../images/Test.jpg">
-                        <div id="infosalle">
-                            <p>Vidéoprojecteur : Oui</p>
-                            <p>Places : XX</p>
-                            <p>Prises : XX</p>
-                        </div>
-                        <a href="reservation.html" class="btn-reserver">Réserver</a>
                     </div>
                 </div>
             </div>

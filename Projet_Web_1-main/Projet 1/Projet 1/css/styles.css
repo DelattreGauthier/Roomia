@@ -10,6 +10,15 @@
     --rich-black:#0D1321;
     --prussian-blue:#1D2D44;
     --default-orange: rgba(238, 105, 105, 0.89);
+
+    /* Couleurs des salles */
+    --salle-bg: #ffffff;
+    --salle-border: #ccc;
+    --salle-hover-bg: #ffebcd;
+    
+    /* Autres couleurs */
+    --grille-bg: #fffaf0;
+    --horaire-border: #f08080;
 }
 
 /* Style des balises prédéfinis */
@@ -539,9 +548,8 @@ input[type="radio"]:checked + .radio-label {
 /*------------- Main (Page pour chaque batiment) -------------*/
 
 #batiment{
-    padding-top: 180px;
+    padding-top: 125px;
     padding-bottom:70px;
-    overflow-y: hidden;
 }
 .titre{
     display: flex;
@@ -554,186 +562,217 @@ input[type="radio"]:checked + .radio-label {
     border-radius:15px;
 }
 
-#batiment .grille{
+.dropdownSC, .dropdownAMP {
+    display: block;
+}
+
+.dropdownSC input[type="checkbox"], .dropdownAMP input[type="checkbox"] {
+    display: none;
+}
+
+/* Style pour le label qui agit comme un bouton */
+.dropdownSC label, .dropdownAMP label {
+    color: var(--rich-black);
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center; /* Aligne le texte et la flèche verticalement */
+    font-family: 'Satoshi-Bold', sans-serif;
+}
+
+/* Flèche vers le bas */
+.dropdownSC label::before, .dropdownAMP label::before {
+    content: "▼";
+    display: inline-block;
+    margin-right: 10px;
+    transition: transform 0.5s ease; /* Animation de rotation */
+}
+
+/* Rotation de la flèche quand la checkbox est cochée */
+.dropdownSC input[type="checkbox"]:checked + label::before, .dropdownAMP input[type="checkbox"]:checked + label::before {
+    transform: rotate(-180deg); /* Fait pointer la flèche vers le haut */
+}
+
+/* Contenu caché par défaut */
+.dropdownSC-content, .dropdownAMP-content {
+    display: none;
+    margin-top: 10px;
+}
+
+/* Afficher le contenu quand la checkbox est cochée */
+.dropdownSC input[type="checkbox"]:checked ~ .dropdownSC-content, .dropdownAMP input[type="checkbox"]:checked ~ .dropdownAMP-content {
+    display: block;
+}
+
+/* ------------------- CODE DES SALLES ------------------ */
+
+/* Container principal des salles */
+.salles-container {
+    font-family: 'Satoshi-Bold', sans-serif;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-    padding: 40px;
-    padding-top:40px;
-}
-
-#batiment .grille section ul li a:link, #batiment .grille section ul li a:visited{
-    color: #456a9e;
-}
-
-#batiment .grille section.classique{
-    grid-column: 1/2;
-    border: solid 2px var(--prussian-blue);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-#batiment .grille section.amphi{
-    grid-column: 2/3;
-    border: solid 2px var(--prussian-blue);
-    border-left:none;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-#batiment .grille h2{
-    text-align: center;
-    border-bottom:solid 2px var(--prussian-blue);
-    padding:7px;
-}
-
-#batiment section ul li{
-    list-style-type: initial;
-}
-
-#showsallesSC, #showsallesAMP{
-    display: none;
-    clear:both;
-    flex-wrap: wrap;
-    align-content: space-between;
-    height: 350px;
-    padding: 0 4%;
-    overflow: scroll;
-
-}
-
-#salless{
-    font-family: 'Satoshi-Bold', sans-serif;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-}
-
-#salless #SC{
-    background-color: var(--silver-blue);
-}
-
-#salless #AMP{
-    background-color: var(--silver-blue);
-}
-
-#SC {
-    position: relative;
-    padding: 5%;
-    border: solid 3px var(--prussian-blue);
-    border-radius: 20px;
-    width: 20%;
-    left: 20%;
-    cursor: default;
-}
-
-#AMP {
-    position: relative;
-    padding: 5%;
-    border: solid 3px var(--prussian-blue);
-    border-radius: 20px;
-    width: 20%;
-    right: 20%;
-    cursor: default;
-}
-
-#batiment #SC:hover, #batiment:has(#neant1:hover) #SC, #batiment:has(#showsallesSC:hover) #SC {
-    background-color: var(--prussian-blue);
-    color: white;
-}
-
-#batiment #AMP:hover, #batiment:has(#neant2:hover) #AMP, #batiment:has(#showsallesAMP:hover) #AMP {
-    background-color: var(--prussian-blue);
-    color: white;
-}
-
-#batiment:has(#SC:hover) #showsallesSC, #batiment:has(#AMP:hover) #showsallesAMP,#batiment:has(#neant1:hover) #showsallesSC, #batiment:has(#neant2:hover) #showsallesAMP{
-    display: flex;
-}
-
-#batiment:has(#SC:hover) #neant1, #batiment:has(#showsallesSC:hover) #neant1, #neant1:hover {
-    display: flex;
-}
-
-#batiment:has(#AMP:hover) #neant2, #batiment:has(#showsallesAMP:hover) #neant2, #neant2:hover {
-    display: flex;
-}
-
-#showsallesSC:hover, #showsallesAMP:hover{
-    display:flex;
-}
-
-#BTEST {
-    border: solid 3px var(--rich-black);
-    border-radius: 5px;
-    width: 47.5%;
-    height: 275px;
-    margin: 1%;
-    display: flex;
-    flex-direction: column; /* Organise les éléments verticalement */
-    align-items: center; /* Centre horizontalement le contenu */
-    position: relative;
-}
-
-#BTEST h3 {
-    font-weight: bold;
-    text-decoration: underline;
-    margin: 0; /* Supprime les marges par défaut */
-    padding: 5px 0; /* Ajoute un petit espace autour du titre */
-    text-align: center; /* Centre le texte horizontalement */
-    width: 100%; /* S'étend sur toute la largeur */
-}
-
-#content {
-    display: flex;
-    flex-direction: row; /* Organise l'image et les infos côte à côte */
-    justify-content: space-between; /* Ajoute de l'espace entre l'image et les infos */
-    width: 100%; /* S'étend sur toute la largeur */
-    flex: 1; /* Remplit l'espace vertical disponible */
-    padding: 5px; /* Ajoute un petit espacement autour des éléments */
-    box-sizing: border-box; /* Inclut le padding dans les dimensions */
-}
-
-#BTEST img {
-    width: 45%; /* L'image occupe 45% de la largeur */
-    height: auto; /* Conserve le ratio de l'image */
-    align-self: flex-start; /* Aligne l'image en haut */
-    padding-left: 2%;
-    object-position: center;
-    object-fit: cover;
-}
-
-#infosalle {
-    font-family: 'Satoshi-Bold', sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centre verticalement le contenu */
-    padding-left: 20px; /* Ajoute un espacement entre l'image et les infos */
-    flex: 1; /* Le texte occupe tout l'espace restant */
-}
-
-#neant1, #neant2 {
-    display: none;
-    height: 30px;
+    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 0 10px;
     width: 100%;
 }
 
-.btn-reserver {
+/* Style des salles */
+.salle {
+    align-items: center;
+    background-image: url("../images/Test.jpg");
+    background-position: center;
+    background-size: cover;
+    border: 2px solid black;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: flex;
+    height: 200px;
+    justify-content: center;
+    margin-bottom: 0;
+    position: relative;
+    transition: transform 0.3s ease, border-color 0.3s ease, margin-bottom 0.3s ease;
+    width: 100%;
+}
+
+.salle:hover {
+    border-color: #ff6347;
+    margin-bottom: 200px;
+    transform: scale(1.05);
+}
+
+/* Effet de fondu au survol */
+.salle::before {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    bottom: 0;
+    content: "";
+    left: 0;
+    opacity: 0;
     position: absolute;
-    bottom: 3%; /* À 10px du bas */
-    right: 1.75%; /* À 10px du côté droit */
-    padding: 10px 15px;
-    height: 15%;
-    background-color: var(--silver-blue); /* Couleur du bouton */
-    color: white;
-    text-decoration: none; /* Retire le souligné du lien */
-    border-radius: 5px; /* Bord arrondi */
+    right: 0;
+    top: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+.salle:hover::before {
+    opacity: 1;
+}
+
+/* Nom des salles */
+.nom-salle {
+    align-items: center;
+    background-color: var(--default-orange);
+    border-radius: 4px;
+    bottom: 10px;
+    color: #fff;
+    display: flex;
+    font-size: 18px;
     font-weight: bold;
+    justify-content: center;
+    left: 10px;
+    padding: 0 1%;
+    position: absolute;
     text-align: center;
 }
 
-.btn-reserver:hover {
-    background-color: var(--gray-blue);
-    transition-duration: 0.3s;
+/* Conteneur des horaires */
+.horaires-container {
+    background-color: var(--white-background);
+    display: none;
+    left: 0;
+    max-height: 200px;
+    opacity: 0;
+    overflow-y: auto;
+    position: absolute;
+    top: 101%;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    width: 100%;
+    z-index: 10;
+}
+
+.salle:hover .horaires-container {
+    max-height: 200px;
+    opacity: 1;
+    display: block;
+}
+
+/* Style des équipements */
+.equipements ul {
+    color: #000;
+    font-weight: bold;
+    list-style: none;
+    position: relative;
+    visibility: hidden;
+    z-index: 1;
+}
+
+.salle:hover .equipements ul {
+    visibility: visible;
+}
+
+/* Liste des horaires */
+.horaires-container ul {
+    bottom: 10px;
+    left: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    right: 10px;
+    top: 0;
+}
+
+.horaires-container ul .horaire {
+    background-color: var(--white-background);
+    border-bottom: 1px solid var(--white-background);
+    cursor: pointer;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.horaires-container ul .horaire:hover {
+    background-color: var(--salle-hover-bg);
+}
+
+/* Style du bouton Réserver */
+.reserver {
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+    position : absolute;
+    right:3%;
+}
+
+#form-horaires {
+    display: inline;
+    border: none;
+}
+
+.reserver:hover {
+    background-color: #218838;
+}
+
+/* Media queries pour la responsivité */
+@media (max-width: 900px) {
+    .salles-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .salles-container {
+        grid-template-columns: 1fr;
+    }
 }
 
 /*------------- Main (Page générique des salles) -------------*/
