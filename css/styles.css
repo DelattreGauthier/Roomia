@@ -283,6 +283,7 @@ header a:hover{
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+    -webkit-backdrop-filter: blur(100px);
     backdrop-filter: blur(100px);
     background-color: rgba(232, 231, 245);
     z-index: 1;
@@ -290,7 +291,6 @@ header a:hover{
     justify-content: center;
     transition: all 0.5s ease;
     transform: translateX(100%);  /*Anime le menu déroulant de droite à gauche */
-    
 }
 
 .menu_toggle{
@@ -405,14 +405,14 @@ img.img_droite2{
 }
 
 /*------------- Main (Page de choix de salles) -------------*/
-#page_salles{
+#page_batiments {
     padding: 100px 0px 0px 0px;
     margin: 0px;
     min-height:100vh;
     margin-bottom:10px;
 }
 
-#page_salles img{
+#page_batiments img{
     display: inline-block;
     position: absolute;
     width: 25%;
@@ -428,7 +428,7 @@ img.img_droite2{
     filter: brightness(80%);
 }
 
-#page_salles img:hover{
+#page_batiments img:hover{
     object-position: 70%;
     max-width: 100%;
     transition-duration: 0.3s;
@@ -597,6 +597,11 @@ input[type="radio"]:checked + .radio-label {
 .dropdownSC-content, .dropdownAMP-content {
     display: none;
     margin-top: 10px;
+
+    /* Menu déroulant pour les salles */
+    max-height: 450px;
+    overflow-y: scroll;
+    position: flex;
 }
 
 /* Afficher le contenu quand la checkbox est cochée */
@@ -979,7 +984,7 @@ footer .btn-footer:hover {
         grid-row: 9/10;
     }
 /*------------- Main (Page de choix de salles) -------------*/
-#page_salles {
+#page_batiments {
     padding: 100px 0px 0px 0px;
     margin: 0px;
     height: 100vh;
@@ -988,7 +993,7 @@ footer .btn-footer:hover {
     display: block
 }
 
-#page_salles a{
+#page_batiments a{
     display: block;
     height: 50%; /* Ajustez selon vos besoins */
     width: 50%; /* Pour des images carrées */
@@ -998,7 +1003,7 @@ footer .btn-footer:hover {
     box-sizing: border-box;
 }
 
-#page_salles img {
+#page_batiments img {
     display: block;
     height: 100%; /* Ajustez selon vos besoins */
     width: 100%; /* Pour des images carrées */
@@ -1011,12 +1016,15 @@ footer .btn-footer:hover {
     transition-duration: 0.3s;
 }
 
-#page_salles img:hover{
+#page_batiments img:hover{
     object-position: 70%;
     max-width: 100%;
     transition-duration: 0.3s;
     filter: grayscale(0%);
     filter: brightness(100%);
+    /*background-image: rgba(255, 255, 255, 0.8);*/
+    content: "Salles : quarante douze\nAmphi : non";
+    text-align: center;
 }
 
 #ic1, #ic2, #ns, #alg{
