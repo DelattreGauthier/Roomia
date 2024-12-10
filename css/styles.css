@@ -985,35 +985,36 @@ footer .btn-footer:hover {
     }
 /*------------- Main (Page de choix de salles) -------------*/
 #page_batiments {
-    padding: 100px 0px 0px 0px;
+    padding: 120px 0px 0px 0px;
     margin: 0px;
     height: 100vh;
     width: 200px;
     margin-bottom: 10px;
-    display: block
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px 0px;
 }
 
 #page_batiments a{
-    display: block;
     height: 50%; /* Ajustez selon vos besoins */
-    width: 50%; /* Pour des images carrées */
+    width: 75%; /* Pour des images carrées */
+    object-fit: cover;
+    display: block;
     position: relative;
-    padding: 0px;
     border-radius: 15px;
-    box-sizing: border-box;
 }
 
-#page_batiments img {
-    display: block;
+#page_batiments a img {
     height: 100%; /* Ajustez selon vos besoins */
     width: 100%; /* Pour des images carrées */
-    padding: 0px;
-    border-radius: 15px;
     object-fit: cover;
-    position: absolute;
     filter: grayscale(70%);
     filter: brightness(80%);
     transition-duration: 0.3s;
+    display: block;
+    position: relative;
+    border-radius: 15px;
+    box-sizing: border-box;
 }
 
 #page_batiments img:hover{
@@ -1028,9 +1029,8 @@ footer .btn-footer:hover {
 }
 
 #ic1, #ic2, #ns, #alg{
-    left: 0%;
+    left: 17%;
 }
-
 
 /* Main (Page générique des salles) */
 
