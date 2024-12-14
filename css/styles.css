@@ -152,18 +152,24 @@ h6{
 
 /* Scrollbar personnalisée */
 
-body::-webkit-scrollbar {
-    width: 13px; 
+::-webkit-scrollbar {
+    width: 7px;
+    height: 12px;
+    background-color: #858585;
 }
 
-body::-webkit-scrollbar-track {
-    background: var(--white-background);
+::-webkit-scrollbar-thumb {
+    background-color: #858585;
+    border: 2px solid var(--white-background) ;
+    border-radius: 6px;
 }
 
-body::-webkit-scrollbar-thumb {
-    background-color: #d2ceee; 
-    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.1); 
-    border-radius: 15px;
+::-webkit-scrollbar-thumb:hover {
+    background-color: #858585;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--white-background);
 }
 
 
@@ -179,6 +185,7 @@ body{
 main{
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), -10px -10px 10px var(--rich-black);
     min-width:100%;
+    min-height: calc(100vh - (132px)); /* Le main prendra toute la hauteur de la page moins la hauteur du footer*/ 
 }
 
 /*------------- Header -------------*/
@@ -409,13 +416,22 @@ img.img_droite2{
     padding: 100px 0px 0px 0px;
     margin: 0px;
     min-height:100vh;
-    margin-bottom:10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+#page_batiments a{
+    display: block;
+    height: calc(100vh - 100px);
+    position: relative;
+    width: 100%;
 }
 
 #page_batiments img{
     display: inline-block;
     position: absolute;
-    width: 25%;
+    width: 100%;
     height: calc(100vh - 100px);
     margin: 0px;
     padding: 0px;
@@ -428,6 +444,20 @@ img.img_droite2{
     filter: brightness(80%);
 }
 
+#page_batiments a h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    color: white;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 15px;
+    font-size: xx-large;
+}
+
 #page_batiments img:hover{
     object-position: 70%;
     max-width: 100%;
@@ -436,27 +466,12 @@ img.img_droite2{
     filter: brightness(100%);
 }
 
-#ic1{
-    left: 0%;
-}
-
-#ic2{
-    left: 25%;
-}
-
-#alg{
-    left: 50%;
-}
-
-#ns{
-    left: 75%;
-}
 
 /*------------- Main (Page de connexion) -------------*/
 
 #page_connexion {
     background-color: var(--white-background);
-    width: 400px;
+    max-width: 400px;
     overflow:visible;
     display: flex;
     justify-content: center;
@@ -585,28 +600,30 @@ input[type="radio"]:checked + .radio-label {
     content: "▼";
     display: inline-block;
     margin-right: 10px;
-    transition: transform 0.5s ease; /* Animation de rotation */
+    transition: transform 0.3s ease; /* Animation fluide de rotation */
 }
 
 /* Rotation de la flèche quand la checkbox est cochée */
-.dropdownSC input[type="checkbox"]:checked + label::before, .dropdownAMP input[type="checkbox"]:checked + label::before {
+.dropdownSC input[type="checkbox"]:checked + label::before, 
+.dropdownAMP input[type="checkbox"]:checked + label::before {
     transform: rotate(-180deg); /* Fait pointer la flèche vers le haut */
 }
 
 /* Contenu caché par défaut */
 .dropdownSC-content, .dropdownAMP-content {
-    display: none;
     margin-top: 10px;
-
-    /* Menu déroulant pour les salles */
-    max-height: 450px;
-    overflow-y: scroll;
-    position: flex;
+    max-height: 0; /* Commence masqué */
+    opacity: 0; /* Invisible par défaut */
+    overflow-y: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease; /* Transitions pour une animation fluide */
 }
 
 /* Afficher le contenu quand la checkbox est cochée */
-.dropdownSC input[type="checkbox"]:checked ~ .dropdownSC-content, .dropdownAMP input[type="checkbox"]:checked ~ .dropdownAMP-content {
-    display: block;
+.dropdownSC input[type="checkbox"]:checked ~ .dropdownSC-content,
+.dropdownAMP input[type="checkbox"]:checked ~ .dropdownAMP-content {
+    max-height: 450px; /* Hauteur dépliée */
+    opacity: 1; /* Devient visible */
+    overflow-y: scroll; /* Active le défilement uniquement lorsqu'il est visible */
 }
 
 /* ------------------- CODE DES SALLES ------------------ */
@@ -626,10 +643,8 @@ input[type="radio"]:checked + .radio-label {
 /* Style des salles */
 .salle {
     align-items: center;
-    background-image: url("../images/Test.jpg");
     background-position: center;
     background-size: cover;
-    border: 2px solid black;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -640,13 +655,39 @@ input[type="radio"]:checked + .radio-label {
     position: relative;
     transition: transform 0.3s ease, border-color 0.3s ease, margin-bottom 0.3s ease;
     width: 100%;
+
 }
 
-.salle:hover {
-    border-color: #ff6347;
-    margin-bottom: 200px;
-    transform: scale(1.05);
+.salle::before{
+    pointer-events:none;
 }
+
+.salle div a{
+    height:200px;
+    width:100%;
+}
+.salle .img-container{
+    overflow:hidden;
+    height:200px;
+    width:100%;
+    border-radius: 8px;
+    border: 2px solid black;
+}
+
+.salle div img {
+    height: 100%;
+    width:100%;
+    object-position: center 50%;
+    object-fit: cover;
+    display: block;
+    
+}
+
+.salle:has(.img-container:hover), .salle:has(.infos:hover), .salle:has(.nom-salle:hover), .salle:has(.horaires-container:hover){
+    margin-bottom: 200px;
+    transform:scale(1.05);
+}
+
 
 /* Effet de fondu au survol */
 .salle::before {
@@ -682,6 +723,8 @@ input[type="radio"]:checked + .radio-label {
     padding: 0 1%;
     position: absolute;
     text-align: center;
+    user-select: none;
+    text-decoration: none;
 }
 
 /* Conteneur des horaires */
@@ -693,10 +736,11 @@ input[type="radio"]:checked + .radio-label {
     opacity: 0;
     overflow-y: auto;
     position: absolute;
-    top: 101%;
+    top: 100%;
     transition: max-height 0.3s ease, opacity 0.3s ease;
     width: 100%;
     z-index: 10;
+    border-radius: 8px;
 }
 
 .salle:hover .horaires-container {
@@ -705,17 +749,22 @@ input[type="radio"]:checked + .radio-label {
     display: block;
 }
 
-/* Style des équipements */
-.equipements ul {
+div.infos {
     color: #000;
     font-weight: bold;
-    list-style: none;
-    position: relative;
+    position: absolute;
     visibility: hidden;
     z-index: 1;
+    user-select: none;
 }
 
-.salle:hover .equipements ul {
+.infos a {
+    text-decoration: none;
+    color: var(--rich-black);
+    
+}
+
+.salle:hover .infos  {
     visibility: visible;
 }
 
@@ -985,35 +1034,30 @@ footer .btn-footer:hover {
     }
 /*------------- Main (Page de choix de salles) -------------*/
 #page_batiments {
-    padding: 120px 0px 0px 0px;
+    padding: 100px 0px 0px 0px;
     margin: 0px;
     height: 100vh;
     width: 200px;
     margin-bottom: 10px;
-    display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     gap: 0px 0px;
 }
 
 #page_batiments a{
-    height: 50%; /* Ajustez selon vos besoins */
-    width: 75%; /* Pour des images carrées */
     object-fit: cover;
     display: block;
     position: relative;
-    border-radius: 15px;
+    height: calc(50vh - 50px);
 }
 
 #page_batiments a img {
-    height: 100%; /* Ajustez selon vos besoins */
-    width: 100%; /* Pour des images carrées */
     object-fit: cover;
     filter: grayscale(70%);
     filter: brightness(80%);
     transition-duration: 0.3s;
     display: block;
     position: relative;
-    border-radius: 15px;
     box-sizing: border-box;
 }
 
@@ -1023,13 +1067,8 @@ footer .btn-footer:hover {
     transition-duration: 0.3s;
     filter: grayscale(0%);
     filter: brightness(100%);
-    /*background-image: rgba(255, 255, 255, 0.8);*/
     content: "Salles : quarante douze\nAmphi : non";
     text-align: center;
-}
-
-#ic1, #ic2, #ns, #alg{
-    left: 17%;
 }
 
 /* Main (Page générique des salles) */
