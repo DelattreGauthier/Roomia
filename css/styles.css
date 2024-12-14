@@ -1100,16 +1100,45 @@ footer .btn-footer:hover {
 }
 
 @media screen and (max-width: 700px) {
-    footer{
-        padding: 0px;
+    footer .grid-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
     }
 
-}
-
-@media screen and (max-width: 580px) {
-    footer .centre{
-        display:none;
+    footer div.gauche{
+        grid-column: 1/2;
     }
+
+    footer div.centre{
+        grid-column: 1/2;
+        grid-row: 3/4;
+    }
+
+    footer div.droite{
+        grid-column: 1/2;
+        grid-row: 2/3;
+        padding-top:20px;
+    }
+
+    footer div.gauche div{
+        margin: 5px 0px;
+    }
+
+    footer .btn-footer {
+        margin-left: 0;
+    }
+
+    footer #Newsletter {
+        display: flex;
+        justify-content: center;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    footer #Newsletter input[type="email"] {
+        width: 100%;
+    }
+
 }
 
 /* 
