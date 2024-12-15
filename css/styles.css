@@ -888,10 +888,12 @@ div.infos {
 #salles h5{
     grid-column: 1/4;
     grid-row:4/5;
-    margin-top:-50px;
+    margin-top: -50px;
+    padding-bottom: 20px;
     width:100%;
     text-align: center;
 }
+
 
 /*------------- Footer -------------*/
 
