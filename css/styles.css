@@ -749,6 +749,29 @@ input[type="radio"]:checked + .radio-label {
     display: block;
 }
 
+/* Reprends le style d'affichage des horaires d'une salle sur la page 
+d'un bâtiment mais appliqué à la page de la salle elle-même */
+.salle-horaires-container {
+    background-color: var(--white-background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-height: 200px;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    width: auto;
+    border-radius: 8px;
+    position: relative;
+    margin: 0 auto;
+}
+
+h1.infos {
+    color: #000;
+    font-weight: bold;
+    position: relative;
+    top: -50%;
+}
+
 div.infos {
     color: #000;
     font-weight: bold;
@@ -761,7 +784,6 @@ div.infos {
 .infos a {
     text-decoration: none;
     color: var(--rich-black);
-    
 }
 
 .salle:hover .infos  {
@@ -807,7 +829,7 @@ div.infos {
     right:3%;
 }
 
-#form-horaires {
+.form-horaires {
     display: inline;
     border: none;
 }
