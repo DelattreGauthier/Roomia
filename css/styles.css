@@ -1682,6 +1682,10 @@ footer .btn-footer:hover {
         grid-row:5/6;
     }
 
+    #salles .reserver{
+        left:170px;
+    }
+
     /* Responsive Navbar */
 
     .logo_menu{
