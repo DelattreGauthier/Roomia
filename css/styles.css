@@ -629,6 +629,11 @@ form {
     border-radius: 15px;
 }
 
+p.form-link{
+    margin-bottom: 5px;
+    margin-top: 20px;
+}
+
 label {
     display: block;
     margin: 10px 0 5px;
@@ -636,7 +641,7 @@ label {
     color: var(--rich-black);
 }
 
-input[type="text"], input[type="email"] {
+input[type="text"], input[type="email"], input[type="password"] {
     width: 100%;
     text-align: center;
     padding: 10px 40px;
@@ -681,7 +686,8 @@ input[type="radio"]:checked + .radio-label {
     border-radius: 15px;
     font-size: 1em;
     cursor: pointer;
-    margin-top: 50px;
+    margin-top: 20px;
+    margin-bottom: 5px;
     -webkit-transition-duration: 0.3s;
          -o-transition-duration: 0.3s;
             transition-duration: 0.3s;
@@ -1806,7 +1812,7 @@ footer .btn-footer:hover {
     background-color:var(--white-background);
     border-radius: 15px;
     z-index: 999;
-    display: flex;
+    display: block;
     font-family: 'Satoshi-Bold', sans-serif;
     border: none;
   }
@@ -1814,7 +1820,6 @@ footer .btn-footer:hover {
   .cookie-content {
     text-align: center;
     border: none;
-
   }
   
   .cookie-content p {
@@ -1834,7 +1839,7 @@ footer .btn-footer:hover {
     -webkit-transition-duration: 0.123s;
          -o-transition-duration: 0.123s;
             transition-duration: 0.123s;
-    cursor:default;
+    cursor: pointer;
     min-width: 140px;
     border: none;
   }

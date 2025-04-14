@@ -15,28 +15,6 @@
 
             <form class="form-container">
                 <fieldset>
-                    <!-- Genre -->
-                    <div class="form-group">
-                        <label>Genre :</label>
-                        <div class="radio-group">
-                            <input type="radio" name="genre" id="madame">
-                            <label class="radio-label" for="madame">Madame</label>
-                            <input type="radio" name="genre" id="monsieur">
-                            <label class="radio-label" for="monsieur">Monsieur</label>
-                        </div>
-                    </div>
-
-                    <!-- Nom -->
-                    <div class="form-group">
-                        <label for="lname">Nom :</label>
-                        <input type="text" id="lname" placeholder="Votre nom">
-                    </div>
-
-                    <!-- Prénom -->
-                    <div class="form-group">
-                        <label for="fname">Prénom :</label>
-                        <input type="text" id="fname" placeholder="Votre prénom">
-                    </div>
 
                     <!-- Email -->
                     <div class="form-group">
@@ -44,8 +22,17 @@
                         <input type="email" id="email" placeholder="Votre email">
                     </div>
 
+                    <!-- Mot de passe -->
+                    <div class="form-group">
+                        <label for="password">Mot de passe :</label>
+                        <input type="password" id="password" placeholder="Votre mot de passe">
+                    </div>
+
                     <!-- Boutons -->
-                    <button type="submit" class="btn-submit">S'INSCRIRE</button>
+                    <button type="submit" class="btn-submit">SE CONNECTER</button>
+
+                    <!-- Lien vers la page d'inscription -->
+                    <p class="form-link">Pas encore inscrit ? <br><a href="inscription.php">S'inscrire</a></p>
                 </fieldset>
             </form>
         </main>
