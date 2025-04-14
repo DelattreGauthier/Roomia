@@ -413,7 +413,7 @@
 
         </main>
 
-        <?php include '../php/footer.php'; ?>
+        <?php include '../php/footer2.php'; ?>
 
     </body>
 </html>

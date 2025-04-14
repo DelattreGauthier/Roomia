@@ -15,7 +15,6 @@
 
             <form class="form-container">
                 <fieldset>
-
                     <!-- Genre -->
                     <div class="form-group">
                         <label>Genre :</label>
@@ -51,7 +50,7 @@
             </form>
         </main>
 
-        <?php include '../php/footer.php'; ?>
+        <?php include '../php/footer2.php'; ?>
 
     </body>
 </html>
