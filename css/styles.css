@@ -1815,17 +1815,17 @@ footer .btn-footer:hover {
     display: block;
     font-family: 'Satoshi-Bold', sans-serif;
     border: none;
-  }
+}
   
   .cookie-content {
     text-align: center;
     border: none;
-  }
+}
   
   .cookie-content p {
     margin: 0;
     border: none;
-  }
+}
   
   .cookie-content button {
     font-size: 1.5rem;
@@ -1842,9 +1842,53 @@ footer .btn-footer:hover {
     cursor: pointer;
     min-width: 140px;
     border: none;
-  }
+}
   
   .cookie-content button:hover {
     color: var(--white-background);
     background-color: var(--default-orange);
+}
+
+  .star-rating {
+    direction: rtl;
+    display: inline-flex;
+    font-size: medium;
+
+  }
+
+  .star-rating input {
+    display: none;
+  }
+
+  .star-rating label {
+    cursor: pointer;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--horaire-border);
+    text-stroke: 1px var(--horaire-border);
+    transition: color 0.2s;
+    margin: 0 0.2rem;
+  }
+
+  .star-rating label::before {
+    content: '★';
+  }
+
+  /* Survol (hover) */
+  .star-rating label:hover,
+  .star-rating label:hover ~ label {
+    color:var(--horaire-border);
+  }
+
+  /* Sélection (checked) */
+  .star-rating input:checked ~ label {
+    color: var(--horaire-border);
+  }
+
+  .star-form {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    position: relative;
+    left: 2%;
   }

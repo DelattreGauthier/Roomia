@@ -29,15 +29,40 @@
         </header> 
         <main id="salles">
             <h1 class="texte_droite">Salle 114</h1>
+
             <h5 class="texte_droite">
                 <ul>
                     <li>28 places</li>
                     <li>1 tableau</li>
                     <li>12 prises</li>
                     <li>1 rétroprojecteur</li>
+                    <li>Ma note :
+                        <form class="star-form" action="envoi.php" method="post">
+                        <div class="star-rating">
+                            <input type="radio" id="star5" name="note" value="5">
+                            <label for="star5"></label>
+                            
+                            <input type="radio" id="star4" name="note" value="4">
+                            <label for="star4"></label>
+                            
+                            <input type="radio" id="star3" name="note" value="3">
+                            <label for="star3"></label>
+                            
+                            <input type="radio" id="star2" name="note" value="2">
+                            <label for="star2"></label>
+                            
+                            <input type="radio" id="star1" name="note" value="1">
+                            <label for="star1"></label>
+                        </div>
+                        </form>
+                    </li>
+                    <li>Note moyenne : 4.5/5</li>
                 </ul>
             </h5>
+
+
             <img class="img_gauche" src="../../images/IC1_114_front.jpg" alt="Salle 114">
+
             <h1 class="dispo">Horaires de disponibilité :</h1>
             <div class="salle-dispo-container">
                 <ul>
@@ -53,7 +78,9 @@
                     <li class="horaire"><h5>17:00 - 18:00 : Libre</h5><form action="#" method="get" class="form-horaires"><button type="submit" class="reserver">Réserver</button></form></li>
                 </ul>
             </div>
+
             
+        
         </main>
         <footer>
             
