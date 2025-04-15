@@ -1,3 +1,49 @@
+<?php
+include 'fonctions.php';
+
+$errors = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Récupérer les données du formulaire
+    $vEmail = nettoyer_donnees($_POST['email'] ?? '');
+    $vPassword = nettoyer_donnees($_POST['password'] ?? '');
+    // Valider le champ "Email"
+    if (empty($vEmail)) {
+        $errors['email'] = "Le champ 'Email' est obligatoire.";
+    } elseif (!valider_email($vEmail)) {
+        $errors['email'] = "L'adresse email est invalide.";
+    }
+
+    // Si l'adresse email est valide, on vérifie si elle existe déjà dans la base de données.
+    // Si elle existe déjà, une erreur apparait et invite l'utilisateur à se connecter
+    
+    // .....
+    // .....
+    // .....
+    // .....
+
+    // Valider le champ "Mot de passe"
+    if(empty($_POST['password'])) {
+        $errors['password'] = "Le champ 'Mot de passe' est obligatoire.";
+    } elseif (strlen($_POST['password']) < 8) {
+        $errors['password'] = "Le mot de passe doit contenir au moins 8 caractères.";
+    } elseif (!preg_match('/[0-9]/', $_POST['password'])) {
+        $errors['password'] = "Le mot de passe doit contenir au moins un chiffre.";
+    } elseif (!preg_match('/[a-zA-Z]/', $_POST['password'])) { 
+        $errors['password'] = "Le mot de passe doit contenir au moins une lettre.";
+    }
+    // Si le mot de passe est valide, on vérifie s'il existe dans la base de données.
+    // Si le mot de passe est bel est bien lié à l'email, on connecte l'utilisateur.
+
+    // .....
+    // .....
+    // .....
+    // .....
+    
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -13,19 +59,25 @@
         
         <main id="page_connexion">
 
-            <form class="form-container">
+            <form class="form-container" method="POST" enctype="multipart/form-data">
                 <fieldset>
 
                     <!-- Email -->
                     <div class="form-group">
-                        <label for="email">Adresse email :</label>
-                        <input type="email" id="email" placeholder="Votre email">
+                    <label for="email">Adresse email :</label>
+                    <input type="email" id="email" name="email" placeholder="Votre email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+                    <?php if (isset($errors['email'])): ?>
+                        <p style="color: red;"><?= $errors['email'] ?></p>
+                    <?php endif; ?>
                     </div>
 
                     <!-- Mot de passe -->
                     <div class="form-group">
                         <label for="password">Mot de passe :</label>
-                        <input type="password" id="password" placeholder="Votre mot de passe">
+                        <input type="password" id="password" name="password" placeholder="Votre mot de passe">
+                        <?php if (isset($errors['password'])): ?>
+                        <p style="color: red;"><?= $errors['password'] ?></p>
+                        <?php endif; ?>
                     </div>
 
                     <!-- Boutons -->

@@ -22,7 +22,7 @@
         <div id="cookie-popup" class="cookie-popup">
             <div class="cookie-content">
                 <form method="post">
-                    <p>Ce site utilise des cookies pour améliorer l\'expérience utilisateur. En continuant à utiliser ce site, vous acceptez notre utilisation des cookies. Pour plus d\'informations vous pouvez cliquez <a href="html/cookies.php">ici</a></p>
+                    <p>Ce site utilise des cookies pour améliorer l\'expérience utilisateur. En continuant à utiliser ce site, vous acceptez notre utilisation des cookies. Pour plus d\'informations vous pouvez cliquer <a href="html/cookies.php">ici</a></p>
                     <br>
                     <button type="submit" name="accept_cookies" value="yes">Accepter</button>
                 </form>

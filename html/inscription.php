@@ -1,26 +1,7 @@
 <!-- Fonctions de vérification des champs -->
 
 <?php
-function nettoyer_donnees($donnees) {
-    $donnees = trim($donnees ?? ''); // Supprime les espaces en début et fin de chaîne.
-    $donnees = stripslashes($donnees); // Supprime les antislashs (\) ajoutés par certaines configurations PHP (magic quotes).
-    $donnees = htmlspecialchars($donnees); // Convertit les caractères spéciaux en entités HTML pour éviter les injections de code HTML ou JavaScript.
-    return $donnees; // Retourne la chaîne nettoyée.
-}
-
-function valider_nomprenom($firstName) {
-    return preg_match("/^[a-zA-ZÀ-ÿ\s'-]+$/", $firstName);
-}
-function valider_motdepasse($password) {
-    return preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/", $password); // Au moins 8 caractères, au moins une lettre et un chiffre.
-}
-function valider_email($email) {
-    return filter_var($email, FILTER_VALIDATE_EMAIL); // Utilise la fonction de validation d'email de PHP.
-}
-function valider_photo($photo) {
-    $allowed_types = ['image/jpeg', 'image/png', 'image/jpg'];
-    return in_array($photo['type'], $allowed_types) && $photo['size'] < 1000000;
-}
+include 'fonctions.php'; 
 
 $errors = [];
 
@@ -30,6 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $vPrenom = nettoyer_donnees($_POST['fname'] ?? '');
     $vEmail = nettoyer_donnees($_POST['email'] ?? '');
     $vPassword = nettoyer_donnees($_POST['password'] ?? '');
+
+    // Valider le champ "Genre"
+    if (empty($_POST['genre'])) {
+        $errors['genre'] = "Le champ 'Genre' est obligatoire.";
+    }
 
     // Valider le champ "nom"
     if (empty($vNom)) {
@@ -55,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['email'] = "L'adresse email est invalide.";
     
     // Si l'adresse email est valide, on vérifie si elle existe déjà dans la base de données.
-    // Si elle existe déjà, une erreur apparait.
+    // Si elle existe déjà, une erreur apparait et invite l'utilisateur à se connecter
     
     // .....
     // .....
@@ -71,6 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['password'] = "Le mot de passe doit contenir au moins 8 caractères.";
     } elseif (!preg_match('/[0-9]/', $_POST['password'])) {
         $errors['password'] = "Le mot de passe doit contenir au moins un chiffre.";
+    } elseif (!preg_match('/[a-zA-Z]/', $_POST['password'])) { 
+        $errors['password'] = "Le mot de passe doit contenir au moins une lettre.";
     }
 
     // Valider le champ "Photo de profil"
@@ -138,6 +126,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="radio" name="genre" id="monsieur" value="monsieur" <?= (isset($_POST['genre']) && $_POST['genre'] === 'monsieur') ? 'checked' : '' ?>>
                         <label class="radio-label" for="monsieur">Monsieur</label>
                     </div>
+                    <?php if (isset($errors['genre'])): ?>
+                    <p style="color: red;"><?= $errors['genre'] ?></p>
+                    <?php endif; ?>
                 </div>
 
                 <!-- Nom -->
