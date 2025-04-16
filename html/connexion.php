@@ -1,5 +1,6 @@
 <?php
 include 'fonctions.php';
+require_once '../php/connexion/connexionbd.php'; // Connexion à la BDD
 
 $errors = [];
 
@@ -7,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les données du formulaire
     $vEmail = nettoyer_donnees($_POST['email'] ?? '');
     $vPassword = nettoyer_donnees($_POST['password'] ?? '');
+
     // Valider le champ "Email"
     if (empty($vEmail)) {
         $errors['email'] = "Le champ 'Email' est obligatoire.";
@@ -14,32 +16,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['email'] = "L'adresse email est invalide.";
     }
 
-    // Si l'adresse email est valide, on vérifie si elle existe déjà dans la base de données.
-    // Si elle existe déjà, une erreur apparait et invite l'utilisateur à se connecter
-    
-    // .....
-    // .....
-    // .....
-    // .....
-
     // Valider le champ "Mot de passe"
-    if(empty($_POST['password'])) {
+    if (empty($vPassword)) {
         $errors['password'] = "Le champ 'Mot de passe' est obligatoire.";
-    } elseif (strlen($_POST['password']) < 8) {
+    } elseif (strlen($vPassword) < 8) {
         $errors['password'] = "Le mot de passe doit contenir au moins 8 caractères.";
-    } elseif (!preg_match('/[0-9]/', $_POST['password'])) {
+    } elseif (!preg_match('/[0-9]/', $vPassword)) {
         $errors['password'] = "Le mot de passe doit contenir au moins un chiffre.";
-    } elseif (!preg_match('/[a-zA-Z]/', $_POST['password'])) { 
+    } elseif (!preg_match('/[a-zA-Z]/', $vPassword)) {
         $errors['password'] = "Le mot de passe doit contenir au moins une lettre.";
     }
-    // Si le mot de passe est valide, on vérifie s'il existe dans la base de données.
-    // Si le mot de passe est bel est bien lié à l'email, on connecte l'utilisateur.
 
-    // .....
-    // .....
-    // .....
-    // .....
-    
+    // S'il n'y a pas d'erreurs de validation, on vérifie dans la BDD
+    if (empty($errors)) {
+        $stmt = $conn->prepare("SELECT * FROM account WHERE email = :email");
+        $stmt->bindParam(':email', $vEmail);
+        $stmt->execute();
+
+        if ($stmt->rowCount() === 0) {
+            $errors['email'] = "Adresse email inconnue.";
+        } else {
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (password_verify($vPassword, $user['password'])) {
+                // Mot de passe correct → on démarre la session
+                session_start();
+                $_SESSION['user'] = [
+                    'id' => $user['id'],
+                    'email' => $user['email'],
+                    'fname' => $user['fname'],
+                    'lname' => $user['lname'],
+                    'profile_picture' => $user['profile_picture'],
+                    'admin' => $user['admin']
+                ];
+
+                header('Location: ../index.php');
+                exit;
+            } else {
+                $errors['password'] = "Mot de passe incorrect.";
+            }
+        }
+    }
 }
 ?>
 

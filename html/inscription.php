@@ -1,7 +1,8 @@
 <!-- Fonctions de vérification des champs -->
 
 <?php
-include 'fonctions.php'; 
+include 'fonctions.php';
+require_once '../php/connexion/connexionbd.php'; // Connexion à la BDD
 
 $errors = [];
 
@@ -34,20 +35,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!valider_nomprenom($vPrenom)) {
         $errors['fname'] = "Le prénom est invalide.";
     }
+
     // Valider le champ "Email"
     if (empty($vEmail)) {
         $errors['email'] = "Le champ 'Email' est obligatoire.";
     } elseif (!valider_email($vEmail)) {
         $errors['email'] = "L'adresse email est invalide.";
-    
-    // Si l'adresse email est valide, on vérifie si elle existe déjà dans la base de données.
-    // Si elle existe déjà, une erreur apparait et invite l'utilisateur à se connecter
-    
-    // .....
-    // .....
-    // .....
-    // .....
-    
+    } else {
+        // Vérifier si l'email existe déjà
+        $stmt = $conn->prepare("SELECT id FROM account WHERE email = :email");
+        $stmt->bindParam(':email', $vEmail);
+        $stmt->execute();
+        if ($stmt->fetch()) {
+            $errors['email'] = "Cet email est déjà utilisé. Veuillez vous connecter.";
+        }
     }
 
     // Valider le champ "Mot de passe"
@@ -62,7 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Valider le champ "Photo de profil"
-    if (isset($_FILES['profile_picture'])) {
+    $photo_name = null;
+    if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] !== UPLOAD_ERR_NO_FILE) {
         $photo = $_FILES['profile_picture'];
         if ($photo['error'] !== UPLOAD_ERR_OK) {
             $errors['profile_picture'] = "Erreur lors du téléchargement de la photo.";
@@ -72,24 +74,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        // Les données peuvent être traitées et enregistrées dans la base de donnéees.
-        // A faire quand la base de données sera opérationnelle.
-        
-        //......
-        //......
-        //......
-        //......
+        // Traitement de la photo
+        $photo_name = null;
+        if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
+            // Lire le contenu du fichier image
+            $photo_data = file_get_contents($_FILES['profile_picture']['tmp_name']);
+            
+            // Vérifier si le fichier est bien une image
+            if (exif_imagetype($_FILES['profile_picture']['tmp_name']) === false) {
+                $errors['profile_picture'] = "Le fichier n'est pas une image valide.";            
+            }
+        }
 
-        //Puis, on ouvre la session et on redirige vers la page d'accueil
+        // Hacher le mot de passe
+        $mot_de_passe_hash = password_hash($vPassword, PASSWORD_DEFAULT);
 
-        //......
-        //......
-        //......
-        //......
+        // Insertion dans la BDD
+        $stmt = $conn->prepare("INSERT INTO account (genre, lname, fname, email, password, profile_picture, admin)
+                                VALUES (:genre, :lname, :fname, :email, :password1, :profile_picture, 0)");
+        $stmt->bindParam(':genre', $_POST['genre']);
+        $stmt->bindParam(':lname', $vNom);
+        $stmt->bindParam(':fname', $vPrenom);
+        $stmt->bindParam(':email', $vEmail);
+        $stmt->bindParam(':password1', $mot_de_passe_hash);
+        $stmt->bindParam(':profile_picture', $photo_data);
+        $stmt->execute();
 
-        header('location:../index.php');
+        header('Location: connexion.php');
         exit;
-
     }
 }
 ?>
@@ -106,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="../css/styles.css">
-        <title>Roomia - Connexion</title>
+        <title>Roomia - Inscription</title>
         <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
     </head>
     <body>

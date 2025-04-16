@@ -1,4 +1,8 @@
 <header>
+    <?php
+        session_start();
+	?>
+
     <a href="index.php"><img class="logo_accueil" onmouseout="this.src='images/logo_home_black.png';" onmouseover="this.src='images/logo_home_white.png';" src="images/logo_home_black.png" alt="ACCUEIL"></a>
     <nav>
         <ul>
@@ -11,10 +15,25 @@
         <div class="dropdown_menu">
             <ul>
                 <li><a href="html/batiments.php">Choisir un bâtiment</a></li>
-                <li><a class="connexion" href="html/connexion.php">Connexion</a></li>
+        <?php
+		if(isset($_SESSION["user"])) { // si un utilisateur est authentifié
+            echo"<li><a class='connexion' href='html/profil.php'>Profil</a></li>";
+		}
+		else{
+			echo"<li><a class='connexion' href='html/connexion.php'>Connexion</a></li>";
+		}
+	    ?>
             </ul>
             
         </div>
     </nav>
-    <a class="connexion" href="html/connexion.php">Connexion</a>
+    <?php
+    
+    if(isset($_SESSION["user"])) { // si un utilisateur est authentifié
+            echo "<li><a href='html/profil.php'><img  class='profil' src='php/picture.php'></a></li>";
+		}
+		else{
+			echo"<li><a class='connexion' href='html/connexion.php'>Connexion</a></li>";
+		}
+    ?>
 </header>
