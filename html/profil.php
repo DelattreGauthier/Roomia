@@ -23,7 +23,7 @@
         <div class="profile_container">
             <?php
             echo "<img class='img_profil' src='../php/picture.php' alt='Photo de profil'>";
-            echo "<h2>".$_SESSION['user']['lname']." ".$_SESSION['user']['fname']."</h2>";
+            echo "<h2>".$_SESSION['user']['fname']." ".$_SESSION['user']['lname']."</h2>";
             ?>
                 <a href="../php/connexion/log_out.php" class="btn-deconnexion">SE DECONNECTER</a>
         </div>
@@ -85,9 +85,37 @@
                 ?>
             </table>
         </div>
+        
         <h1>Historique des commentaires</h1>
+        
+        <?php
+
+        $stmt3 = $conn->prepare("
+        SELECT c.*, r.name as room_name 
+        FROM comments c
+        JOIN rooms r ON c.room_id = r.id
+        WHERE user_id= :id");
+        $stmt3->bindParam(':id', $_SESSION['user']['id']);
+        $stmt3->execute();
+        $comments = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Affichage des commentaires
+        if (count($comments) > 0) {
+            foreach ($comments as $comment) {
+                echo '<div class="comment">';
+                echo '<p><strong>Commentaire sur la Salle '.htmlspecialchars($comment['room_name']).' :</strong></p>';
+                echo '<p>'.nl2br(htmlspecialchars($comment['comment'])).'</p>';
+                echo '<p>Note donnée : '.htmlspecialchars($comment['note']).'/5</p>';
+                echo '</div><hr>';
+            }
+        } else {
+            echo "<p>Aucun commentaire trouvé.</p>";
+        }
+
+        ?>
 
     </main>
-    <?php include '../php/footer2.php' ?>
+<?php include '../php/footer2.php' ?>
 </body>
 </html>
+
