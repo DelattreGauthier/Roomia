@@ -16,4 +16,17 @@ function valider_photo($photo) {
     $allowed_types = ['image/jpeg', 'image/png', 'image/jpg'];
     return in_array($photo['type'], $allowed_types) && $photo['size'] < 1000000;
 }
+function gen_horaires(string $path, int $start = 8, int $end = 18, int $step = 1): string {
+    $horaires = array();
+    for ($h = $start; $h < $end; $h += $step) {
+        $horaire = '<li class="horaire"><h5>' .
+            str_pad($h, 2, '0', STR_PAD_LEFT) . ':00 - ' .
+            str_pad($h + 1, 2, '0', STR_PAD_LEFT) . ':00 : Libre</h5>' .
+            '<form action="' . htmlspecialchars($path) . '" method="get" class="form-horaires">' .
+            '<button type="submit" class="reserver">Réserver</button>' .
+            '</form></li>';
+        $horaires[] = $horaire;
+    }
+    return implode("\n                    ", $horaires);
+}
 ?>

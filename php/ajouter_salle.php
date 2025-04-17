@@ -8,6 +8,7 @@ $success = false;
 // Only process form if submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate and sanitize inputs
+    $vbat = nettoyer_donnees($_POST['bat'] ?? '');
     $vname = nettoyer_donnees($_POST['name'] ?? '');
     $vsits = intval($_POST['sits'] ?? 0);
     $vsockets = intval($_POST['sockets'] ?? 0);
@@ -15,6 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $vproj = intval($_POST['proj'] ?? 0);
     
     // Validate required fields
+    if (empty($vbat)) {
+        $errors['bat'] = "Le nom du bâtiment est obligatoire";
+    }
     if (empty($vname)) {
         $errors['name'] = "Le nom de la salle est obligatoire";
     }
@@ -42,16 +46,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             // Verify connection is alive
             $conn->query('SELECT 1');
+
+            $req = $conn->prepare("SELECT id FROM batiments WHERE name='$vbat'");
+            $req->execute();
+            $res = $req->fetch(PDO::FETCH_ASSOC);
+            $batID = $res["id"];
             
             // Prepare statement with all parameters properly bound
-            $addsalle = $conn->prepare("INSERT INTO rooms (name, sits, sockets, boards, proj, image) 
-                                      VALUES (:name, :sits, :sockets, :boards, :proj, :photo_salle)");
+            $addsalle = $conn->prepare("INSERT INTO rooms (name, sits, sockets, boards, proj, batiment_id, image) 
+                                      VALUES (:name, :sits, :sockets, :boards, :proj, :batID, :photo_salle)");
             
             $addsalle->bindParam(':name', $vname);
             $addsalle->bindParam(':sits', $vsits, PDO::PARAM_INT);
             $addsalle->bindParam(':sockets', $vsockets, PDO::PARAM_INT);
             $addsalle->bindParam(':boards', $vboards, PDO::PARAM_INT);
             $addsalle->bindParam(':proj', $vproj, PDO::PARAM_INT);
+            $addsalle->bindParam(':batID', $batID, PDO::PARAM_INT);
             $addsalle->bindParam(':photo_salle', $photo_data, $photo_data ? PDO::PARAM_LOB : PDO::PARAM_NULL);
             
             if ($addsalle->execute()) {
@@ -96,11 +106,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include '../php/header2.php' ?>
     
     <main id="page_connexion">
-        <?php if (isset($_GET['success'])): ?>
+        <?php if (isset($_GET['success'])){ ?>
             <div class="success-message">
                 La salle a été ajoutée avec succès!
             </div>
-        <?php endif; ?>
+        <?php
+            unset($_GET["success"]);
+            }
+        ?>
 
         <form class="form-container" method="POST" enctype="multipart/form-data">
             <fieldset>
@@ -112,6 +125,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?= htmlspecialchars($errors['database']) ?>
                     </div>
                 <?php endif; ?>
+
+                <!-- Batiment -->
+                <div class="form-group">
+                    <label for="bat">Nom du bâtiment :</label>
+                    <input type="text" id="bat" name="bat" value="<?= htmlspecialchars($vbat ?? '') ?>" required>
+                    <?php if (isset($errors['bat'])): ?>
+                        <span class="error"><?= htmlspecialchars($errors['bat']) ?></span>
+                    <?php endif; ?>
+                </div>
 
                 <!-- Name -->
                 <div class="form-group">
