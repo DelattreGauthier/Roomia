@@ -14,7 +14,7 @@ SET GLOBAL max_allowed_packet=1073741824;
 - windows+R (sous Windows)
 - entrer "C:\MAMP\conf\php8.3.1\php.ini"
 
-1. Chercher "extension=php_intl.dll" dans le fichier.
+2. Chercher "extension=php_intl.dll" dans le fichier.
 
 - Décommenter la ligne en retirant ";" s'il y en a
 - Enregistrer puis relancer MAMP s'il était déjà lancé
