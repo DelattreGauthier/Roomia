@@ -208,6 +208,7 @@ header {
     background-color: var(--white-background);
     width: 100%;
     z-index: 3;
+    max-height: 100px;
 }
 
 /*------------- Nav -------------*/
@@ -247,6 +248,15 @@ header a{
             transition-duration: 0.123s;
     cursor:default;
     min-width: 140px;
+    text-align: center;
+}
+
+header .logo_profile_container{
+    text-align: right;
+}
+
+.logo_accueil_container{
+    text-align: left;
 }
 
 header a:hover{
@@ -1766,6 +1776,42 @@ footer .btn-footer:hover {
         -ms-grid-row-span: 1;
         grid-row: 9/10;
     }
+/*------------- Page de profil -------------*/
+
+#profil{
+    grid-template-columns: auto;
+    grid-template-rows: 50px auto 60px auto 60px auto;
+    row-gap: 40px;
+    padding-top:160px;
+}
+
+#profil > h1:first-of-type{
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+
+#profil .profile_container{
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+#profil > h1:nth-of-type(2){
+    grid-column: 1/2;
+    grid-row: 3/4;
+}
+
+#profil .reservation_container{
+    grid-column: 1/2;
+    grid-row: 4/5;
+}
+
+#profil > h1:nth-of-type(3){
+    grid-column: 1/2;
+    grid-row: 5/6;
+}
+
+
+
 /*------------- Main (Page de choix de salles) -------------*/
 #page_batiments {
     padding: 100px 0px 0px 0px;
@@ -1964,8 +2010,17 @@ footer .btn-footer:hover {
     .logo_menu img{
         display:block;
     }
+    img.profil, header a:nth-of-type(2){
+        display: none;
+    }
+    /* header a:first-of-type{
+        display: block;
+        text-align: center;
+    } */
+    .logo_accueil_container{
+        text-align: left;
+    }
 
-    
 }
 
 @media screen and (min-width: 851px) {
@@ -2144,6 +2199,12 @@ footer .btn-footer:hover {
     cursor:pointer;
     vertical-align: bottom;
     border: solid var(--rich-black) 2px;
+    display: inline-block;
+    
+    /* Lissage de la bordure (réduit l'offset visuel blanc entre la bodure et l'image) */
+    background-color: var(--rich-black);                
+    box-shadow: inset 0 0 0 1px var(--rich-black);
+
   }
   
   .profil:hover {

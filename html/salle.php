@@ -17,7 +17,7 @@
     $room = $room[0];
     
     $salle = $room["name"];
-    $avgNote = $room["rating"] ? "Note moyenne : $avgNote / 5" : "Pas encore de note.";
+    $avgNote = $room["rating"] ? "Note moyenne : ". $room["rating"] . " / 5" : "Pas encore de note.";
     $reviews = $room["reviews"];
     $places = $room["sits"];
     $prises = $room["sockets"];
@@ -124,7 +124,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="../css/styles.css">
         <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
-        <title>Roomia - ' . $batiment . "-" . '$salle</title>
+        <title>Roomia - ' . $batiment . "-" . $salle.'</title>
     </head>
     <body>
         <header>
@@ -214,20 +214,49 @@
                 ' . $commentaires . '
             </div>
 
-            <!-- Envoi de commentaires -->
-            
-            <div class="commentaires-submit-container">
-            <form method="post" class="form-commentaires">
-                <textarea name="commentaire" id="commentaire" rows="5" placeholder="Écrivez votre commentaire ici..." required></textarea>
+            <!-- Espace commentaires -->'; ?>
+<section class="commentaires">
+    <h2>Commentaires</h2>
+
+    <!-- Formulaire de soumission -->
+    <?php if (isset($_SESSION["user"])): ?>
+        <div class="commentaires-submit-container">
+            <form method="POST" class="form-commentaires" action="envoi.php">
+                <input type="hidden" name="room_id" value="<?= $id ?>">
+
+                <label for="note">Note :</label>
+                <div class="star-rating">
+                    <?php for ($i = 5; $i >= 1; $i--): ?>
+                        <input type="radio" id="star<?= $i ?>" name="note" value="<?= $i ?>">
+                        <label for="star<?= $i ?>"></label>
+                    <?php endfor; ?>
+                </div>
+
+                <label for="commentaire">Commentaire :</label>
+                <textarea name="commentaire" id="commentaire" rows="5" placeholder="Écrivez votre commentaire ici... (optionnel)"></textarea>
+
                 <button type="submit" class="btn-commentaire">Envoyer</button>
             </form>
 
-            <?php if (isset($errors[\'commentaire\'])): ?>
-            <div class="commentaire-connexion">
-                <p><?= htmlspecialchars($errors[\'commentaire\']) ?></p>
-            </div>
+            <?php if (isset($_SESSION["errors"]["commentaire"])): ?>
+                <div class="commentaire-connexion">
+                    <p><?= htmlspecialchars($_SESSION["errors"]["commentaire"]) ?></p>
+                </div>
             <?php endif; ?>
-            </div>
+            <?php unset($_SESSION["errors"]); ?>
+
+            <?php if (isset($_SESSION["commentaire_success"])): ?>
+                <div class="commentaire-connexion">
+                    <p><?= htmlspecialchars($_SESSION["commentaire_success"]) ?></p>
+                </div>
+            <?php unset($_SESSION["commentaire_success"]); endif; ?>
+        </div>
+    <?php else: ?>
+        <p class="commentaire-connexion"><a href="connexion.php">Connectez-vous</a> pour laisser un commentaire ou une note.</p>
+    <?php endif; ?>
+
+    
+</section>
             
         </main>
         <footer>
@@ -249,6 +278,4 @@
 
         </footer>
     </body>
-</html>'
-
-?>
+</html>

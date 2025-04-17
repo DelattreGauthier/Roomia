@@ -25,8 +25,8 @@ if (!$cookie_accepted) {
 }
 
 // --- TRAITEMENT NEWSLETTER ---
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
-    $email = htmlspecialchars(trim($_POST['email']));
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email-newsletter'])) {
+    $email = htmlspecialchars(trim($_POST['email-newsletter']));
 
     if (empty($email)) {
         $_SESSION['newsletter'] = 'empty';
@@ -98,7 +98,7 @@ if (isset($_SESSION['newsletter'])) {
         <h4>Notre Newsletter</h4><br>
         <div id="Newsletter">
             <form method="POST" action="">
-                <input type="email" name="email" placeholder="Votre email" required>
+                <input type="email" name="email-newsletter" placeholder="Votre email" required>
                 <button onclick="location.href='#footer'" class="btn-footer"> > </button>
             </form>
         </div>

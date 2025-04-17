@@ -95,9 +95,9 @@
     <title>Roomia - Profil</title>
     <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
 </head>
-<body>
-    <?php include "header2.php" ?>
-    <main id="profil">
+<body>';
+    include "header2.php";
+    echo '<main id="profil">
         <h1>Profil utilisateur</h1>
         <h1>Historique des réservations</h1>
 
@@ -121,8 +121,9 @@
         </div>
         <h1>Historique des commentaires :</h1>
             ' . $commentaires . '
-    </main>
-    <?php include "footer2.php" ?>
+    </main>';
+    include "footer2.php";
+    echo '
 </body>
 </html>'
 

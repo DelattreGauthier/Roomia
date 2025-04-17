@@ -1,7 +1,5 @@
 <?php
-
-
-
+    require_once "../php/connexion/connexionbd.php"
 ?>
 
 <!DOCTYPE html>
@@ -33,26 +31,61 @@
             <table>
                 <thead>
                     <tr>
+                        <th><h3>Date</h3></th>
                         <th><h3>Heure de début</h3></th>
                         <th><h3>Heure de fin</h3></th>
                         <th><h3>Salle</h3></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>14:00</td>
-                        <td>16:00</td>
-                        <td>Salle 101</td>
-                    </tr>
-                    <tr>
-                        <td>10:00</td>
-                        <td>12:00</td>
-                        <td>Salle 102</td>
-                    </tr>
-                </tbody>
+
+
+                <?php 
+
+                $stmt = $conn->prepare("SELECT * FROM reservations WHERE user_id = :id");
+                $stmt->bindParam(':id', $_SESSION['user']['id']);
+                $stmt->execute();
+
+                $tab_res= $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+                if ($tab_res) {
+                    foreach ($tab_res as $reservation) {
+                        // Convertit les dates en objet DateTime pour utiliser ->format()
+                        $startDate = new DateTime($reservation['reservation_start']);
+                        $endDate = new DateTime($reservation['reservation_end']);
+                
+                        echo "<tr>
+                                <td>" . $startDate->format('d/m/Y') . "</td>
+                                <td>" . $startDate->format('H\hi') . "</td>
+                                <td>" . $endDate->format('H\hi') . "</td>";
+                
+                        // Récupère le nom de la salle
+                        $stmt1 = $conn->prepare("SELECT name FROM rooms WHERE id = :room_id");
+                        $stmt1->bindParam(':room_id', $reservation['room_id']);
+                        $stmt1->execute();
+                        $room_name = $stmt1->fetchColumn();
+
+                        // Récupère le nom du bâtiment
+                        $stmt2 = $conn->prepare("
+                            SELECT b.name 
+                            FROM batiments b
+                            JOIN rooms r ON r.batiment_id = b.id
+                            WHERE r.id = :room_id
+                        ");
+                        $stmt2->bindParam(':room_id', $reservation['room_id']);
+                        $stmt2->execute();
+                        $building_name = $stmt2->fetchColumn();
+
+                        echo "<td><a href='salle.php?id=".$reservation['room_id']."'>".$building_name." ".$room_name."</a></td>";
+
+                    }
+                } else {
+                    echo "<tr><td colspan='4'>Aucune réservation trouvée.</td></tr>";
+                }
+                ?>
             </table>
         </div>
-        <h1>Historique des commentaires :</h1>
+        <h1>Historique des commentaires</h1>
 
     </main>
     <?php include '../php/footer2.php' ?>
