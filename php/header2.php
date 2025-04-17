@@ -16,7 +16,7 @@
             <ul>
                 <li><a href="../html/batiments.php">Choisir un bâtiment</a></li>
                     <?php
-                    echo "On est là : " . $_SESSION["user"]["lname"] . "<br>";
+                    // echo "On est là : " . $_SESSION["user"]["lname"] . "<br>";
                         if (isset($_SESSION["user"])) { // si un utilisateur est authentifié
                             echo "<li><a href='../html/profil.php'>Mon Profil</a></li>";
                         } else{

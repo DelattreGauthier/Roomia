@@ -1,3 +1,9 @@
+<?php
+    // Va falloir passer tout ça par php en parcourant les salles avec le batiment_id=1. Pareil pour IC2, NS et ALG
+    //      Normalement j'ai ça quelque part en python
+    // Et donc encore une fois le problème des réservations
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>

@@ -41,16 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    $req = $conn->prepare("SELECT id FROM batiments WHERE name='$vbat'");
+    $req->execute();
+    $res = $req->fetch(PDO::FETCH_ASSOC);
+    if (!$res) $errors["no_bat"] = "Le bâtiment $vbat n'existe pas.";
+
     // Only proceed if no errors
     if (empty($errors)) {
         try {
             // Verify connection is alive
             $conn->query('SELECT 1');
-
-            $req = $conn->prepare("SELECT id FROM batiments WHERE name='$vbat'");
-            $req->execute();
-            $res = $req->fetch(PDO::FETCH_ASSOC);
-            $batID = $res["id"];
             
             // Prepare statement with all parameters properly bound
             $addsalle = $conn->prepare("INSERT INTO rooms (name, sits, sockets, boards, proj, batiment_id, image) 
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $addsalle->bindParam(':sockets', $vsockets, PDO::PARAM_INT);
             $addsalle->bindParam(':boards', $vboards, PDO::PARAM_INT);
             $addsalle->bindParam(':proj', $vproj, PDO::PARAM_INT);
-            $addsalle->bindParam(':batID', $batID, PDO::PARAM_INT);
+            $addsalle->bindParam(':batID', $res["id"], PDO::PARAM_INT);
             $addsalle->bindParam(':photo_salle', $photo_data, $photo_data ? PDO::PARAM_LOB : PDO::PARAM_NULL);
             
             if ($addsalle->execute()) {
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (strpos($e->getMessage(), 'MySQL server has gone away') !== false) {
                 try {
                     // Reinitialize connection
-                    $conn = new PDO($dsn, $username, $password, $options);
+                    $conn = new PDO("mysql:host=localhost;dbname=projet25roomiabd", "root", "root");
                     // Retry the query
                     if ($addsalle->execute()) {
                         $success = true;
@@ -107,21 +107,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     <main id="page_connexion">
         <?php if (isset($_GET['success'])){ ?>
-            <div class="success-message">
-                La salle a été ajoutée avec succès!
+            <div class="success">
+                La salle a été ajoutée avec succès !
             </div>
-        <?php
-            unset($_GET["success"]);
-            }
-        ?>
-
+        <?php } ?>
+        
         <form class="form-container" method="POST" enctype="multipart/form-data">
             <fieldset>
-                <legend>Ajouter une nouvelle salle</legend>
+                <h1 style="margin: auto">Ajouter une nouvelle salle</h1>
                 
                 <!-- Display database errors if any -->
                 <?php if (isset($errors['database'])): ?>
-                    <div class="error-message">
+                    <div class="error">
                         <?= htmlspecialchars($errors['database']) ?>
                     </div>
                 <?php endif; ?>
@@ -132,6 +129,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="text" id="bat" name="bat" value="<?= htmlspecialchars($vbat ?? '') ?>" required>
                     <?php if (isset($errors['bat'])): ?>
                         <span class="error"><?= htmlspecialchars($errors['bat']) ?></span>
+                    <?php endif; ?>
+                    <?php if (isset($errors['no_bat'])): ?>
+                        <span class="error"><?= htmlspecialchars($errors['no_bat']) ?></span>
                     <?php endif; ?>
                 </div>
 
@@ -177,8 +177,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php endif; ?>
                 </div>
 
-                <div class="form-group">
-                    <button type="submit">Ajouter la salle</button>
+                <div class="ajouter_salle_submit">
+                    <button type="submit" class="btn-deconnexion">Ajouter la salle</button>
                 </div>
             </fieldset>
         </form>

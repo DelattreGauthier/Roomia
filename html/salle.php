@@ -2,6 +2,10 @@
 
     // HTML et CSS à revoir pour la zone commentaires/réservations
 
+    // Également le fait que "Connexion" soit affiché en haut à droite à la place de la photo de profil lorsqu'on est connecté.
+
+    session_start();
+
     include "fonctions.php";
     require_once "../php/connexion/connexionbd.php";
 
@@ -25,7 +29,7 @@
     $retroprojecteurs = $room["proj"];
     $batiment_id = $room["batiment_id"];
     $image = $room["image"];
-    $img = "../php/getSalleImg.php?id=$id";
+    $img = $image ? "../php/getSalleImg.php?id=$id" : "../images/salle.jpg";
 
     $type = "Salle";
     $horaires = gen_horaires("#");
@@ -57,14 +61,21 @@
             
             foreach ($comments as $comment) {
                 $userID = $comment["user_id"];
-                $text = $comment["comment"];
-                $note = $comment["note"] ? $comment["note"] . "/5" : "Pas de note.";
+                $text = $comment["comment"] ? "<pre>      " . $comment["comment"] . "</pre>" : "";
+                $note = $comment["note"] ? " (" . $comment["note"] . "/5)" : "";
                 
                 // Récupération des données de l'utilisateur
                 $r = $conn->prepare("SELECT fname, lname, profile_picture FROM account WHERE id = :id");
                 $r->bindParam(":id", $userID);
                 $r->execute();
-                $user = $r->fetchAll(PDO::FETCH_ASSOC)[0];
+                $user = $r->fetchAll(PDO::FETCH_ASSOC);
+                if (count($user) === 0) {
+                    $user = [
+                        "fname" => "Utilisateur", 
+                        "lname" => "anonyme"
+                    ];
+                } else $user = $user[0];
+
                 $username = $user["fname"] . " " . $user["lname"];
                 $avatarURL = "../php/getUserAvatar.php?id=$userID";
 
@@ -72,9 +83,9 @@
                     <div class='commentaire'>
                         <div class='avatar-nom'>
                             <a href='../php/user.php?id=$userID'><img src='$avatarURL' alt='Avatar de $username' class='avatar'></a>
-                            <h5>$username ($note)</h5>
+                            <h5>$username$note</h5>
                         </div>
-                        <pre>$text</pre>
+                        $text
                     </div>
                 ");
             }
@@ -154,8 +165,8 @@
                     <li>' . $tableaux . ' tableau' . $tableaux_x . '</li>
                     <li>' . $prises . ' prise' . $prises_s . '</li>
                     <li>' . $retroprojecteurs . ' rétroprojecteur' . $retroprojecteurs_s . '</li>
-                    <li>Ma note :
-                        <form class="star-form" action="envoi.php" method="post"> <!-- Le fichier est à créer. NE PAS OUBLIER D\'INCRÉMENTER rooms.reviews avec, par exemple, un commentaire vide. -->
+                    <!-- <li>Ma note :
+                        <form class="star-form" action="envoi_commentaire.php" method="post">
                         <div class="star-rating">
                             <input type="radio" id="star5" name="note" value="5">
                             <label for="star5"></label>
@@ -173,7 +184,7 @@
                             <label for="star1"></label>
                         </div>
                         </form>
-                    </li>
+                    </li> -->
                     <li>' . $avgNote . '</li>
                 </ul>
             </h5>
@@ -207,56 +218,54 @@
             <br>
 
             <!-- Espace commentaires -->
-
-            <h1 style="text-align: center">Commentaires et notes</h1>
             
             <div class="commentaires-container">
                 ' . $commentaires . '
             </div>
 
             <!-- Espace commentaires -->'; ?>
-<section class="commentaires">
-    <h2>Commentaires</h2>
+            <section class="commentaires">
+                <h1>Commentaires</h1>
 
-    <!-- Formulaire de soumission -->
-    <?php if (isset($_SESSION["user"])): ?>
-        <div class="commentaires-submit-container">
-            <form method="POST" class="form-commentaires" action="envoi.php">
-                <input type="hidden" name="room_id" value="<?= $id ?>">
+                <!-- Formulaire de soumission -->
+                <?php if (isset($_SESSION["user"])): ?>
+                    <div class="commentaires-submit-container">
+                        <form method="POST" class="form-commentaires" action="envoi_commentaire.php">
+                            <input type="hidden" name="room_id" value="<?= $id ?>">
 
-                <label for="note">Note :</label>
-                <div class="star-rating">
-                    <?php for ($i = 5; $i >= 1; $i--): ?>
-                        <input type="radio" id="star<?= $i ?>" name="note" value="<?= $i ?>">
-                        <label for="star<?= $i ?>"></label>
-                    <?php endfor; ?>
-                </div>
+                            <label for="note">Note :</label>
+                            <div class="star-rating">
+                                <?php for ($i = 5; $i >= 1; $i--): ?>
+                                    <input type="radio" id="star<?= $i ?>" name="note" value="<?= $i ?>">
+                                    <label for="star<?= $i ?>"></label>
+                                <?php endfor; ?>
+                            </div>
 
-                <label for="commentaire">Commentaire :</label>
-                <textarea name="commentaire" id="commentaire" rows="5" placeholder="Écrivez votre commentaire ici... (optionnel)"></textarea>
+                            <label for="commentaire">Commentaire :</label>
+                            <textarea name="commentaire" id="commentaire" rows="5" placeholder="Écrivez votre commentaire ici... (optionnel)"></textarea>
 
-                <button type="submit" class="btn-commentaire">Envoyer</button>
-            </form>
+                            <button type="submit" class="btn-commentaire">Envoyer</button>
+                        </form>
 
-            <?php if (isset($_SESSION["errors"]["commentaire"])): ?>
-                <div class="commentaire-connexion">
-                    <p><?= htmlspecialchars($_SESSION["errors"]["commentaire"]) ?></p>
-                </div>
-            <?php endif; ?>
-            <?php unset($_SESSION["errors"]); ?>
+                        <?php if (isset($_SESSION["errors"]["commentaire"])): ?>
+                            <div class="commentaire-connexion">
+                                <p><?= htmlspecialchars($_SESSION["errors"]["commentaire"]) ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <?php unset($_SESSION["errors"]); ?>
 
-            <?php if (isset($_SESSION["commentaire_success"])): ?>
-                <div class="commentaire-connexion">
-                    <p><?= htmlspecialchars($_SESSION["commentaire_success"]) ?></p>
-                </div>
-            <?php unset($_SESSION["commentaire_success"]); endif; ?>
-        </div>
-    <?php else: ?>
-        <p class="commentaire-connexion"><a href="connexion.php">Connectez-vous</a> pour laisser un commentaire ou une note.</p>
-    <?php endif; ?>
+                        <?php if (isset($_SESSION["commentaire_success"])): ?>
+                            <div>
+                                <p class="commentaire-success"><?= htmlspecialchars($_SESSION["commentaire_success"]) ?></p>
+                            </div>
+                        <?php unset($_SESSION["commentaire_success"]); endif; ?>
+                    </div>
+                <?php else: ?>
+                    <p class="commentaire-connexion"><a href="connexion.php">Connectez-vous</a> pour laisser un commentaire ou une note.</p>
+                <?php endif; ?>
 
-    
-</section>
+                
+            </section>
             
         </main>
         <footer>

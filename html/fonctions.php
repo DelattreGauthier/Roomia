@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('Europe/Paris');
+
 function nettoyer_donnees($donnees) {
     $donnees = trim($donnees ?? ''); // Supprime les espaces en début et fin de chaîne.
     $donnees = stripslashes($donnees); // Supprime les antislashs (\) ajoutés par certaines configurations PHP (magic quotes).
@@ -29,4 +31,33 @@ function gen_horaires(string $path, int $start = 8, int $end = 18, int $step = 1
     }
     return implode("\n                    ", $horaires);
 }
-?>
+function date_fmt_8($dt_str) {
+    $date = new DateTime($dt_str, new DateTimeZone("Europe/Paris"));
+    $formatter = new IntlDateFormatter(
+        "fr_FR",
+        IntlDateFormatter::FULL,
+        IntlDateFormatter::SHORT,
+        "Europe/Paris",
+        IntlDateFormatter::GREGORIAN,
+        "EEEE d MMMM yyyy 'à' HH:mm"
+    );
+    return ucfirst($formatter->format($date));
+}
+function date_strftime($dt_str) {
+    $date = new DateTime($dt_str);
+    $j = ["Monday" => "Lundi", "Tuesday" => "Mardi", "Wednesday" => "Mercredi", "Thursday" => "Jeudi", "Friday" => "Vendredi", "Saturday" => "Samedi", "Sunday" => "Dimanche"][strftime("%A", $date->getTimestamp())];
+    $m = ["January" => "janvier", "February" => "février", "March" => "mars", "April" => "avril", "May" => "mai", "June" => "juin", "July" => "juillet", "August" => "août", "September" => "septembre", "October" => "octobre", "November" => "novembre", "December" => "décembre"][strftime("%B", $date->getTimestamp())];
+    $str = strftime("$j %e $m %Y à %H:%M", $date->getTimestamp());
+
+    // if ($date->format("j") === "1") $str = preg_replace('/\b1\b(?= [A-Z|a-zéèêà])/', '1er', $str); // Pour emplacer 1 par 1er, etc
+
+    return $str;
+}
+function date_formatter($dt_str)
+{
+    if (class_exists("IntlDateFormatter")) {
+        return date_fmt_8($dt_str);
+    } else {
+        return date_strftime($dt_str);
+    }
+}

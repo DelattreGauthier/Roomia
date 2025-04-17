@@ -1311,9 +1311,16 @@ div.infos {
 
         .commentaire-connexion{
             text-align: center;
-            margin:auto;
+            margin: auto;
             font-family: 'Satoshi-Bold', sans-serif;
-            color:red;
+            color: red;
+        }
+
+        .commentaire-success {
+            text-align: center;
+            margin: auto;
+            font-family: 'Satoshi-Bold', sans-serif;
+            color: green !important;
         }
 
         .commentaire h5{
@@ -2245,4 +2252,51 @@ footer .btn-footer:hover {
 
 .dbadmin th, .dbadmin td{
     border : 1px solid var(--rich-black);
+}
+
+/* Messages d'erreur pour l'ajout d'une salle où toutes les classes étaient utilisées sans être définies*/
+.error {
+    color: red;
+}
+.success {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    font-weight: bold;
+    z-index: 9999;
+    animation: fadeOut 1s ease-in-out 2s forwards;
+}
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+.form-group {
+    padding: 10px 10px;
+    border-radius: 15px;
+    /* margin: 10px 10px; */
+    -webkit-transition-duration: 0.3s;
+         -o-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+    border: none;
+}
+.form-group:hover {
+    background-color: var(--silver-blue);
+    -webkit-transition-duration: 0.3s;
+         -o-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+}
+.form-container {
+    
+}
+.ajouter_salle_submit {
+    padding-top: 20px;
+    margin-bottom: -10px;
 }
