@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     <main id="page_connexion">
         <?php if (isset($_GET['success'])){ ?>
-            <div class="success">
+            <div class="add_success">
                 La salle a été ajoutée avec succès !
             </div>
         <?php } ?>

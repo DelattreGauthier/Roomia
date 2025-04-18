@@ -31,8 +31,7 @@
         }
 
         if (empty($errors)) { // On pourrait potentiellement envoyer un email sur le review
-            $date = date_formatter(date('Y-m-d H:i:s'));
-            $texte = !empty($commentaire) ? "$date\n$commentaire" : null;
+            $texte = !empty($commentaire) ? "$commentaire" : null;
 
             $req = $conn->prepare("INSERT INTO comments (user_id, comment, note, room_id) VALUES (?, ?, ?, ?)");
             $req->execute([

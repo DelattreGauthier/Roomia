@@ -100,17 +100,19 @@
         $comments = $stmt3->fetchAll(PDO::FETCH_ASSOC);
         
         // Affichage des commentaires
+       echo '<div class="comments_container">';
         if (count($comments) > 0) {
             foreach ($comments as $comment) {
                 echo '<div class="comment">';
-                echo '<p><strong>Commentaire sur la Salle '.htmlspecialchars($comment['room_name']).' :</strong></p>';
+                echo '<h3>Commentaire sur la Salle '.htmlspecialchars($comment['room_name']).' :</h3>';
                 echo '<p>'.nl2br(htmlspecialchars($comment['comment'])).'</p>';
                 echo '<p>Note donnée : '.htmlspecialchars($comment['note']).'/5</p>';
-                echo '</div><hr>';
+                echo '</div>';
             }
         } else {
             echo "<p>Aucun commentaire trouvé.</p>";
         }
+        echo '</div>';
 
         ?>
 

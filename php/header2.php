@@ -20,7 +20,7 @@
                         if (isset($_SESSION["user"])) { // si un utilisateur est authentifié
                             echo "<li><a href='../html/profil.php'>Mon Profil</a></li>";
                         } else{
-                            echo"<a class='connexion' href='../html/connexion.php'>Connexion</a>";
+                            echo"<li><a class='connexion' href='../html/connexion.php'>Connexion</a></li>";
                         }
                     ?>
             </ul>

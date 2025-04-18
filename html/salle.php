@@ -2,9 +2,8 @@
 
     // HTML et CSS à revoir pour la zone commentaires/réservations
 
-    // Également le fait que "Connexion" soit affiché en haut à droite à la place de la photo de profil lorsqu'on est connecté.
-
-    session_start();
+    include '../php/header2.php';
+    
 
     include "fonctions.php";
     require_once "../php/connexion/connexionbd.php";
@@ -61,6 +60,7 @@
             
             foreach ($comments as $comment) {
                 $userID = $comment["user_id"];
+                $date = date_formatter($comment["created_at"]);
                 $text = $comment["comment"] ? "<pre>      " . $comment["comment"] . "</pre>" : "";
                 $note = $comment["note"] ? " (" . $comment["note"] . "/5)" : "";
                 
@@ -83,7 +83,7 @@
                     <div class='commentaire'>
                         <div class='avatar-nom'>
                             <a href='../php/user.php?id=$userID'><img src='$avatarURL' alt='Avatar de $username' class='avatar'></a>
-                            <h5>$username$note</h5>
+                            <h5>$username$note</h5> <span style='font-size: 0.7rem;font-style: italic;color: grey'>$date</span>
                         </div>
                         $text
                     </div>
@@ -138,25 +138,6 @@
         <title>Roomia - ' . $batiment . "-" . $salle.'</title>
     </head>
     <body>
-        <header>
-            <a href="../index.php"><img class="logo_accueil" onmouseout="this.src=\'../images/logo_home_black.png\';" onmouseover="this.src=\'../images/logo_home_white.png\';" src="../images/logo_home_black.png" alt="ACCUEIL"></a>
-            <nav>
-                <ul>
-                    <li><a href="../html/batiments.php">Choisir un bâtiment</a></li>
-                </ul>
-                <input type="checkbox" id="menu_toggle" class="menu_toggle">
-                <label for="menu_toggle" class="logo_menu">
-                    <img src="../images/menu.png" alt="Menu">
-                </label>
-                <div class="dropdown_menu">
-                    <ul>
-                        <li><a href="../html/batiments.php">Choisir un bâtiment</a></li>
-                        <li><a class="connexion" href="connexion.php">Connexion</a></li>
-                    </ul>
-                </div>
-            </nav>
-            <a class="connexion" href="connexion.php">Connexion</a>
-        </header> 
         <main id="salles">
             <h1 class="texte_droite">' . $type . ' ' . $salle . '</h1>
             <h5 class="texte_droite">
@@ -199,7 +180,7 @@
 
             <!-- Espace des réservations -->
 
-            <h1 style="text-align: center">Historique des réservations</h1>
+            <h1 class="historique_reservations" style="text-align: center">Historique des réservations</h1>
 
             <div class="reservation_container">
                 <table>
@@ -224,8 +205,7 @@
             </div>
 
             <!-- Espace commentaires -->'; ?>
-            <section class="commentaires">
-                <h1>Commentaires</h1>
+                <h1 class="commentaires">Commentaires</h1>
 
                 <!-- Formulaire de soumission -->
                 <?php if (isset($_SESSION["user"])): ?>
@@ -263,28 +243,8 @@
                 <?php else: ?>
                     <p class="commentaire-connexion"><a href="connexion.php">Connectez-vous</a> pour laisser un commentaire ou une note.</p>
                 <?php endif; ?>
-
-                
-            </section>
             
         </main>
-        <footer>
-            
-            <div class="grid-container">
-                <div class="gauche">
-                    <h4>Nous contacter</h4><br>
-                    <div><a href="mailto:roomiacontact@gmail.com">roomiacontact@gmail.com</a></div>
-                </div>
-                <div class="centre"><h4>Roomia &#169;</h4></div>
-                <div class="droite">
-                    <h4>Notre Newsletter</h4><br>
-                    <div id="Newsletter">
-                        <input type="email" id="email" placeholder="Votre email">
-                        <button type="submit" class="btn-footer"> > </button>
-                    </div>
-                </div>
-            </div>
-
-        </footer>
+        <?php include '../php/footer2.php'; ?>
     </body>
 </html>
