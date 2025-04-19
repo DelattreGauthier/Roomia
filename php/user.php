@@ -5,130 +5,116 @@
     $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
     if ($id <= 0) die("Le profil que vous cherchez n'existe pas.<br><a href='../index.php'>Retour à la page principale.</a>");
 
+    // Récupération des informations de l'utilisateur
     $req = $conn->prepare("SELECT * FROM users WHERE id = :id");
     $req->bindParam(":id", $id);
     $req->execute();
-    $user = $req->fetchAll(PDO::FETCH_ASSOC);
-    if (count($user) === 0) die("Le profil que vous cherchez n'existe pas.<br><a href='../index.php'>Retour à la page principale.</a>");
-    $user = $user[0];
+    $user = $req->fetch(PDO::FETCH_ASSOC);
 
-    $username = $user["fname"] . " " . $user["lname"];
+    if (!$user) die("Le profil que vous cherchez n'existe pas.<br><a href='../index.php'>Retour à la page principale.</a>");
+
+    $username = htmlspecialchars($user["fname"] . " " . $user["lname"]);
     $avatarURL = $user["profile_picture"] ? "getUserAvatar.php?id=$id" : "../images/user.png";
+?>
 
-    // Récupération de l'historique des réservations'
-    $req = $conn->prepare("SELECT room_id, reservation_start, reservation_end FROM reservations WHERE user_id = :id ORDER BY reservation_start DESC");
-    $req->bindParam(":id", $id);
-    $req->execute();
-    $res = $req->fetchAll(PDO::FETCH_ASSOC);
-
-    if (count($res) === 0) {
-        $reservations = "Aucune réservation pour le moment.";
-    }
-    else {
-        $reservations = [];
-
-        foreach($res as $reservation) {
-            $room_id = $reservation["room_id"];
-            $jour = date_formatter($reservation["reservation_start"], true); // Peut-être mettre un style particulier aux réservations passées/actuelles/futures
-            $start = date_formatter($reservation["reservation_start"], false, true);
-            $end = date_formatter($reservation["reservation_end"], false, true);
-
-            $r = $conn->prepare("SELECT rooms.name, batiments.name AS batiment_name FROM rooms JOIN batiments ON batiments.id = rooms.batiment_id WHERE rooms.id = :id");
-            $r->bindParam(":id", $room_id);
-            $r->execute();
-            $names = $r->fetchAll(PDO::FETCH_ASSOC)[0];
-            $salle = $names["name"];
-            $batiment = $names["batiment_name"];
-
-            array_push($reservations, "<tr>
-                    <td>" . $jour . "</td>
-                    <td>" . $start . "</td>
-                    <td>" . $end . "</td>
-                    <td><a href='../html/salle.php?id=$room_id'>Salle $batiment $salle</a></td>
-                </tr>");
-        }
-
-        $reservations = implode("\n", $reservations);
-    }
-
-    // Récupération des commentaires de l'utilisateur
-    $req2 = $conn->prepare("SELECT * FROM comments WHERE user_id = :id");
-    $req2->bindParam(":id", $id);
-    $req2->execute();
-    $comments = $req2->fetchAll(PDO::FETCH_ASSOC);
-
-    if (count($comments) === 0) {
-        $commentaires = "Aucun commentaire pour le moment.";
-    }
-    else {
-        $commentaires = [];
-        
-        foreach ($comments as $comment) {
-            $room_id = $comment["room_id"];
-            $text = $comment["comment"];
-            $note = $comment["note"] ? " (" . $comment["note"] . "/5)" : "";
-            $date = date_formatter($comment["created_at"]);
-
-            $r = $conn->prepare("SELECT rooms.name, batiments.name AS batiment_name FROM rooms JOIN batiments ON batiments.id = rooms.batiment_id WHERE rooms.id = :id");
-            $r->bindParam(":id", $room_id);
-            $r->execute();
-            $names = $r->fetchAll(PDO::FETCH_ASSOC)[0];
-            $salle = $names["name"];
-            $batiment = $names["batiment_name"];
-
-            array_push($commentaires, "
-                <div class='commentaire'>
-                    <div class='avatar-nom'>
-                        <a href='user.php?id=$id'><img src='$avatarURL' alt='Avatar de $username' class='avatar'></a>
-                        <h5>$username$note</h5> <span style='font-size: 0.7rem;font-style: italic;color: grey'>$date</span>
-                    </div>
-                    <pre><a href='../html/salle.php?id=$room_id'>$batiment $salle</a> : $text</pre>
-                </div>
-            ");
-        }
-    }
-
-    $commentaires = implode("\n", $commentaires);
-
-    echo '<html>
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
-    <title>Roomia - Profil</title>
+    <title>Roomia - Profil de <?= $username ?></title>
     <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
 </head>
-<body>';
-    include "header2.php";
-    echo '<main id="profil">
-        <h1>Profil utilisateur</h1>
+<body>
+    <?php include "header2.php"; ?>
+    <main id="profil">
+
+        <h1>Profil de <?= $username ?></h1>
         <h1>Historique des réservations</h1>
 
         <div class="profile_container">
-            <img class="img_profil" src="' . $avatarURL . '" alt="Photo de profil">
-            <h2>' . $username . '</h2>
+            <img class="img_profil" src="<?= $avatarURL ?>" alt="Photo de profil">
+            <h2><?= $username ?></h2>
         </div>
+
         <div class="reservation_container">
             <table>
                 <thead>
                     <tr>
-                        <th><h3>Jour</h3></th>
+                        <th><h3>Date</h3></th>
                         <th><h3>Heure de début</h3></th>
                         <th><h3>Heure de fin</h3></th>
                         <th><h3>Salle</h3></th>
                     </tr>
                 </thead>
                 <tbody>
-                    ' . $reservations . '
+                    <?php
+                    // Récupération des réservations de l'utilisateur
+                    $stmt = $conn->prepare("
+                        SELECT r.reservation_start, r.reservation_end, rm.name AS room_name, b.name AS building_name, r.room_id
+                        FROM reservations r
+                        JOIN rooms rm ON r.room_id = rm.id
+                        JOIN batiments b ON rm.batiment_id = b.id
+                        WHERE r.user_id = :id
+                        ORDER BY r.reservation_start DESC
+                    ");
+                    $stmt->bindParam(':id', $id);
+                    $stmt->execute();
+                    $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    if ($reservations) {
+                        foreach ($reservations as $reservation) {
+                            $startDate = new DateTime($reservation['reservation_start']);
+                            $endDate = new DateTime($reservation['reservation_end']);
+                            echo "<tr>
+                                    <td>" . $startDate->format('d/m/Y') . "</td>
+                                    <td>" . $startDate->format('H\hi') . "</td>
+                                    <td>" . $endDate->format('H\hi') . "</td>
+                                    <td><a href='../html/salle.php?id=" . $reservation['room_id'] . "'>" . htmlspecialchars($reservation['building_name']) . " " . htmlspecialchars($reservation['room_name']) . "</a></td>
+                                </tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='4'>Aucune réservation trouvée.</td></tr>";
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
-        <h1>Historique des commentaires :</h1>
-            ' . $commentaires . '
-    </main>';
-    include "footer2.php";
-    echo '
-</body>
-</html>'
 
-?>
+        <h1>Historique des commentaires</h1>
+
+        <div class="comments_container">
+            <?php
+            // Récupération des commentaires de l'utilisateur
+            $stmt = $conn->prepare("
+                SELECT c.comment, c.note, c.created_at, r.name AS room_name, c.room_id
+                FROM comments c
+                JOIN rooms r ON c.room_id = r.id
+                WHERE c.user_id = :id
+                ORDER BY c.created_at DESC
+            ");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if ($comments) {
+                foreach ($comments as $comment) {
+                    $date = date_formatter($comment["created_at"]);
+                    echo '<div class="comment">';
+                    echo '<h3>Commentaire sur la Salle ' . htmlspecialchars($comment['room_name']) . ' :</h3>';
+                    echo '<p>' . $date . '</p>';
+                    echo '<p>' . nl2br(htmlspecialchars($comment['comment'])) . '</p>';
+                    echo '<p>Note donnée : ' . htmlspecialchars($comment['note']) . '/5</p>';
+                    echo '</div>';
+                }
+            } else {
+                echo "<h5>Aucun commentaire trouvé.</h5>";
+            }
+            ?>
+        </div>
+
+    </main>
+    <?php include "footer2.php"; ?>
+</body>
+</html>

@@ -70,7 +70,7 @@
 
                 // Redirection vers la page précédente avec un message de succès
                 $_SESSION["commentaire_success"] = "Votre avis a été envoyé avec succès !";
-                header("Location: " . $_SERVER["HTTP_REFERER"]);
+                header("Location: salle.php?id=$room_id#commentaires");
                 exit;
             }
             else {
@@ -78,7 +78,7 @@
                 header("Location: " . $_SERVER["HTTP_REFERER"]);
                 exit;
             }
-        } else { // Si quelqu'un accède directement à envoi.php sans soumettre le formulaire (pensée aux farfadets malicieux)
+        } else { // Si quelqu'un accède directement à envoi.php sans soumettre le formulaire
             header("Location: ../index.php");
             exit;
         }

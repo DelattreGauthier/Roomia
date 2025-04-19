@@ -43,7 +43,7 @@
     $req2->execute();
     $batiment = $req2->fetchColumn();
 
-    if ($reviews === 0) $commentaires = "Aucun commentaire pour le moment.";
+    if ($reviews === 0) $commentaires = "<h5>Aucun commentaire pour le moment.</h5>";
     else {
         // Récupération des commentaires de la salle
         $req3 = $conn->prepare("SELECT * FROM comments WHERE room_id = :id");
@@ -52,7 +52,7 @@
         $comments = $req3->fetchAll(PDO::FETCH_ASSOC);
 
         if (count($comments) === 0) { // Si rooms.reviews n'est pas mis à jour lorsqu'un commentaire est envoyé (problématique)
-            $commentaires = "Aucun commentaire pour le moment.";
+            $commentaires = "<h5>Aucun commentaire pour le moment.</h5>";
         }
         else {
             $commentaires = [];
@@ -82,7 +82,7 @@
                     <div class='commentaire'>
                         <div class='avatar-nom'>
                             <a href='../php/user.php?id=$userID'><img src='$avatarURL' alt='Avatar de $username' class='avatar'></a>
-                            <h5>$username$note</h5> <span style='font-size: 0.7rem;font-style: italic;color: grey'>$date</span>
+                            <h3>$username$note</h3> <span>$date</span>
                         </div>
                         $text
                     </div>
@@ -100,7 +100,7 @@
     $res = $req->fetchAll(PDO::FETCH_ASSOC);
 
     if (count($res) === 0) {
-        $reservations = "Aucune réservation pour le moment.";
+        $reservations = "<h5>Aucune réservation pour le moment.</h5>";
     }
     else {
         $reservations = [];
@@ -128,62 +128,41 @@
 
         $reservations = implode("\n", $reservations);
     }
+    ?>
 
-    echo '<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="../css/styles.css">
-        <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
-        <title>Roomia - ' . $batiment . "-" . $salle.'</title>
-    </head>
-    <body>
-        <main id="salles">
-            <h1 class="texte_droite">' . $type . ' ' . $salle . '</h1>
-            <h5 class="texte_droite">
-                <ul>
-                    <li>' . $places . ' place' . $places_s . '</li>
-                    <li>' . $tableaux . ' tableau' . $tableaux_x . '</li>
-                    <li>' . $prises . ' prise' . $prises_s . '</li>
-                    <li>' . $retroprojecteurs . ' rétroprojecteur' . $retroprojecteurs_s . '</li>
-                    <!-- <li>Ma note :
-                        <form class="star-form" action="envoi_commentaire.php" method="post">
-                        <div class="star-rating">
-                            <input type="radio" id="star5" name="note" value="5">
-                            <label for="star5"></label>
-                            
-                            <input type="radio" id="star4" name="note" value="4">
-                            <label for="star4"></label>
-                            
-                            <input type="radio" id="star3" name="note" value="3">
-                            <label for="star3"></label>
-                            
-                            <input type="radio" id="star2" name="note" value="2">
-                            <label for="star2"></label>
-                            
-                            <input type="radio" id="star1" name="note" value="1">
-                            <label for="star1"></label>
-                        </div>
-                        </form>
-                    </li> -->
-                    <li>' . $avgNote . '</li>
-                </ul>
-            </h5>
-            <img class="img_gauche" src="' . $img . '" alt="Salle ' . $salle . '">
-            <h1 class="dispo">Horaires de disponibilité :</h1>
-            <div class="salle-dispo-container">
-                <ul>
-                    ' . $horaires . '
-                </ul>
-            </div>
-            <br>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
+    <title>Roomia - <?= $batiment ?> - <?= $salle ?></title>
+</head>
+<body>
+    <main id="salles">
+        <h1 class="texte_droite"><?= $type ?> <?= $salle ?></h1>
+        <h5 class="texte_droite">
+            <ul>
+                <li><?= $places ?> place<?= $places_s ?></li>
+                <li><?= $tableaux ?> tableau<?= $tableaux_x ?></li>
+                <li><?= $prises ?> prise<?= $prises_s ?></li>
+                <li><?= $retroprojecteurs ?> rétroprojecteur<?= $retroprojecteurs_s ?></li>
+                <li><?= $avgNote ?></li>
+            </ul>
+        </h5>
+        <img class="img_gauche" src="<?= $img ?>" alt="Salle <?= $salle ?>">
+        <h1 class="dispo">Horaires de disponibilité :</h1>
+        <div class="salle-dispo-container">
+            <ul>
+                <?= $horaires ?>
+            </ul>
+        </div>
+        <br>
 
-            <!-- Espace des réservations -->
-
-            <h1 class="historique_reservations" style="text-align: center">Historique des réservations</h1>
-
-            <div class="reservation_container">
+        <h1 class="historique_reservations" style="text-align: center">Historique des réservations</h1>
+        <div class="reservation_container">
+            <?php if (count($res) > 0): ?>
                 <table>
                     <thead>
                         <tr>
@@ -194,59 +173,56 @@
                         </tr>
                     </thead>
                     <tbody>
-                        ' . $reservations . '
+                        <?= $reservations ?>
                     </tbody>
                 </table>
-            </div>
-            <br>
+            <?php else: ?>
+                <h5>Aucune réservation pour le moment.</h5>
+            <?php endif; ?>
+        </div>
+        <br>
 
-            <!-- Espace commentaires -->
-            
-            <div class="commentaires-container">
-                ' . $commentaires . '
-            </div>
+        <h1 id ="commentaires" class="commentaires">Commentaires</h1>
+        <div class="commentaires-container">
+            <?= $commentaires ?>
+        </div>
 
-            <!-- Espace commentaires -->'; ?>
-                <h1 class="commentaires">Commentaires</h1>
+        <?php if (isset($_SESSION["user"])): ?>
+            <div class="commentaires-submit-container">
+                <form method="POST" class="form-commentaires" action="envoi_commentaire.php#commentaires">
+                    <input type="hidden" name="room_id" value="<?= $id ?>">
 
-                <!-- Formulaire de soumission -->
-                <?php if (isset($_SESSION["user"])): ?>
-                    <div class="commentaires-submit-container">
-                        <form method="POST" class="form-commentaires" action="envoi_commentaire.php">
-                            <input type="hidden" name="room_id" value="<?= $id ?>">
-
-                            <label for="note">Note :</label>
-                            <div class="star-rating">
-                                <?php for ($i = 5; $i >= 1; $i--): ?>
-                                    <input type="radio" id="star<?= $i ?>" name="note" value="<?= $i ?>">
-                                    <label for="star<?= $i ?>"></label>
-                                <?php endfor; ?>
-                            </div>
-
-                            <label for="commentaire">Commentaire :</label>
-                            <textarea name="commentaire" id="commentaire" rows="5" placeholder="Écrivez votre commentaire ici... (optionnel)"></textarea>
-
-                            <button type="submit" class="btn-commentaire">Envoyer</button>
-                        </form>
-
-                        <?php if (isset($_SESSION["errors"]["commentaire"])): ?>
-                            <div class="commentaire-connexion">
-                                <p><?= htmlspecialchars($_SESSION["errors"]["commentaire"]) ?></p>
-                            </div>
-                        <?php endif; ?>
-                        <?php unset($_SESSION["errors"]); ?>
-
-                        <?php if (isset($_SESSION["commentaire_success"])): ?>
-                            <div>
-                                <p class="commentaire-success"><?= htmlspecialchars($_SESSION["commentaire_success"]) ?></p>
-                            </div>
-                        <?php unset($_SESSION["commentaire_success"]); endif; ?>
+                    <label for="note"><h5>Note :</h5></label>
+                    <div class="star-rating">
+                        <?php for ($i = 5; $i >= 1; $i--): ?>
+                            <input type="radio" id="star<?= $i ?>" name="note" value="<?= $i ?>">
+                            <label for="star<?= $i ?>"></label>
+                        <?php endfor; ?>
                     </div>
-                <?php else: ?>
-                    <p class="commentaire-connexion"><a href="connexion.php">Connectez-vous</a> pour laisser un commentaire ou une note.</p>
+
+                    <label for="commentaire"><h5>Commentaire :</h5></label>
+                    <textarea name="commentaire" id="commentaire" rows="5" placeholder="Écrivez votre commentaire ici..."></textarea>
+
+                    <button type="submit" class="btn-commentaire">Envoyer</button>
+                </form>
+
+                <?php if (isset($_SESSION["errors"]["commentaire"])): ?>
+                    <div class="commentaire-connexion">
+                        <p><?= htmlspecialchars($_SESSION["errors"]["commentaire"]) ?></p>
+                    </div>
                 <?php endif; ?>
-            
-        </main>
-        <?php include '../php/footer2.php'; ?>
-    </body>
+                <?php unset($_SESSION["errors"]); ?>
+
+                <?php if (isset($_SESSION["commentaire_success"])): ?>
+                    <div>
+                        <p class="commentaire-success"><?= htmlspecialchars($_SESSION["commentaire_success"]) ?></p>
+                    </div>
+                <?php unset($_SESSION["commentaire_success"]); endif; ?>
+            </div>
+        <?php else: ?>
+            <p class="commentaire-connexion"><a href="connexion.php">Connectez-vous</a> pour laisser un commentaire ou une note.</p>
+        <?php endif; ?>
+    </main>
+    <?php include '../php/footer2.php'; ?>
+</body>
 </html>

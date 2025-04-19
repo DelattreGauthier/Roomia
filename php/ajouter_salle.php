@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         <form class="form-container" method="POST" enctype="multipart/form-data">
             <fieldset>
-                <h1 style="margin: auto">Ajouter une nouvelle salle</h1>
+                <h1>Ajouter une nouvelle salle</h1>
                 
                 <!-- Display database errors if any -->
                 <?php if (isset($errors['database'])): ?>

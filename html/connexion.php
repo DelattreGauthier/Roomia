@@ -79,6 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form class="form-container" method="POST" enctype="multipart/form-data">
                 <fieldset>
 
+                    <h1>Connexion</h1>
+
                     <!-- Email -->
                     <div class="form-group">
                     <label for="email">Adresse email :</label>

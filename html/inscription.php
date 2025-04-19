@@ -130,6 +130,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form class="form-container" method="POST" enctype="multipart/form-data">
             <fieldset>
                 <!-- Genre -->
+                <h1>Inscription</h1>
+
                 <div class="form-group">
                     <label>Genre :</label>
                     <div class="radio-group">

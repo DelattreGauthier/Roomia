@@ -1,5 +1,6 @@
 <?php
     require_once "../php/connexion/connexionbd.php";
+    include "fonctions.php";
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +23,7 @@
             $req->execute();
             $isAdmin = $req->fetchAll(PDO::FETCH_ASSOC)[0]["admin"];
 
-            echo "<h1>Mon Profil" . ($isAdmin ? "   <a href='panel_admin.php'>Fais pas le fou</a>" : "") . "</h1>";
+            echo "<h1>Mon Profil" . "</h1>";
         ?>
         <h1>Mes réservations</h1>
 
@@ -34,7 +35,8 @@
             echo "<img class='img_profil' src='$img' alt='Photo de profil'>";
             echo "<h2>".$_SESSION['user']['fname']." ".$_SESSION['user']['lname']."</h2>";
             ?>
-                <a href="../php/connexion/log_out.php" class="btn-deconnexion">SE DECONNECTER</a>
+            <a href="../php/connexion/log_out.php" class="btn-deconnexion">SE DECONNECTER</a>
+            <?= $isAdmin ? '<a href="panel_admin.php?bd=users" style="margin-top:-10px;" class="btn-deconnexion">PANEL ADMIN</a>' : '' ?>
         </div>
         <div class="reservation_container">
             <table>
@@ -100,7 +102,7 @@
         <?php
 
         $stmt3 = $conn->prepare("
-        SELECT c.*, r.name as room_name 
+        SELECT c.*, r.name as room_name , c.created_at
         FROM comments c
         JOIN rooms r ON c.room_id = r.id
         WHERE user_id= :id");
@@ -112,14 +114,16 @@
        echo '<div class="comments_container">';
         if (count($comments) > 0) {
             foreach ($comments as $comment) {
+                $date = date_formatter($comment["created_at"]);
                 echo '<div class="comment">';
                 echo '<h3>Commentaire sur la Salle '.htmlspecialchars($comment['room_name']).' :</h3>';
+                echo '<p>'.$date.'</p>'; // Ajout de la date
                 echo '<p>'.nl2br(htmlspecialchars($comment['comment'])).'</p>';
                 echo '<p>Note donnée : '.htmlspecialchars($comment['note']).'/5</p>';
                 echo '</div>';
             }
         } else {
-            echo "<p>Aucun commentaire trouvé.</p>";
+            echo "<h5>Aucun commentaire trouvé.</h5>";
         }
         echo '</div>';
 

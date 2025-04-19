@@ -38,7 +38,7 @@
   <p>En utilisant notre site, vous consentez à l'utilisation de cookies conformément à cette politique. Vous pouvez retirer votre consentement à tout moment via les paramètres de votre navigateur. Notez que certaines fonctionnalités peuvent ne pas fonctionner correctement sans cookies.</p>
 
   <h2>4. Informations supplémentaires</h2>
-  <p>Pour toute question concernant notre politique de cookies, contactez-nous <a class="probleme" href="../Contact/contact.php">ici</a>. Consultez aussi notre politique de confidentialité pour plus d'informations sur la protection de vos données personnelles.</p>
+  <p>Pour toute question concernant notre politique de cookies, contactez-nous <a href="mailto:roomiacontact@gmail.com">ici</a>. Consultez aussi notre politique de confidentialité pour plus d'informations sur la protection de vos données personnelles.</p>
 
   <p><strong>Dernière mise à jour :</strong> 14 avril 2025</p>
 </main>
