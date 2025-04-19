@@ -28,7 +28,7 @@
         $salle = $room["name"];
         $image = $room["image"];
         $img = $image ? "../php/getSalleImg.php?id=$id" : "../images/salle.jpg";
-        $horaires = gen_horaires("#");
+        $horaires = _gen_horaires("#");
 
         $salles[] = "<!-- Salle $i -->
                     <div class='salle'>
@@ -53,7 +53,7 @@
     $amphis = [];
     for ($i = 1; $i <= 3; $i++) {
         $id = 0;
-        $horaires = gen_horaires("#");
+        $horaires = _gen_horaires("#");
         $img = "../images/AmphiType.jpg";
 
         $amphis[] = "<!-- Amphithéâtre $i -->

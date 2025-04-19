@@ -8,18 +8,16 @@
         exit;
     }
 
-    if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-        header("Location: ../html/connexion.php");
-        exit;
-    }
+    // if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    //     header("Location: ../html/connexion.php");
+    //     exit;
+    // }
 
     $user_id = $_SESSION["user"]["id"];
-    $room_id = (int)($_GET["room_id"] ?? 0);
-    //$start = DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $_GET["start"] ?? "");
+    $room_id = (int)($_POST["room_id"] ?? 0);
     $start = DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $_POST["start"] ?? "");
     $end = DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $_POST["end"] ?? "");
-    //$end = DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $_GET["end"] ?? "");
-    $week_offset = (int)($_GET["week_offset"] ?? 0);
+    $days = (int)($_GET["days"] ?? 0);
     $location = $_SERVER["HTTP_REFERER"];
 
     // Validation basique
@@ -35,7 +33,7 @@
             $errors[] = "Horaires hors plages 6h-20h.";
         }
         if ($end <= $start) {
-            $errors[] = "Vous ne pouvez pas réserver en remontant le temps."; // On sait jamais
+            $errors[] = "Vous ne pouvez pas remonter le temps dans une salle."; // On sait jamais
         }
     }
 

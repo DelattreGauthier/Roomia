@@ -64,13 +64,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Valider le champ "Photo de profil"
     $photo_name = null;
-    if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] !== UPLOAD_ERR_NO_FILE) {
-        $photo = $_FILES['profile_picture'];
-        if ($photo['error'] !== UPLOAD_ERR_OK) {
-            $errors['profile_picture'] = "Erreur lors du téléchargement de la photo.";
-        } elseif (!valider_photo($photo)) {
-            $errors['profile_picture'] = "Le fichier n'est pas une image valide ou dépasse la taille autorisée.";
-        }
+    if (empty($_FILES['profile_picture']['name'])) {
+        $errors['profile_picture'] = "Le champ 'Photo de profil' est obligatoire.";
+    } elseif ($_FILES['profile_picture']['error'] !== UPLOAD_ERR_OK) {
+        $errors['profile_picture'] = "Erreur lors du téléchargement de la photo.";
+    } elseif (!valider_photo($_FILES['profile_picture'])) {
+        $errors['profile_picture'] = "Le fichier n'est pas une image valide ou dépasse la taille autorisée.";
     }
 
     if (empty($errors)) {

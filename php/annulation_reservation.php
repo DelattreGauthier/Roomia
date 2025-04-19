@@ -9,8 +9,8 @@
 
     $user_id = $_SESSION["user"]["id"];
     $room_id = $_SESSION["room_id"];
-    $week = (int)($_GET["week_offset"] ?? 0);
-    $location = $_SERVER["HTTP_REFERER"] . "&week_offset=$week";
+    $days = (int)($_GET["days"] ?? 0);
+    $location = $_SERVER["HTTP_REFERER"] . "&days=$days";
     $res_id  = (int)($_POST["res_id"] ?? 0);
 
     // Supprimer uniquement si appartient à l'utilisateur
@@ -20,8 +20,8 @@
     ");
     $req->execute([$res_id, $user_id]);
 
-    $_SESSION["flash_success"] = "Réservation annulée. $res_id, $user_id";
+    $_SESSION["flash_success"] = "Réservation annulée. reservation_id=$res_id, user_id=$user_id";
     
-    header("Location: $locaation");
+    header("Location: $location");
     exit;
 ?>

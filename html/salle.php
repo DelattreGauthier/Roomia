@@ -152,47 +152,34 @@
                 </ul>
             </h5>
             <img class="img_gauche" src="<?= $img ?>" alt="Salle <?= $salle ?>">
-            
-            
+        
 
             <?php
-                $room_id = (int)($_GET['id'] ?? 1);
-                $week_offset = (int)($_GET['week_offset'] ?? 0);
+                $room_id = (int)($_GET["id"] ?? 1);
+                $days = isset($_GET["days"]) ? (int)$_GET["days"] : 0;
                 $user_id = isset($_SESSION["user"]) ? (int)$_SESSION["user"]["id"] : null;
 
                 // Affichage des messages flash :
-                if (!empty($_SESSION['flash_error'])) {
-                    echo '<div class="popup error">'.$_SESSION['flash_error'].'</div>';
-                    unset($_SESSION['flash_error']);
+                if (!empty($_SESSION["flash_error"])) {
+                    echo "<div class='popup error'>".$_SESSION["flash_error"]."</div>";
+                    unset($_SESSION["flash_error"]);
                 }
-                if (!empty($_SESSION['flash_success'])) {
-                    echo '<div class="popup success">'.$_SESSION['flash_success'].'</div>';
-                    unset($_SESSION['flash_success']);
+                if (!empty($_SESSION["flash_success"])) {
+                    echo "<div class='popup success'>".$_SESSION["flash_success"]."</div>";
+                    unset($_SESSION["flash_success"]);
                 }
             ?>
-            <h1 class="dispo">Horaires de disponibilité (semaine <?= $week_offset ?>)</h1>
-            <nav class="week-nav">
-                <a href="?id=<?= $room_id ?>&week_offset=<?= $week_offset - 1 ?>">« Semaine précédente</a>
-                |
-                <a href="?id=<?= $room_id ?>&week_offset=<?= $week_offset + 1 ?>">Semaine suivante »</a>
-            </nav>
+            <h1 class="dispo">Horaires de disponibilité (Dans <?= $days ?> jours)</h1>
             <div class="salle-dispo-container">
                 <ul>
-                    <?= gen_horaires("../php/reservation.php", $room_id, 8, 18, 1, $user_id, $week_offset); ?>
+                    <?= gen_horaires("../php/reservation.php", $room_id, 8, 20, 1, $user_id, $days); ?>
                 </ul>
             </div>
-            <script>
-            // Faire disparaître les popups après 4s
-            setTimeout(() => {
-                document.querySelectorAll('.popup').forEach(el => {
-                    el.classList.add('fade-out');
-                });
-            }, 4000);
-            </script>
-
-
-
-            <br>
+            <nav class="days-nav">
+                <a href="?id=<?= $room_id ?>&days=<?= $days - 1 ?>">« Jour précédent</a>
+                <a href="?id=<?= $room_id ?>&days=0">Aujourd'hui</a>
+                <a href="?id=<?= $room_id ?>&days=<?= $days + 1 ?>">Jour suivant »</a>
+            </nav>
 
             <h1 class="historique_reservations" style="text-align: center">Historique des réservations</h1>
             <div class="reservation_container">
@@ -203,7 +190,7 @@
                                 <th><h3>Jour</h3></th>
                                 <th><h3>Heure de début</h3></th>
                                 <th><h3>Heure de fin</h3></th>
-                                <th><h3>Salle</h3></th>
+                                <th><h3>Réservée par</h3></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -233,6 +220,7 @@
                                 <label for="star<?= $i ?>"></label>
                             <?php endfor; ?>
                         </div>
+                        
 
                         <label for="commentaire"><h5>Commentaire :</h5></label>
                         <textarea name="commentaire" id="commentaire" rows="5" placeholder="Écrivez votre commentaire ici..."></textarea>
