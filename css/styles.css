@@ -1095,7 +1095,7 @@ div.infos {
 /*------------- Main (Page générique des salles) -------------*/
 
 #salles{
-    -ms-grid-rows: 1fr 25px 2fr 25px auto 25px 470px auto auto;
+    -ms-grid-rows: 1fr 25px a 25px auto 25px 470px auto auto;
     grid-template-rows: 1fr 2fr auto 470px auto auto;
     -ms-grid-columns: 3fr 2fr 2fr;
     grid-template-columns: 3fr 2fr 2fr;
@@ -2645,3 +2645,70 @@ input[type=file] {
   input[type="file"]::file-selector-button:hover {
     background: var(--gray-blue);
   }
+
+/* ------------ Styles pour les réservations ------------ */
+
+.horaire {
+    list-style: none;
+    margin: .5rem 0;
+    padding: .5rem;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  
+  .horaire.libre {
+    background: #e8f5e9;
+  }
+  .horaire.reserve {
+    background: #ffebee;
+  }
+  .horaire.annulable {
+    background: #fff3e0;
+  }
+  .horaire.passe {
+    background: #eceff1;
+    color: #78909c;
+  }
+  
+  .btn-reserver,
+  .btn-annuler {
+    padding: .3rem .6rem;
+    border: none;
+    border-radius: .25rem;
+    cursor: pointer;
+  }
+  .btn-reserver { background: #43a047; color: #fff; }
+  .btn-annuler  { background: #e53935; color: #fff; }
+  
+  .week-nav {
+    margin: 1rem 0;
+    text-align: center;
+  }
+  .week-nav a {
+    text-decoration: none;
+    margin: 0 .5rem;
+    color: #1e88e5;
+  }
+  
+  .popup {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: .8rem 1.2rem;
+    border-radius: .3rem;
+    color: #fff;
+    font-weight: bold;
+    z-index: 1000;
+    transition: opacity .8s ease-in-out, transform .8s ease-in-out;
+  }
+  .popup.error   { background: #e53935; }
+  .popup.success { background: #43a047; }
+  .popup.fade-out {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  

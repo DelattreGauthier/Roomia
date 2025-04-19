@@ -30,7 +30,7 @@
     $img = $image ? "../php/getSalleImg.php?id=$id" : "../images/salle.jpg";
 
     $type = "Salle";
-    $horaires = gen_horaires("#");
+    // $horaires = gen_horaires("#");
 
     $places_s = $places > 1 ? "s" : "";
     $tableaux_x = $tableaux > 1 ? "x" : "";
@@ -132,97 +132,131 @@
 
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="../css/styles.css">
-    <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
-    <title>Roomia - <?= $batiment ?> - <?= $salle ?></title>
-</head>
-<body>
-    <main id="salles">
-        <h1 class="texte_droite"><?= $type ?> <?= $salle ?></h1>
-        <h5 class="texte_droite">
-            <ul>
-                <li><?= $places ?> place<?= $places_s ?></li>
-                <li><?= $tableaux ?> tableau<?= $tableaux_x ?></li>
-                <li><?= $prises ?> prise<?= $prises_s ?></li>
-                <li><?= $retroprojecteurs ?> rétroprojecteur<?= $retroprojecteurs_s ?></li>
-                <li><?= $avgNote ?></li>
-            </ul>
-        </h5>
-        <img class="img_gauche" src="<?= $img ?>" alt="Salle <?= $salle ?>">
-        <h1 class="dispo">Horaires de disponibilité :</h1>
-        <div class="salle-dispo-container">
-            <ul>
-                <?= $horaires ?>
-            </ul>
-        </div>
-        <br>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="../css/styles.css">
+        <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
+        <title>Roomia - <?= $batiment ?> - <?= $salle ?></title>
+    </head>
+    <body>
+        <main id="salles">
+            <h1 class="texte_droite"><?= $type ?> <?= $salle ?></h1>
+            <h5 class="texte_droite">
+                <ul>
+                    <li><?= $places ?> place<?= $places_s ?></li>
+                    <li><?= $tableaux ?> tableau<?= $tableaux_x ?></li>
+                    <li><?= $prises ?> prise<?= $prises_s ?></li>
+                    <li><?= $retroprojecteurs ?> rétroprojecteur<?= $retroprojecteurs_s ?></li>
+                    <li><?= $avgNote ?></li>
+                </ul>
+            </h5>
+            <img class="img_gauche" src="<?= $img ?>" alt="Salle <?= $salle ?>">
+            
+            
 
-        <h1 class="historique_reservations" style="text-align: center">Historique des réservations</h1>
-        <div class="reservation_container">
-            <?php if (count($res) > 0): ?>
-                <table>
-                    <thead>
-                        <tr>
-                            <th><h3>Jour</h3></th>
-                            <th><h3>Heure de début</h3></th>
-                            <th><h3>Heure de fin</h3></th>
-                            <th><h3>Salle</h3></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?= $reservations ?>
-                    </tbody>
-                </table>
-            <?php else: ?>
-                <h5>Aucune réservation pour le moment.</h5>
-            <?php endif; ?>
-        </div>
-        <br>
+            <?php
+                $room_id = (int)($_GET['id'] ?? 1);
+                $week_offset = (int)($_GET['week_offset'] ?? 0);
+                $user_id = isset($_SESSION["user"]) ? (int)$_SESSION["user"]["id"] : null;
 
-        <h1 id ="commentaires" class="commentaires">Commentaires</h1>
-        <div class="commentaires-container">
-            <?= $commentaires ?>
-        </div>
-
-        <?php if (isset($_SESSION["user"])): ?>
-            <div class="commentaires-submit-container">
-                <form method="POST" class="form-commentaires" action="envoi_commentaire.php#commentaires">
-                    <input type="hidden" name="room_id" value="<?= $id ?>">
-
-                    <label for="note"><h5>Note :</h5></label>
-                    <div class="star-rating">
-                        <?php for ($i = 5; $i >= 1; $i--): ?>
-                            <input type="radio" id="star<?= $i ?>" name="note" value="<?= $i ?>">
-                            <label for="star<?= $i ?>"></label>
-                        <?php endfor; ?>
-                    </div>
-
-                    <label for="commentaire"><h5>Commentaire :</h5></label>
-                    <textarea name="commentaire" id="commentaire" rows="5" placeholder="Écrivez votre commentaire ici..."></textarea>
-
-                    <button type="submit" class="btn-commentaire">Envoyer</button>
-                </form>
-
-                <?php if (isset($_SESSION["errors"]["commentaire"])): ?>
-                    <div class="commentaire-connexion">
-                        <p><?= htmlspecialchars($_SESSION["errors"]["commentaire"]) ?></p>
-                    </div>
-                <?php endif; ?>
-                <?php unset($_SESSION["errors"]); ?>
-
-                <?php if (isset($_SESSION["commentaire_success"])): ?>
-                    <div>
-                        <p class="commentaire-success"><?= htmlspecialchars($_SESSION["commentaire_success"]) ?></p>
-                    </div>
-                <?php unset($_SESSION["commentaire_success"]); endif; ?>
+                // Affichage des messages flash :
+                if (!empty($_SESSION['flash_error'])) {
+                    echo '<div class="popup error">'.$_SESSION['flash_error'].'</div>';
+                    unset($_SESSION['flash_error']);
+                }
+                if (!empty($_SESSION['flash_success'])) {
+                    echo '<div class="popup success">'.$_SESSION['flash_success'].'</div>';
+                    unset($_SESSION['flash_success']);
+                }
+            ?>
+            <h1 class="dispo">Horaires de disponibilité (semaine <?= $week_offset ?>)</h1>
+            <nav class="week-nav">
+                <a href="?id=<?= $room_id ?>&week_offset=<?= $week_offset - 1 ?>">« Semaine précédente</a>
+                |
+                <a href="?id=<?= $room_id ?>&week_offset=<?= $week_offset + 1 ?>">Semaine suivante »</a>
+            </nav>
+            <div class="salle-dispo-container">
+                <ul>
+                    <?= gen_horaires("../php/reservation.php", $room_id, 8, 18, 1, $user_id, $week_offset); ?>
+                </ul>
             </div>
-        <?php else: ?>
-            <p class="commentaire-connexion"><a href="connexion.php">Connectez-vous</a> pour laisser un commentaire ou une note.</p>
-        <?php endif; ?>
-    </main>
-    <?php include '../php/footer2.php'; ?>
-</body>
+            <script>
+            // Faire disparaître les popups après 4s
+            setTimeout(() => {
+                document.querySelectorAll('.popup').forEach(el => {
+                    el.classList.add('fade-out');
+                });
+            }, 4000);
+            </script>
+
+
+
+            <br>
+
+            <h1 class="historique_reservations" style="text-align: center">Historique des réservations</h1>
+            <div class="reservation_container">
+                <?php if (count($res) > 0): ?>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><h3>Jour</h3></th>
+                                <th><h3>Heure de début</h3></th>
+                                <th><h3>Heure de fin</h3></th>
+                                <th><h3>Salle</h3></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?= $reservations ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <h5>Aucune réservation pour le moment.</h5>
+                <?php endif; ?>
+            </div>
+            <br>
+
+            <h1 id ="commentaires" class="commentaires">Commentaires</h1>
+            <div class="commentaires-container">
+                <?= $commentaires ?>
+            </div>
+
+            <?php if (isset($_SESSION["user"])): ?>
+                <div class="commentaires-submit-container">
+                    <form method="POST" class="form-commentaires" action="envoi_commentaire.php#commentaires">
+                        <input type="hidden" name="room_id" value="<?= $id ?>">
+
+                        <label for="note"><h5>Note :</h5></label>
+                        <div class="star-rating">
+                            <?php for ($i = 5; $i >= 1; $i--): ?>
+                                <input type="radio" id="star<?= $i ?>" name="note" value="<?= $i ?>">
+                                <label for="star<?= $i ?>"></label>
+                            <?php endfor; ?>
+                        </div>
+
+                        <label for="commentaire"><h5>Commentaire :</h5></label>
+                        <textarea name="commentaire" id="commentaire" rows="5" placeholder="Écrivez votre commentaire ici..."></textarea>
+
+                        <button type="submit" class="btn-commentaire">Envoyer</button>
+                    </form>
+
+                    <?php if (isset($_SESSION["errors"]["commentaire"])): ?>
+                        <div class="commentaire-connexion">
+                            <p><?= htmlspecialchars($_SESSION["errors"]["commentaire"]) ?></p>
+                        </div>
+                    <?php endif; ?>
+                    <?php unset($_SESSION["errors"]); ?>
+
+                    <?php if (isset($_SESSION["commentaire_success"])): ?>
+                        <div>
+                            <p class="commentaire-success"><?= htmlspecialchars($_SESSION["commentaire_success"]) ?></p>
+                        </div>
+                    <?php unset($_SESSION["commentaire_success"]); endif; ?>
+                </div>
+            <?php else: ?>
+                <p class="commentaire-connexion"><a href="connexion.php">Connectez-vous</a> pour laisser un commentaire ou une note.</p>
+            <?php endif; ?>
+        </main>
+        <?php include "../php/footer2.php"; ?>
+    </body>
 </html>
