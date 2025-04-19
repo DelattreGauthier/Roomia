@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['email'] = "L'adresse email est invalide.";
     } else {
         // Vérifier si l'email existe déjà
-        $stmt = $conn->prepare("SELECT id FROM account WHERE email = :email");
+        $stmt = $conn->prepare("SELECT id FROM users WHERE email = :email");
         $stmt->bindParam(':email', $vEmail);
         $stmt->execute();
         if ($stmt->fetch()) {
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mot_de_passe_hash = password_hash($vPassword, PASSWORD_DEFAULT);
 
         // Insertion dans la BDD
-        $stmt = $conn->prepare("INSERT INTO account (genre, lname, fname, email, password, profile_picture, admin)
+        $stmt = $conn->prepare("INSERT INTO users (genre, lname, fname, email, password, profile_picture, admin)
                                 VALUES (:genre, :lname, :fname, :email, :password1, :profile_picture, 0)");
         $stmt->bindParam(':genre', $_POST['genre']);
         $stmt->bindParam(':lname', $vNom);
@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label class="radio-label" for="monsieur">Monsieur</label>
                     </div>
                     <?php if (isset($errors['genre'])): ?>
-                    <p style="color: red;"><?= $errors['genre'] ?></p>
+                    <p class="error"><?= $errors['genre'] ?></p>
                     <?php endif; ?>
                 </div>
 
@@ -148,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="lname">Nom :</label>
                     <input type="text" id="lname" name="lname" placeholder="Votre nom" value="<?= htmlspecialchars($_POST['lname'] ?? '') ?>"> <!-- Permet de laisser les champs remplis quand on a une erreur -->
                     <?php if (isset($errors['lname'])): ?>
-                        <p style="color: red;"><?= $errors['lname'] ?></p>
+                        <p class="error"><?= $errors['lname'] ?></p>
                     <?php endif; ?>
                 </div>
 
@@ -157,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="fname">Prénom :</label>
                     <input type="text" id="fname" name="fname" placeholder="Votre prénom" value="<?= htmlspecialchars($_POST['fname'] ?? '') ?>">
                     <?php if (isset($errors['fname'])): ?>
-                        <p style="color: red;"><?= $errors['fname'] ?></p>
+                        <p class="error"><?= $errors['fname'] ?></p>
                     <?php endif; ?>
                 </div>
 
@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="email">Adresse email :</label>
                     <input type="email" id="email" name="email" placeholder="Votre email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
                     <?php if (isset($errors['email'])): ?>
-                        <p style="color: red;"><?= $errors['email'] ?></p>
+                        <p class="error"><?= $errors['email'] ?></p>
                     <?php endif; ?>
                 </div>
 
@@ -175,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="password">Mot de passe :</label>
                     <input type="password" id="password" name="password" placeholder="Votre mot de passe">
                     <?php if (isset($errors['password'])): ?>
-                        <p style="color: red;"><?= $errors['password'] ?></p>
+                        <p class="error"><?= $errors['password'] ?></p>
                     <?php endif; ?>
                 </div>
 
@@ -184,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="profile_picture">Photo de profil :</label>
                     <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
                     <?php if (isset($errors['profile_picture'])): ?>
-                        <p style="color: red;"><?= $errors['profile_picture'] ?></p>
+                        <p class="error"><?= $errors['profile_picture'] ?></p>
                     <?php endif; ?>
                 </div>
 

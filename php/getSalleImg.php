@@ -15,11 +15,11 @@
             exit("Données d'image invalides.");
         }
 
-        $mime = $imageInfo['mime'];
+        $mime = $imageInfo["mime"];
         // Autorise uniquement les types PNG, JPEG et GIF
-        $allowedTypes = ['image/png', 'image/jpeg', 'image/gif'];
+        $allowedTypes = ["image/png", "image/jpeg", "image/gif"];
         if (!in_array($mime, $allowedTypes)) {
-            http_response_code(415); // Unsupported Media Type
+            http_response_code(415); // Type de média non supporté
             exit("Format d'image non autorisé.");
         }
 

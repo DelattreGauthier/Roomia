@@ -2,23 +2,22 @@
 
     // HTML et CSS à revoir pour la zone commentaires/réservations
 
-    include '../php/header2.php';
-    
-
-    include "fonctions.php";
-    require_once "../php/connexion/connexionbd.php";
-
     $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
-    if ($id <= 0) die("La salle que vous cherchez n'existe pas.");
+    if ($id <= 0) die("La salle que vous cherchez n'existe pas.<br><a href='../index.php'>Retour à la page principale.</a>");
+
+    require_once "../php/connexion/connexionbd.php";
+    include "fonctions.php";
 
     // Récupération de informations de la salle
     $req = $conn->prepare("SELECT * FROM rooms WHERE id = :id");
     $req->bindParam(":id", $id);
     $req->execute();
     $room = $req->fetchAll(PDO::FETCH_ASSOC);
-    if (count($room) === 0) die("La salle que vous cherchez n'existe pas.");
+    if (count($room) === 0) die("La salle que vous cherchez n'existe pas.<br><a href='../index.php'>Retour à la page principale.</a>");
     $room = $room[0];
     
+    include "../php/header2.php"; // Instruction mise ici et pas plus haut pour éviter un affichage cassé
+
     $salle = $room["name"];
     $avgNote = $room["rating"] ? "Note moyenne : ". $room["rating"] . " / 5" : "Pas encore de note.";
     $reviews = $room["reviews"];
@@ -65,7 +64,7 @@
                 $note = $comment["note"] ? " (" . $comment["note"] . "/5)" : "";
                 
                 // Récupération des données de l'utilisateur
-                $r = $conn->prepare("SELECT fname, lname, profile_picture FROM account WHERE id = :id");
+                $r = $conn->prepare("SELECT fname, lname, profile_picture FROM users WHERE id = :id");
                 $r->bindParam(":id", $userID);
                 $r->execute();
                 $user = $r->fetchAll(PDO::FETCH_ASSOC);
@@ -77,7 +76,7 @@
                 } else $user = $user[0];
 
                 $username = $user["fname"] . " " . $user["lname"];
-                $avatarURL = "../php/getUserAvatar.php?id=$userID";
+                $avatarURL = $user["profile_picture"] ? "../php/getUserAvatar.php?id=$userID" : "../images/user.png";
 
                 array_push($commentaires, "
                     <div class='commentaire'>
@@ -108,19 +107,21 @@
 
         foreach($res as $reservation) {
             $userID = $reservation["user_id"];
-            $start = new DateTime($reservation["reservation_start"]); // Peut-être mettre un style particulier aux réservations passées/actuelles/futures
-            $end = new DateTime($reservation["reservation_end"]);
+            $jour = date_formatter($reservation["reservation_start"], true); // Peut-être mettre un style particulier aux réservations passées/actuelles/futures
+            $start = date_formatter($reservation["reservation_start"], false, true);
+            $end = date_formatter($reservation["reservation_end"], false, true);
 
-            $r = $conn->prepare("SELECT fname, lname, profile_picture FROM account WHERE id = :id");
+            $r = $conn->prepare("SELECT fname, lname, profile_picture FROM users WHERE id = :id");
             $r->bindParam(":id", $userID);
             $r->execute();
             $user = $r->fetchAll(PDO::FETCH_ASSOC)[0];
             $username = $user["fname"] . " " . $user["lname"];
-            $avatarURL = "../php/getUserAvatar.php?id=$userID";
+            $avatarURL = $user["profile_picture"] ? "../php/getUserAvatar.php?id=$userID" : "../images/user.png";
 
             array_push($reservations, "<tr>
-                    <td>". $start->format("d/m/Y H:i") . "</td>
-                    <td>". $end->format("d/m/Y H:i") . "</td>
+                    <td>" . $jour . "</td>
+                    <td>" . $start . "</td>
+                    <td>" . $end . "</td>
                     <td><a href='../php/user.php?id=$userID'><img class='img_profil' src='$avatarURL' alt='Photo de profil de $username'>$username</a></td>
                 </tr>");
         }
@@ -186,6 +187,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th><h3>Jour</h3></th>
                             <th><h3>Heure de début</h3></th>
                             <th><h3>Heure de fin</h3></th>
                             <th><h3>Salle</h3></th>

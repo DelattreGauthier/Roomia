@@ -30,7 +30,8 @@
     <?php
     
         if (isset($_SESSION["user"])) { // si un utilisateur est authentifié
-            echo "<a class='logo_profile_container' href='../html/profil.php'><img  class='profil' src='../php/picture.php'></a>";
+            $img = $_SESSION["user"]["profile_picture"] ? "../php/picture.php" : "../images/user.png";
+            echo "<a class='logo_profile_container' href='../html/profil.php'><img  class='profil' src='$img'></a>";
 		} else{
 			echo"<a class='connexion' href='../html/connexion.php'>Connexion</a>";
 		}

@@ -1,5 +1,16 @@
 <?php
     require_once "../php/connexion/connexionbd.php";
+    include "../php/header2.php";
+
+    $req = $conn->prepare("SELECT admin FROM users WHERE id = :id");
+    $req->bindParam(":id", $_SESSION["user"]["id"]);
+    $req->execute();
+    $isAdmin = $req->fetchAll(PDO::FETCH_ASSOC)[0]["admin"];
+
+    if (!isset($isAdmin) || !$isAdmin) {
+        header("Location: ../index.php");
+        exit();
+    }
 ?>
 
 <html>
@@ -12,7 +23,6 @@
     </head>
     
     <body>
-
         <main>
             <?php
                 $requetesalle = $conn->prepare("SELECT * FROM rooms");
@@ -53,32 +63,36 @@
 
         </main>
 
-        <section> <!-- Quelques liens plus ou moins utiles en attendant un meilleur affichage -->
-            <div class="container">
-                <h1>Panel Admin</h1>
-                Liens placés temporairement :
-                <a href="../index.php">Retour à l'accueil</a>
-                <a href="../php/deconnexion.php">Déconnexion</a>
-                <a href="../php/ajouter_salle.php">Ajouter une salle</a>
-                <br>
-            </div>
-        </section>
+        <br><br><br><br><br><br>
+
+        <div class="container">
+            <h1 style="text-align: center">Panel Admin</h1>
+            Liens placés temporairement :
+            <a href="../index.php">Retour à l'accueil</a>
+            <a href="../php/connexion/log_out.php">Déconnexion</a>
+            <a href="../php/ajouter_salle.php">Ajouter une salle</a>
+            <br>
+        </div>
 
         <section>
-            <!-- Ajout d'un formulaire pour exécuter du PHP et afficher le résultat si besoin -->
-            <div class="container">
-                <h2>Exécuter une commande PHP</h2>
-                <form method="post" action="">
-                    <label for="phpCommand">Commande PHP :</label>
-                    <input type="text" id="phpCommand" name="phpCommand" required>
+            <!-- Ajout d'un formulaire pour exécuter du SQL et afficher le résultat si besoin -->
+            <div>
+                <form method="post" action="" style="border: none">
+                    <div>
+                        <h2 style="margin-top: 0; font-family: Arial, sans-serif;">Exécuter une commande SQL</h2>
+                        <input type="text" id="sqlCommand" name="sqlCommand" required 
+                            placeholder="Insérez la commande ici" 
+                            style="width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #000; font-size: 16px;">
+                    </div>
+
                     <button type="submit">Exécuter</button>
                 </form>
+
                 <div class="result">
                     <?php
-                    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["phpCommand"])) {
-                        $command = $_POST["phpCommand"];
+                    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["sqlCommand"])) {
+                        $command = $_POST["sqlCommand"];
                         try {
-                            
                             $req = $conn->prepare($command);
                             if ("SELECT" === strtoupper(substr($command, 0, 6))) {
                                 $req->execute();
@@ -87,11 +101,9 @@
                                 $req->execute();
                                 $result = "Commande exécutée avec succès.";
                             }
-                            
-                            echo "<p>Résultat : " . htmlspecialchars($result) . "</p>"; // array pour SELECT
-                            if (is_array($result)) {
-                                echo "<pre>" . htmlspecialchars(print_r($result, true)) . "</pre>";
-                            }
+
+                            if (is_array($result)) echo "<pre>╭$command<br>|<br>╰-> " . htmlspecialchars(print_r($result, true)) . "</pre>";
+                            else echo "<p>$command => " . htmlspecialchars($result) . "</p>";
                         } catch (Throwable $e) {
                             echo "<p>Erreur : " . htmlspecialchars($e->getMessage()) . "</p>";
                         }
@@ -99,6 +111,32 @@
                     ?>
                 </div>
             </div>
+        </section>
 
+        <section>
+            <h1 style="text-align: center;color: #4a4aff;">On pourrait cliquer sur chaque stat pour avoir le panel admin associé</h1>
+            <div class="stats-grid">
+                <?php
+                    $stats = ["users" => 0, "rooms" => 0, "reservations" => 0, "comments" => 0, "newsletter" => 0];
+
+                    foreach ($stats as $key => $value) {
+                        $r = $conn->prepare("SELECT COUNT(id) n FROM $key");
+                        $r->execute();
+                        $stats[$key] = $r->fetchAll(PDO::FETCH_ASSOC)[0]["n"];
+                    }
+
+                    $r = $conn->prepare("SELECT COUNT(id) n FROM users WHERE admin = 1");
+                    $r->execute();
+                    $stats["admins"] = $r->fetchAll(PDO::FETCH_ASSOC)[0]["n"];
+
+                    foreach ($stats as $key => $value) {
+                        echo '<div class="stats-card">
+                            <div class="stats-label">' . htmlspecialchars($key) . '</div>
+                            <div class="stats-value">' . htmlspecialchars($value) . '</div>
+                        </div>';
+                    }
+                ?>
+            </div>
+        </section>
     </body>
 </html>

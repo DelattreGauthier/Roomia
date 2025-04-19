@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // S'il n'y a pas d'erreurs de validation, on vérifie dans la BDD
     if (empty($errors)) {
-        $stmt = $conn->prepare("SELECT * FROM account WHERE email = :email");
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->bindParam(':email', $vEmail);
         $stmt->execute();
 
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="email">Adresse email :</label>
                     <input type="email" id="email" name="email" placeholder="Votre email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
                     <?php if (isset($errors['email'])): ?>
-                        <p style="color: red;"><?= $errors['email'] ?></p>
+                        <p class="error"><?= $errors['email'] ?></p>
                     <?php endif; ?>
                     </div>
 
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="password">Mot de passe :</label>
                         <input type="password" id="password" name="password" placeholder="Votre mot de passe">
                         <?php if (isset($errors['password'])): ?>
-                        <p style="color: red;"><?= $errors['password'] ?></p>
+                        <p class="error"><?= $errors['password'] ?></p>
                         <?php endif; ?>
                     </div>
 

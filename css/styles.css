@@ -1504,6 +1504,57 @@ div.infos {
     font-style: italic;
 }
 
+/* --------- Panel admin ---------- */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 40px auto;
+    max-width: 1000px;
+    font-family: Arial, sans-serif;
+    padding: 0 20px;
+}
+
+.stats-card {
+    background-color: #f5f5fc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.stats-card:hover {
+    transform: scale(1.02);
+}
+
+.stats-label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.stats-value {
+    font-size: 32px;
+    font-weight: bold;
+    color: #4a4aff;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /*------------- Footer -------------*/
 
 footer {
@@ -2334,7 +2385,7 @@ footer .btn-footer:hover {
     border : 1px solid var(--rich-black);
 }
 
-/* Messages d'erreur pour l'ajout d'une salle où toutes les classes étaient utilisées sans être définies*/
+/* ----- Aucune idée du nom de cette catégorie ----- */
 .error {
     color: red;
 }

@@ -8,7 +8,7 @@
         <link rel="icon" href="images/Logo_Roomia.png" type="image/x-icon">
     </head>
     <body>
-        <?php include 'php/header1.php'; ?>
+        <?php include "php/header1.php"; ?>
            
         <main id="page_bienvenue">
                 <h1 class="texte_gauche">Roomia, c'est quoi ?</h1>
@@ -21,6 +21,6 @@
                 <h5 class="texte_gauche2">Roomia est conçu pour évoluer avec vos besoins. À terme, nous souhaitons intégrer des fonctionnalités comme la réservation en ligne ou l’affichage des disponibilités des salles en temps réel. Nous croyons que ce projet peut non seulement simplifier l’organisation quotidienne, mais aussi renforcer l’efficacité et la collaboration au sein de Junia. Vos retours seront essentiels pour améliorer continuellement Roomia et en faire un outil incontournable pour tous.</h5>
                 <img class="img_droite2" src="images/Ns_horizontal_1.JPG" alt="Bâtiment NS">
         </main>
-        <?php include 'php/footer1.php'; ?>
+        <?php include "php/footer1.php"; ?>
     </body>
 </html>

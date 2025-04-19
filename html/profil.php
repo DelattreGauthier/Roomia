@@ -1,5 +1,5 @@
 <?php
-    require_once "../php/connexion/connexionbd.php"
+    require_once "../php/connexion/connexionbd.php";
 ?>
 
 <!DOCTYPE html>
@@ -13,16 +13,25 @@
     <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
 </head>
 <body>
-    <?php include '../php/header2.php' ?>
+    <?php include "../php/header2.php"; ?>
     <main id="profil">
-        <h1>Mon Profil</h1>
+
+        <?php
+            $req = $conn->prepare("SELECT admin FROM users WHERE id = :id");
+            $req->bindParam(":id", $_SESSION["user"]["id"]);
+            $req->execute();
+            $isAdmin = $req->fetchAll(PDO::FETCH_ASSOC)[0]["admin"];
+
+            echo "<h1>Mon Profil" . ($isAdmin ? "   <a href='panel_admin.php'>Fais pas le fou</a>" : "") . "</h1>";
+        ?>
         <h1>Mes réservations</h1>
 
         <!-- Les réservations doivent être gérées de façon dynamique -->
         <!--  -->
         <div class="profile_container">
             <?php
-            echo "<img class='img_profil' src='../php/picture.php' alt='Photo de profil'>";
+            $img = $_SESSION["user"]["profile_picture"] ? "../php/picture.php" : "../images/user.png";
+            echo "<img class='img_profil' src='$img' alt='Photo de profil'>";
             echo "<h2>".$_SESSION['user']['fname']." ".$_SESSION['user']['lname']."</h2>";
             ?>
                 <a href="../php/connexion/log_out.php" class="btn-deconnexion">SE DECONNECTER</a>
@@ -117,7 +126,7 @@
         ?>
 
     </main>
-<?php include '../php/footer2.php' ?>
+<?php include "../php/footer2.php"; ?>
 </body>
 </html>
 

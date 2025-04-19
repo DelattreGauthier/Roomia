@@ -3,17 +3,17 @@
     require_once "connexion/connexionbd.php";
 
     $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
-    if ($id <= 0) die("Le profil que vous cherchez n'existe pas.");
+    if ($id <= 0) die("Le profil que vous cherchez n'existe pas.<br><a href='../index.php'>Retour à la page principale.</a>");
 
-    $req = $conn->prepare("SELECT * FROM account WHERE id = :id");
+    $req = $conn->prepare("SELECT * FROM users WHERE id = :id");
     $req->bindParam(":id", $id);
     $req->execute();
     $user = $req->fetchAll(PDO::FETCH_ASSOC);
-    if (count($user) === 0) die("L'utilisateur que vous cherchez n'existe pas.");
+    if (count($user) === 0) die("Le profil que vous cherchez n'existe pas.<br><a href='../index.php'>Retour à la page principale.</a>");
     $user = $user[0];
 
     $username = $user["fname"] . " " . $user["lname"];
-    $avatarURL = "getUserAvatar.php?id=$id";
+    $avatarURL = $user["profile_picture"] ? "getUserAvatar.php?id=$id" : "../images/user.png";
 
     // Récupération de l'historique des réservations'
     $req = $conn->prepare("SELECT room_id, reservation_start, reservation_end FROM reservations WHERE user_id = :id ORDER BY reservation_start DESC");
@@ -29,8 +29,9 @@
 
         foreach($res as $reservation) {
             $room_id = $reservation["room_id"];
-            $start = new DateTime($reservation["reservation_start"]); // Peut-être mettre un style particulier aux réservations passées/actuelles/futures
-            $end = new DateTime($reservation["reservation_end"]);
+            $jour = date_formatter($reservation["reservation_start"], true); // Peut-être mettre un style particulier aux réservations passées/actuelles/futures
+            $start = date_formatter($reservation["reservation_start"], false, true);
+            $end = date_formatter($reservation["reservation_end"], false, true);
 
             $r = $conn->prepare("SELECT rooms.name, batiments.name AS batiment_name FROM rooms JOIN batiments ON batiments.id = rooms.batiment_id WHERE rooms.id = :id");
             $r->bindParam(":id", $room_id);
@@ -40,8 +41,9 @@
             $batiment = $names["batiment_name"];
 
             array_push($reservations, "<tr>
-                    <td>". $start->format("d/m/Y H:i") . "</td>
-                    <td>". $end->format("d/m/Y H:i") . "</td>
+                    <td>" . $jour . "</td>
+                    <td>" . $start . "</td>
+                    <td>" . $end . "</td>
                     <td><a href='../html/salle.php?id=$room_id'>Salle $batiment $salle</a></td>
                 </tr>");
         }
@@ -64,7 +66,8 @@
         foreach ($comments as $comment) {
             $room_id = $comment["room_id"];
             $text = $comment["comment"];
-            $note = $comment["note"] ? $comment["note"] . "/5" : "Pas de note.";
+            $note = $comment["note"] ? " (" . $comment["note"] . "/5)" : "";
+            $date = date_formatter($comment["created_at"]);
 
             $r = $conn->prepare("SELECT rooms.name, batiments.name AS batiment_name FROM rooms JOIN batiments ON batiments.id = rooms.batiment_id WHERE rooms.id = :id");
             $r->bindParam(":id", $room_id);
@@ -77,7 +80,7 @@
                 <div class='commentaire'>
                     <div class='avatar-nom'>
                         <a href='user.php?id=$id'><img src='$avatarURL' alt='Avatar de $username' class='avatar'></a>
-                        <h5>$username ($note)</h5>
+                        <h5>$username$note</h5> <span style='font-size: 0.7rem;font-style: italic;color: grey'>$date</span>
                     </div>
                     <pre><a href='../html/salle.php?id=$room_id'>$batiment $salle</a> : $text</pre>
                 </div>
@@ -109,6 +112,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th><h3>Jour</h3></th>
                         <th><h3>Heure de début</h3></th>
                         <th><h3>Heure de fin</h3></th>
                         <th><h3>Salle</h3></th>
