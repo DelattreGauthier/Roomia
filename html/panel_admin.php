@@ -12,6 +12,10 @@
         header("Location: ../index.php");
         exit();
     }
+
+    if (!isset($_GET["bd"]) || !in_array($_GET["bd"], ["users", "rooms", "reservations", "comments", "newsletter", "admins"])) {
+        $_GET["bd"] = "users";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +56,7 @@
                         }
 
                         if (is_array($result)) {
-                            echo "<pre>" . htmlspecialchars(print_r($result, true)) . "</pre>";
+                            echo "<pre>╭ " . htmlspecialchars($command) . "\n|\n╰ " . htmlspecialchars(print_r($result, true)) . "</pre>";
                         } else {
                             echo "<p>" . htmlspecialchars($command) . " => " . htmlspecialchars($result) . "</p>";
                         }
@@ -66,6 +70,10 @@
         <section>
             <div class="stats-grid">
                 <?php
+                    
+                // Définir la table à afficher
+                $bd = isset($_GET['bd']) ? ($_GET['bd']!="admins" ? $_GET['bd'] : "users") : "users";
+                
                 $stats = ["users" => 0, "rooms" => 0, "reservations" => 0, "comments" => 0, "newsletter" => 0];
 
                 foreach ($stats as $key => $value) {
@@ -97,8 +105,6 @@
         ?>    
 
         <?php
-            // Définir la table à afficher
-            $bd = isset($_GET['bd']) ? ($_GET['bd']!="admins" ? $_GET['bd'] : "users") : "users";
 
             // Récupération des colonnes de la table
             $requetetab = $conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = :table ");
@@ -121,7 +127,7 @@
             echo "</tr></thead><tbody>";
 
             // Récupération des données de la table
-            $admincondition = ($_GET['bd']=="admins") ? "WHERE admin=1;" : "";
+            $admincondition = ($_GET["bd"]=="admins") ? "WHERE admin=1;" : "";
             $requetesalle = $conn->prepare("SELECT * FROM $bd ".$admincondition);
             $requetesalle->execute();
             $elements = $requetesalle->fetchAll(PDO::FETCH_ASSOC);
@@ -133,10 +139,10 @@
                         $img = $value ? "../php/getSalleImg.php?id=" . $elt["id"] : "../images/salle.jpg";
                         echo "<td><img src='" . htmlspecialchars($img) . "' alt='Image'></td>";
                     } elseif ($key === "profile_picture") {
-                        $img = $value ? "../php/getUserAvatar.php?id=" . $elt["id"] : "../images/user.jpg";
+                        $img = $value ? "../php/getUserAvatar.php?id=" . $elt["id"] : "../images/user.png";
                         echo "<td><img src='" . htmlspecialchars($img) . "' alt='Avatar'></td>";
                     } elseif ($key !== "password" && $key!="admin") {
-                        echo "<td>" . htmlspecialchars($value) . "</td>";
+                        echo "<td>" . htmlspecialchars(($key === "note" && $value === 0) ? "/" : $value ?? ($key === "comment" ? "Aucun commentaire." : "")) . "</td>";
                     }
                 }
                 if ($bd === 'rooms') {

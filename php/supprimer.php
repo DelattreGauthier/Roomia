@@ -17,6 +17,11 @@ if ($thing && $id){
 
 }
 
-header("Location: ../html/panel_admin.php?bd=".$thing);
+if (isset($_GET['profil'])){
+    header("Location: ../html/profil.php");
+}
+else{
+    header("Location: ../html/panel_admin.php?bd=".$thing);
+}
 
 ?>

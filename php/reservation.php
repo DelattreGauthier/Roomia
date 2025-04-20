@@ -61,7 +61,7 @@
     }
 
     // Vérification d'une réservation existante pour l'utilisateur
-    $req = $conn->prepare("SELECT id, reservation_start, reservation_end FROM reservations WHERE user_id = ? AND room_id = ? AND NOT (reservation_end <= ? OR reservation_start >= ?)");
+    $req = $conn->prepare("SELECT id, reservation_start, reservation_end FROM reservations WHERE user_id = ? AND room_id = ? AND NOT (reservation_end < ? OR reservation_start > ?)");
     $req->execute([$user_id, $room_id, $start->format("Y-m-d H:i:s"), $end->format("Y-m-d H:i:s")]);
     $own = $req->fetch(PDO::FETCH_ASSOC);
 
@@ -76,7 +76,7 @@
 
         if ($totalDuration <= 7200) {
             $req = $conn->prepare("UPDATE reservations SET reservation_start = ?, reservation_end = ? WHERE id = ?");
-            $req->execute([$newStart->format("Y-m-d H:i:s"), $newEnd->format("Y-m-d H:i:s")]);
+            $req->execute([$newStart->format("Y-m-d H:i:s"), $newEnd->format("Y-m-d H:i:s"), $own['id']]);
             $temps = gmdate("H\hi", $totalDuration);
             $_SESSION["flash_success"] = "Vous avez bien étendu votre réservation de $temps.";
             header("Location: $location");

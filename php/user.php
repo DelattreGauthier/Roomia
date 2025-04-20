@@ -104,8 +104,8 @@
                     echo '<div class="comment">';
                     echo '<h3>Commentaire sur la Salle ' . htmlspecialchars($comment['room_name']) . ' :</h3>';
                     echo '<p>' . $date . '</p>';
-                    echo '<p>' . nl2br(htmlspecialchars($comment['comment'])) . '</p>';
-                    echo '<p>Note donnée : ' . htmlspecialchars($comment['note']) . '/5</p>';
+                    echo '<p>' . nl2br(htmlspecialchars($comment["comment"] ?? "")) . '</p>';
+                    echo '<p>Note donnée : ' . htmlspecialchars($comment["note"] == 0 ? "aucune" : $comment["note"] . "/5") . '</p>';
                     echo '</div>';
                 }
             } else {

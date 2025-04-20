@@ -71,7 +71,8 @@
                 if (count($user) === 0) {
                     $user = [
                         "fname" => "Utilisateur", 
-                        "lname" => "anonyme"
+                        "lname" => "anonyme", 
+                        "profile_picture" => NULL
                     ];
                 } else $user = $user[0];
 
@@ -119,10 +120,10 @@
             $avatarURL = $user["profile_picture"] ? "../php/getUserAvatar.php?id=$userID" : "../images/user.png";
 
             array_push($reservations, "<tr>
-                    <td>" . $jour . "</td>
-                    <td>" . $start . "</td>
-                    <td>" . $end . "</td>
-                    <td><a href='../php/user.php?id=$userID'><img class='img_profil' src='$avatarURL' alt='Photo de profil de $username'>$username</a></td>
+                    <td>$jour</td>
+                    <td>$start</td>
+                    <td>$end</td>
+                    <td><a href='../php/user.php?id=$userID'><img class='img_profil' src='$avatarURL' alt='Photo de profil de $username'><p>$username</p></a></td>
                 </tr>");
         }
 
@@ -169,18 +170,23 @@
                     unset($_SESSION["flash_success"]);
                 }
             ?>
-            <h1 class="dispo">Horaires de disponibilité (Dans <?= $days ?> jours)</h1>
+            <h1 class="dispo">Horaires de disponibilité (<?php
+                $date = new DateTime();
+                $date->modify("+$days days"); // Les jours négatifs ne sont pas pris en compte
+                $date = date_formatter($date->format("Y-m-d H:i:s"), true);
+                echo $date;
+                
+                ?>)</h1>
             <div class="salle-dispo-container">
                 <ul>
                     <?= gen_horaires("../php/reservation.php", $room_id, 8, 20, 1, $user_id, $days); ?>
                 </ul>
             </div>
             <nav class="days-nav">
-                <a href="?id=<?= $room_id ?>&days=<?= $days - 1 ?>">« Jour précédent</a>
-                <a href="?id=<?= $room_id ?>&days=0">Aujourd'hui</a>
-                <a href="?id=<?= $room_id ?>&days=<?= $days + 1 ?>">Jour suivant »</a>
+                <a href="?id=<?= $room_id ?>&days=<?= $days > 0 ? $days - 1 : 0?>" class="day-button">« Jour précédent</a>
+                <a href="?id=<?= $room_id ?>&days=0" class="day-button today">Aujourd'hui</a>
+                <a href="?id=<?= $room_id ?>&days=<?= $days + 1 ?>" class="day-button">Jour suivant »</a>
             </nav>
-
             <h1 class="historique_reservations" style="text-align: center">Historique des réservations</h1>
             <div class="reservation_container">
                 <?php if (count($res) > 0): ?>

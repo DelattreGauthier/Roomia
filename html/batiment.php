@@ -23,20 +23,21 @@
     $i = 0;
     foreach ($rooms as $room) {
         $i++;
-        if ($i === 10) break;
+        if ($i === 46) break;   // Limite de 45 salles
         $id = $room["id"];
         $salle = $room["name"];
         $image = $room["image"];
         $img = $image ? "../php/getSalleImg.php?id=$id" : "../images/salle.jpg";
-        $horaires = _gen_horaires("#");
+        $horaires = preview_horaires($id);
+        $days = date("G") > 20 ? 1 : 0; // Si l'heure est supérieure à 20h, on affiche le jour suivant
 
         $salles[] = "<!-- Salle $i -->
                     <div class='salle'>
                         <a href='salle.php?id=$id' class='nom-salle'>Salle $salle</a>
-                        <div class='img-container'><a href='salle.php?id=$id'><img src='$img' alt='Salle $salle'></a></div>
+                        <div class='img-container'><a href='salle.php?id=$id&days=$days'><img src='$img' alt='Salle $salle'></a></div>
                         <!-- Liste des équipements de la salle -->
                         <div class='infos'>
-                            <a href='salle.php?id=$id'>Plus d'informations...</a>
+                            <a href='salle.php?id=$id&days=$days'>Plus d'informations...</a>
                         </div>
                         
                         <!-- Conteneur des horaires pour la salle -->
@@ -47,22 +48,23 @@
                         </div>
                     </div>";
     }
-    $salles = implode("\n                        ", $salles);
+    $salles = implode("\n", $salles);
 
     // Génération du code pour les amphithéâtres
     $amphis = [];
-    for ($i = 1; $i <= 3; $i++) {
+    for ($i = 1; $i <= 15; $i++) {   // Limité à 15 amphithéâtres pour la démo
         $id = 0;
-        $horaires = _gen_horaires("#");
+        $horaires = preview_horaires($id);
         $img = "../images/AmphiType.jpg";
+        $days = date("G") > 20 ? 1 : 0;
 
         $amphis[] = "<!-- Amphithéâtre $i -->
                     <div class='salle'>
                         <a href='salle.php?id=$id' class='nom-salle'>Amphithéâtre $i</a>
-                        <div class='img-container'><a href='salle.php?id=$id'><img src='$img' alt='Amphithéâtre $i'></a></div>
+                        <div class='img-container'><a href='salle.php?id=$id&days=$days'><img src='$img' alt='Amphithéâtre $i'></a></div>
                         <!-- Liste des équipements de l'amphithéâtre -->
                         <div class='infos'>
-                            <a href='salle.php?id=$id'>Plus d'informations...</a>
+                            <a href='salle.php?id=$id&days=$days'>Plus d'informations...</a>
                         </div>
                         
                         <!-- Conteneur des horaires pour l'amphithéâtre -->
@@ -73,7 +75,7 @@
                         </div>
                     </div>";
     }
-    $amphis = implode("\n                        ", $amphis);
+    $amphis = implode("\n", $amphis);
 ?>
 
 <!DOCTYPE html>

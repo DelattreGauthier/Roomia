@@ -5,6 +5,7 @@
 }
 
 :root{
+    --blue-links:#1e88e5;
     --white-background:#e8e7f5;
     --silver-blue:#748CAB;
     --gray-blue:#3E5C76;
@@ -702,7 +703,6 @@ input[type="radio"]:checked + .radio-label {
 .btn-submit, .btn-commentaire {
     background-color: var(--silver-blue);
     font-family: 'Satoshi-Bold', sans-serif;
-    color: var(--rich-black);
     padding: 10px 50px;
     border-radius: 15px;
     font-size: 1em;
@@ -963,8 +963,8 @@ input[type="radio"]:checked + .radio-label {
     -o-transition: max-height 0.3s ease, opacity 0.3s ease;
     transition: max-height 0.3s ease, opacity 0.3s ease;
     width: 100%;
+    border-radius: 8p;
     z-index: 10;
-    border-radius: 8px;
 }
 
 .salle:hover .horaires-container {
@@ -1041,19 +1041,16 @@ div.infos {
 
 .horaires-container ul .horaire {
     background-color: var(--white-background);
-    border-bottom: 1px solid var(--white-background);
-    cursor: pointer;
-    padding: 10px;
+    cursor: default;
     text-decoration: none;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
-.horaires-container ul .horaire:hover {
-    background-color: var(--salle-hover-bg);
-}
 
 /* Style du bouton Réserver */
-.reserver {
-    background-color: #28a745;
+.reserver, .btn-annuler, .btn-reserved{
+    width: 5rem;
     border: none;
     border-radius: 4px;
     color: #fff;
@@ -1065,8 +1062,10 @@ div.infos {
     -webkit-transition: background-color 0.3s ease;
     -o-transition: background-color 0.3s ease;
     transition: background-color 0.3s ease;
-    position : absolute;
-    right:3%;
+}
+
+.reserver{
+    background-color: #28a745;
 }
 
 .form-horaires {
@@ -1076,6 +1075,26 @@ div.infos {
 
 .reserver:hover {
     background-color: #218838;
+}
+
+.sallelibre, .sallereserve{
+    width: 4.5rem;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.sallelibre{
+    background-color: #28a745;
+}
+
+.sallereserve{
+    background-color: red;
 }
 
 /* Media queries pour la responsivité */
@@ -1322,6 +1341,7 @@ div.infos {
             word-break: break-word; /* Casse les mots longs */
             font-family: 'Satoshi-Regular', sans-serif;
             font-size: large;
+            margin-top:0px;
         }
 
         #salles .commentaire-connexion{
@@ -1391,7 +1411,7 @@ div.infos {
 
     #salles .reservation_container a{
         text-decoration:none;
-        color:var(--silver-blue);
+        color:#1c77c7;
         font-weight: bold;
     }
 
@@ -1457,10 +1477,33 @@ div.infos {
     max-height: auto;
     grid-template-rows: auto auto;
     row-gap: 20px;
-    max-height: 360px;
+    position : relative;
 }
 
+#profil .camera_icon{
+    grid-row:1/2;
+    grid-column:1/2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+}
 
+.profile_container label:hover .camera_icon {
+    opacity: 1 !important;
+}
+
+.profile_container label{
+    border-radius: 50%;
+    width: 200px;
+    margin: auto !important;
+}
 
 #profil .reservation_container table{
     width:auto;
@@ -1479,10 +1522,23 @@ div.infos {
     font-weight: 550;
 }
 
-#profil .reservation_container td a:hover{
-    color: var(--horaire-border);
-    text-decoration: underline;
+#profil .reservation_container td a:hover, #salles .reservation_container td a p:hover{
+    color: var(--gray-blue);
+    text-decoration: none;
     transition-duration: 0.1s;
+}
+
+#profil .profile_container form{
+    border:none;
+    padding:0px;
+}
+
+#profil .profile_container form label{
+    margin:0px;
+}
+
+#salles .reservation_container td a p{
+    margin:0; 
 }
 
 .reservation_container th, .reservation_container td {
@@ -1534,6 +1590,11 @@ div.infos {
 
 #profil .comment p:nth-of-type(3), #profil .comment p:first-of-type{
     font-style: italic;
+}
+
+#profil .profile_container .img_profil:hover{
+    filter: brightness(0.6);
+    transition-duration: 0.2s;
 }
 
 /*------------- Footer -------------*/
@@ -2078,7 +2139,7 @@ footer .btn-footer:hover {
     }
 
     #salles .days-nav{
-        grid-row: 5/6 !important;
+        grid-row: 5/6 ;
     }
 
     #salles .salle-dispo-container{
@@ -2345,13 +2406,19 @@ footer .btn-footer:hover {
     align-items: center;
     gap: 10px;
     flex-wrap: nowrap;
+    margin-bottom: 18px;
+}
+
+.avatar-nom h3{
+    vertical-align: middle;
 }
 
 .avatar-nom span{
     font-size: 0.9rem;
     font-style: italic;
-    color: var(--silver-blue);
-    margin-top:5px;
+    color: var(--blue-links);
+    font-family: 'Satoshi-Regular', sans-serif;
+    vertical-align: bottom;
 
 }
 
@@ -2359,8 +2426,7 @@ footer .btn-footer:hover {
     width: 2.2em !important;
     height: 2.2em !important;
     min-width: 0 !important;
-    max-width: 100% !important;
-    min-height: 0 !important;
+    aspect-ratio: 1/1;
     object-fit: cover;
     display: block;
     border-radius: 50%;
@@ -2375,6 +2441,7 @@ footer .btn-footer:hover {
     opacity: 0.8;
     transform: scale(1.1);
 }
+
 
 
 
@@ -2590,53 +2657,8 @@ footer .btn-footer:hover {
     
 }
 
-/* ------------ File input ------------ */
 
-input[type=file] {
-    color: #222245;
-    padding: 8px;
-    background-color: #fff;
-    border: 1px solid #222245;
-  }
-  
-  input[type=file]:focus {
-    outline: 2px dashed #222245;
-    outline-offset: 2px;
-  }
-  
-  input[type=file]::file-selector-button {
-    margin-right: 8px;
-    border: none;
-    background: #222245;
-    padding: 8px 12px;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  input[type=file]::file-selector-button:hover {
-    background: #4747b8;
-  }
-  
-  /* Les styles du dark mode */
-  @media (prefers-color-scheme: dark) {
-    input[type=file] {
-      color: #fff;
-      border: 1px solid #35356e;
-      background-color: #1e1e3f;
-    }
-  
-    input[type=file]:focus {
-      outline: 2px dashed #7c7cc0;
-      outline-offset: 2px;
-    }
-  
-    input[type=file]::file-selector-button {
-      background: #35356e;
-      color: #fff;
-    }
-  }
-
-  /* ------------ Input File ------------ */
+/* ------------ Input File ------------ */
 
   input[type="file"] {
     width: 100%;
@@ -2684,6 +2706,8 @@ input[type=file] {
     justify-content: space-between;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
   }
+
+  
   
   .horaire.libre {
     background: #e8f5e9;
@@ -2698,41 +2722,66 @@ input[type=file] {
     background: #eceff1;
     color: #78909c;
   }
-  
-  .btn-reserver,
-  .btn-annuler {
-    padding: .3rem .6rem;
-    border: none;
-    border-radius: .25rem;
-    cursor: pointer;
+
+  .btn-reserved:hover {
+    background: #cf201d;
   }
+
+  .btn-annuler:hover{
+    background: #ff6f20;
+  }
+
   .btn-reserver { background: #43a047; color: #fff; }
-  .btn-annuler  { background: #e53935; color: #fff; }
+  .btn-reserved { background: #e53935; color: #fff; }
+  .btn-annuler { background: #ff9800; color: #fff; }
   
   #salles .days-nav {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
     font-family: 'Satoshi-Regular', sans-serif;
-    grid-row: 4 / 5;
     grid-column: 1 / 4;
-    display:block;
+    padding: 1rem 0;
     width: 100%;
-    
-  }
-  #salles .day-nav a {
+}
+
+#salles .days-nav .day-button {
+    padding: 0.6rem 1.2rem;
     text-decoration: none;
-    margin: 0 .5rem;
-    color: #1e88e5;
-  }
-  
+    background-color: var(--silver-blue);
+    color: var(--white-background);
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+#salles .days-nav .day-button:hover {
+    background-color: var(--gray-blue);
+}
+
+#salles .days-nav .day-button.today {
+    background-color: var(--horaire-border);
+    color: white;
+}
+
+#salles .days-nav .day-button.today:hover {
+    background-color: rgb(216, 91, 91);
+}
+
   .popup {
     position: fixed;
-    top: 1rem;
+    top: 2rem;
     left: 50%;
     transform: translateX(-50%);
     padding: .8rem 1.2rem;
     border-radius: .3rem;
     color: #fff;
+    font-family: 'Satoshi-Regular', sans-serif;
     font-weight: bold;
+    letter-spacing: 0.05em;
+    text-align: center;
     z-index: 1000;
     -webkit-animation: fadeOut 1s forwards;
             animation: fadeOut 1s forwards; /* Animation pour disparaître après 3 secondes */

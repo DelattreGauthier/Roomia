@@ -4,6 +4,7 @@ require_once '../php/connexion/connexionbd.php'; // Connexion à la BDD
 
 $errors = [];
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les données du formulaire
     $vEmail = nettoyer_donnees($_POST['email'] ?? '');
@@ -74,6 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         <?php include '../php/header2.php' ?>
         
+        <?php
+        if (isset($_SESSION['user'])){
+            header('Location: ../index.php');
+        }
+        ?>
+
         <main id="page_connexion">
 
             <form class="form-container" method="POST" enctype="multipart/form-data">

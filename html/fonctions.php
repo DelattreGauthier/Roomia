@@ -17,15 +17,55 @@ function valider_photo($photo) {
     $allowed_types = ['image/jpeg', 'image/png', 'image/jpg'];
     return in_array($photo['type'], $allowed_types) && $photo['size'] < 1000000;
 }
-function _gen_horaires(string $path, int $start = 8, int $end = 18, int $step = 1): string {
+function preview_horaires(int $salle_id, int $start = 8, int $end = 20, int $step = 1): string {
+    if ($end < $start) [$start, $end] = [$end, $start];
+    if ($step < 1 || $step > $end - $start) $step = 1;
+    if ($end > 20) $end = 20;
+    if ($start < 8) $start = 8;
+
+    $conn = new PDO("mysql:host=localhost;dbname=projet25roomiabd", "root", "root");
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+
     $horaires = array();
-    for ($h = $start; $h < $end; $h += $step) {
+    $H = date("G");
+    $day = date("Y-m-d"); // Modification pour utiliser le format complet Y-m-d
+    
+    if ($H >= $end) {
+        $H = $start;
+        $day = date("Y-m-d", strtotime("+1 day"));
+    }
+
+    // Récupérer toutes les réservations pour la salle et le jour donné
+    $req = $conn->prepare("SELECT * FROM reservations 
+                          WHERE room_id = ? 
+                          AND DATE(reservation_start) = ?");
+    $req->execute([$salle_id, $day]);
+    $reservations = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    for ($h = $start < $H ? $H : $start; $h < $end; $h += $step) {
+        $heure_debut = str_pad($h, 2, '0', STR_PAD_LEFT) . ':00:00';
+        $heure_fin = str_pad($h + 1, 2, '0', STR_PAD_LEFT) . ':00:00';
+        
+        // Vérifier si ce créneau est réservé
+        $est_reserve = false;
+        foreach ($reservations as $reservation) {
+            $debut_res = date("H:i:s", strtotime($reservation['reservation_start']));
+            $fin_res = date("H:i:s", strtotime($reservation['reservation_end']));
+            
+            if (!($heure_fin <= $debut_res || $heure_debut >= $fin_res)) {
+                $est_reserve = true;
+                break;
+            }
+        }
+
+        $statut = $est_reserve ? '<div class="sallereserve">Réservé</div>' 
+                              : '<div class="sallelibre">Libre</div>';
+        
         $horaire = '<li class="horaire"><h5>' .
             str_pad($h, 2, '0', STR_PAD_LEFT) . ':00 - ' .
-            str_pad($h + 1, 2, '0', STR_PAD_LEFT) . ':00 : Libre</h5>' .
-            '<form action="' . htmlspecialchars($path) . '" method="get" class="form-horaires">' .
-            '<button type="submit" class="reserver">Réserver</button>' .
-            '</form></li>';
+            str_pad($h + 1, 2, '0', STR_PAD_LEFT) . ':00</h5>' .
+            $statut .
+            '</li>';
         $horaires[] = $horaire;
     }
     return implode("\n                    ", $horaires);
@@ -131,11 +171,13 @@ function gen_horaires($path, $room_id, $start = 8, $end = 18, $step = 1, $user_i
             $res = $slots[$h];
             if ($user_id !== null && $res["user_id"] == $user_id) {
                 $label = "Annuler la réservation";
-                $form_action = "../php/annulation_reservation.php";
+                $form_action = "../php/annulation_reservation.php?hstart=".$slot_start->format('H');
                 $button_label = "Annuler";
-                $button_class = "annuler";
+                $button_class = "btn-annuler";
             } else {
                 $label = "Réservé";
+                $button_label = "Réservé";
+                $button_class = "btn-reserved";
                 $is_disabled = true;
             }
         }
@@ -143,6 +185,9 @@ function gen_horaires($path, $room_id, $start = 8, $end = 18, $step = 1, $user_i
         $form = '<form action="' . $form_action . '" method="' . $method . '" class="form-horaires">';
         $form .= '<input type="hidden" name="room_id" value="' . $room_id . '">';
         $form .= '<input type="hidden" name="start" value="' . $slot_start->format('Y-m-d H:i:s') . '">';
+        if ($button_label === "Annuler") {
+            $form .= '<input type="hidden" name="reservation_id" value="' . $res["id"] . '">';
+        }
         $form .= '<input type="hidden" name="end" value="' . $slot_end->format('Y-m-d H:i:s') . '">';
         $form .= '<button type="submit" class="' . $button_class . '"' . ($is_disabled ? ' disabled' : '') . '>' . $button_label . '</button>';
         $form .= '</form>';

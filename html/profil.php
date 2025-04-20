@@ -30,13 +30,26 @@
         <!-- Les réservations doivent être gérées de façon dynamique -->
         <!--  -->
         <div class="profile_container">
-            <?php
-            $img = $_SESSION["user"]["profile_picture"] ? "../php/picture.php" : "../images/user.png";
-            echo "<img class='img_profil' src='$img' alt='Photo de profil'>";
-            echo "<h2>".$_SESSION['user']['fname']." ".$_SESSION['user']['lname']."</h2>";
-            ?>
+            <form action="../php/update_profile_picture.php" method="POST" enctype="multipart/form-data">
+                <label for="profile_picture" style="cursor: pointer;">
+                    <img class="img_profil" src="<?= $img ?>" alt="Photo de profil">
+                    <img class="camera_icon" src="../images/camera.png" alt="Modifier la photo">
+                </label>
+                <input type="file" id="profile_picture" name="profile_picture" accept="image/*" style="display: none;" onchange="this.form.submit()">
+            </form>
+            <h2><?= $_SESSION['user']['fname'] . " " . $_SESSION['user']['lname'] ?></h2>
             <a href="../php/connexion/log_out.php" class="btn-deconnexion">SE DECONNECTER</a>
             <?= $isAdmin ? '<a href="panel_admin.php?bd=users" style="margin-top:-10px;" class="btn-deconnexion">PANEL ADMIN</a>' : '' ?>
+            <?php
+            if (!empty($_SESSION['flash_error'])) {
+                echo "<div class='popup error'>" . $_SESSION['flash_error'] . "</div>";
+                unset($_SESSION['flash_error']);
+            }
+            if (!empty($_SESSION['flash_success'])) {
+                echo "<div class='popup success'>" . $_SESSION['flash_success'] . "</div>";
+                unset($_SESSION['flash_success']);
+            }
+            ?>
         </div>
         <div class="reservation_container">
             <table>
@@ -46,13 +59,14 @@
                         <th><h3>Heure de début</h3></th>
                         <th><h3>Heure de fin</h3></th>
                         <th><h3>Salle</h3></th>
+                        <th><h3>Supprimer</h3></th>
                     </tr>
                 </thead>
 
 
                 <?php 
 
-                $stmt = $conn->prepare("SELECT * FROM reservations WHERE user_id = :id");
+                $stmt = $conn->prepare("SELECT * FROM reservations WHERE user_id = :id ORDER BY reservation_start ASC");
                 $stmt->bindParam(':id', $_SESSION['user']['id']);
                 $stmt->execute();
 
@@ -88,10 +102,11 @@
                         $building_name = $stmt2->fetchColumn();
 
                         echo "<td><a href='salle.php?id=".$reservation['room_id']."'>".$building_name." ".$room_name."</a></td>";
+                        echo "<td><a href='../php/supprimer.php?thing=reservations&id=" . $reservation['id'] . "&profil=1'>Supprimer</a></td>";
 
                     }
                 } else {
-                    echo "<tr><td colspan='4'>Aucune réservation trouvée.</td></tr>";
+                    echo "<tr><td colspan='5'>Aucune réservation trouvée.</td></tr>";
                 }
                 ?>
             </table>
@@ -118,8 +133,8 @@
                 echo '<div class="comment">';
                 echo '<h3>Commentaire sur la Salle '.htmlspecialchars($comment['room_name']).' :</h3>';
                 echo '<p>'.$date.'</p>'; // Ajout de la date
-                echo '<p>'.nl2br(htmlspecialchars($comment['comment'])).'</p>';
-                echo '<p>Note donnée : '.htmlspecialchars($comment['note']).'/5</p>';
+                echo '<p>' . nl2br(htmlspecialchars($comment["comment"] ?? "")) . '</p>';
+                echo '<p>Note donnée : ' . htmlspecialchars($comment["note"] == 0 ? "aucune" : $comment["note"] . "/5") . '</p>';
                 echo '</div>';
             }
         } else {
