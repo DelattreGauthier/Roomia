@@ -24,7 +24,7 @@ function preview_horaires(int $salle_id, int $start = 8, int $end = 20, int $ste
     if ($start < 8) $start = 8;
 
     $conn = new PDO("mysql:host=localhost;dbname=projet25roomiabd", "root", "root");
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $horaires = array();
     $H = date("G");

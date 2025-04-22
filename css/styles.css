@@ -1478,6 +1478,7 @@ div.infos {
     grid-template-rows: auto auto;
     row-gap: 20px;
     position : relative;
+    max-height: 380px !important;
 }
 
 #profil .camera_icon{
