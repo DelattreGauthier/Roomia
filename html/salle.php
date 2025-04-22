@@ -2,8 +2,12 @@
 
     // HTML et CSS à revoir pour la zone commentaires/réservations
 
-    $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
-    if ($id <= 0) die("La salle que vous cherchez n'existe pas.<br><a href='../index.php'>Retour à la page principale.</a>");
+    if (!isset($_GET["id"]) || !is_numeric($_GET["id"]) || (int)$_GET["id"] <= 0) {
+        // Redirection douce vers la page principale
+        header("Location: ../index.php");
+        exit;
+    }
+    $id = (int)$_GET["id"];
 
     require_once "../php/connexion/connexionbd.php";
     include "fonctions.php";
@@ -12,9 +16,12 @@
     $req = $conn->prepare("SELECT * FROM rooms WHERE id = :id");
     $req->bindParam(":id", $id);
     $req->execute();
-    $room = $req->fetchAll(PDO::FETCH_ASSOC);
-    if (count($room) === 0) die("La salle que vous cherchez n'existe pas.<br><a href='../index.php'>Retour à la page principale.</a>");
-    $room = $room[0];
+    $room = $req->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$room) {
+        header("Location: ../index.php");
+        exit;
+    }
     
     include "../php/header2.php"; // Instruction mise ici et pas plus haut pour éviter un affichage cassé
 

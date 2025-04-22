@@ -14,7 +14,14 @@
     <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
 </head>
 <body>
-    <?php include "../php/header2.php"; ?>
+    <?php include "../php/header2.php"; 
+    if (!isset($_SESSION["user"]["id"])) {
+        header("Location: ../index.php");
+        exit();
+    }
+
+    ?>
+    
     <main id="profil">
 
         <?php

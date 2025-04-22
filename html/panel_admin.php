@@ -1,18 +1,26 @@
 <?php
     require_once "../php/connexion/connexionbd.php";
     include "../php/header2.php";
+    
+    // Vérifier que l'utilisateur est connecté
+    if (!isset($_SESSION["user"]["id"])) {
+        header("Location: ../index.php");
+        exit();
+    }
 
-    // Vérification si l'utilisateur est admin
+    // Vérifier si l'utilisateur est admin
     $req = $conn->prepare("SELECT admin FROM users WHERE id = :id");
     $req->bindParam(":id", $_SESSION["user"]["id"]);
     $req->execute();
     $isAdmin = $req->fetch(PDO::FETCH_ASSOC)["admin"] ?? null;
 
+    // Si ce n'est pas un admin, on redirige
     if (!$isAdmin) {
         header("Location: ../index.php");
         exit();
     }
 
+    // Valeur par défaut pour le tableau affiché
     if (!isset($_GET["bd"]) || !in_array($_GET["bd"], ["users", "rooms", "reservations", "comments", "newsletter", "admins"])) {
         $_GET["bd"] = "users";
     }
