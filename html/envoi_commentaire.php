@@ -1,6 +1,9 @@
 <?php
     session_start();
 
+    header("Location: ../index.php");
+
+
     include "fonctions.php";
     require_once "../php/connexion/connexionbd.php";
 

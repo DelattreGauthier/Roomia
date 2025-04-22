@@ -3,7 +3,7 @@
     require_once "../php/connexion/connexionbd.php";
 
     $batID = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
-    if ($batID < 1 || $batID > 4) die("Le bâtiment que vous cherchez n'existe pas.<br><a href='../index.php'>Retour à la page principale.</a>");
+    if ($batID < 1 || $batID > 4) header('Location: ../index.php');
 
     // Récupération du nom du bâtiment
     $req = $conn->prepare("SELECT name FROM batiments WHERE id = :id");
@@ -16,7 +16,7 @@
     $req->bindParam(":id", $batID);
     $req->execute();
     $rooms = $req->fetchAll(PDO::FETCH_ASSOC);
-    if (count($rooms) === 0) die("Ce bâtiment ne contient aucune salle.<br><a href='../index.php'>Retour à la page principale.</a>");
+    if (count($rooms) === 0) header('Location: ../index.php');
 
     // Génération du code pour les salles
     $salles = [];

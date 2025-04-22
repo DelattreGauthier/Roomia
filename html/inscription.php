@@ -134,6 +134,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <body>
         
         <?php include '../php/header2.php' ?>
+        <?php
+        if (isset($_SESSION['user'])){
+            header('Location: ../index.php');
+        }
+        ?>
         
         <main id="page_connexion">
 

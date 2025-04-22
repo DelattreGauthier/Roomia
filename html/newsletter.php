@@ -37,6 +37,6 @@
             echo "Veuillez renseigner une adresse email.";
         }
     } else {
-        echo "Requête invalide.";
+        header("Location:../index.php");
     }
 ?>

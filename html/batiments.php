@@ -9,7 +9,9 @@
     </head>
     <body>
         
-        <?php include "../php/header2.php" ?>
+        <?php include "../php/header2.php";?>
+
+        
 
         <main id="page_batiments">
             <!-- Îlot Colson 1 -->
