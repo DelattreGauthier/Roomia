@@ -98,12 +98,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/styles.php">
     <title>Roomia - Ajouter une salle</title>
     <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
 </head>
 <body>
-    <?php include '../php/header2.php' ?>
+    <?php include '../php/header.php' ?>
     
     <main id="page_connexion">
         <?php if (isset($_GET['success'])){ ?>
@@ -184,6 +184,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </main>
 
-    <?php include '../php/footer2.php'; ?>
+    <?php include '../php/footer.php'; ?>
 </body>
 </html>

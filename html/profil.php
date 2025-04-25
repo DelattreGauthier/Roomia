@@ -9,17 +9,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/styles.php">
     <title>Roomia - Profil</title>
     <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
 </head>
 <body>
-    <?php include "../php/header2.php"; 
-    if (!isset($_SESSION["user"]["id"])) {
-        header("Location: ../index.php");
-        exit();
-    }
+    <?php include "../php/header.php"; 
+        if (!isset($_SESSION["user"]["id"])) {
+            header("Location: ../index.php");
+            exit();
+        }
 
+        if (isset($_POST["theme"])) {
+            setcookie("theme", $_POST["theme"], time() + 86400 * 365, "/");
+            $theme = $_POST["theme"];
+            unset($_POST["theme"]);
+            header("Location: " . $_SERVER["PHP_SELF"]);
+        } else {
+            $theme = $_COOKIE["theme"] ?? "noir";
+        }
+        
     ?>
     
     <main id="profil">
@@ -46,6 +55,32 @@
             </form>
             <h2><?= $_SESSION['user']['fname'] . " " . $_SESSION['user']['lname'] ?></h2>
             <a href="../php/connexion/log_out.php" class="btn-deconnexion">SE DECONNECTER</a>
+            <form method="post">
+                <!-- Soit un bouton soit une slide bar -->
+                <button class="btn-deconnexion" type="submit" name="theme" value="<?= isset($_COOKIE["theme"] ) ? ($_COOKIE["theme"] === "blanc" ? "noir" : "blanc") : "blanc" ?>">Changer de thème</button>
+            </form>
+
+            <!-- Ne fonctionne pas -->
+
+            <!-- 
+            <form method="post">
+                <label class="switch">
+                    <input type="checkbox" name="theme" value="<? // isset($_COOKIE["theme"]) ? ($_COOKIE["theme"] === "blanc" ? "noir" : "blanc") : "blanc" ?>">
+                    <span class="slider"></span>
+                </label>
+                <button type="submit">Changer de thème</button>
+            </form>
+
+            <form method="post">
+                <label class="switch">
+                    <input type="checkbox" name="theme" value="<? //$theme === "noir" ? "blanc" : "noir" ?>" onchange="this.form.submit()" <? //$theme === "blanc" ? "checked" : "" ?>>
+                    <span class="slider"></span>
+                </label>
+                <span><? //$theme === "blanc" ? "Thème clair" : "Thème sombre" ?></span>
+            </form>
+            -->
+
+
             <?= $isAdmin ? '<a href="panel_admin.php?bd=users" style="margin-top:-10px;" class="btn-deconnexion">PANEL ADMIN</a>' : '' ?>
             <?php
             if (!empty($_SESSION['flash_error'])) {
@@ -152,7 +187,7 @@
         ?>
 
     </main>
-<?php include "../php/footer2.php"; ?>
+<?php include "../php/footer.php"; ?>
 </body>
 </html>
 

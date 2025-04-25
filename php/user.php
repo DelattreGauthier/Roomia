@@ -22,12 +22,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/styles.php">
     <title>Roomia - Profil de <?= $username ?></title>
     <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
 </head>
 <body>
-    <?php include "header2.php"; ?>
+    <?php include "header.php"; ?>
     <main id="profil">
 
         <h1>Profil de <?= $username ?></h1>
@@ -115,6 +115,6 @@
         </div>
 
     </main>
-    <?php include "footer2.php"; ?>
+    <?php include "footer.php"; ?>
 </body>
 </html>

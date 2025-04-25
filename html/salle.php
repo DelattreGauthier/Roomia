@@ -23,7 +23,7 @@
         exit;
     }
     
-    include "../php/header2.php"; // Instruction mise ici et pas plus haut pour éviter un affichage cassé
+    include "../php/header.php"; // Instruction mise ici et pas plus haut pour éviter un affichage cassé
 
     $salle = $room["name"];
     $avgNote = $room["rating"] ? "Note moyenne : ". $room["rating"] . " / 5" : "Pas encore de note.";
@@ -143,7 +143,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="../css/styles.css">
+        <link rel="stylesheet" type="text/css" href="../css/styles.php">
         <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
         <title>Roomia - <?= $batiment ?> - <?= $salle ?></title>
     </head>
@@ -258,6 +258,6 @@
                 <p class="commentaire-connexion"><a href="connexion.php">Connectez-vous</a> pour laisser un commentaire ou une note.</p>
             <?php endif; ?>
         </main>
-        <?php include "../php/footer2.php"; ?>
+        <?php include "../php/footer.php"; ?>
     </body>
 </html>

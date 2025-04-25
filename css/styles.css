@@ -14,13 +14,18 @@
     --default-orange: rgba(238, 105, 105, 0.89);
 
     /* Couleurs des salles */
-    --salle-bg: #ffffff;
+    --blanc: 255, 255, 255;
     --salle-border: #ccc;
     --salle-hover-bg: #ffebcd;
     
     /* Autres couleurs */
     --grille-bg: #fffaf0;
     --horaire-border: #f08080;
+
+    --shadow-black: 0, 0, 0;
+    --gris: #858585;
+    --card-bg: #f5f5fc;
+    --card-stat: 194, 60, 60;
 }
 
 /* Style des balises prédéfinis */
@@ -157,17 +162,17 @@ h6{
 ::-webkit-scrollbar {
     width: 7px;
     height: 12px;
-    background-color: #858585;
+    background-color: var(gris);
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #858585;
+    background-color: var(--gris);
     border: 2px solid var(--white-background) ;
     border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #858585;
+    background-color: var(--gris);
 }
 
 ::-webkit-scrollbar-track {
@@ -185,8 +190,8 @@ body{
 }
 
 main{
-    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), -10px -10px 10px var(--rich-black);
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), -10px -10px 10px var(--rich-black);
+    -webkit-box-shadow: 0px 0px 10px rgba(var(--shadow-black), 0.1), -10px -10px 10px var(--rich-black);
+            box-shadow: 0px 0px 10px rgba(var(--shadow-black), 0.1), -10px -10px 10px var(--rich-black);
     min-width:100%;
     min-height: calc(100vh - (132px)); /* Le main prendra toute la hauteur de la page moins la hauteur du footer*/ 
 }
@@ -203,8 +208,8 @@ header {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), -10px -10px 10px var(--rich-black);
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), -10px -10px 10px var(--rich-black);
+    -webkit-box-shadow: 0px 0px 10px rgba(var(--shadow-black), 0.1), -10px -10px 10px var(--rich-black);
+            box-shadow: 0px 0px 10px rgba(var(--shadow-black), 0.1), -10px -10px 10px var(--rich-black);
     position:fixed;
     background-color: var(--white-background);
     width: 100%;
@@ -508,8 +513,8 @@ img.img_droite2{
 
 #page_bienvenue img, #salles img{
     border-radius: 15px;
-    -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
-            box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 0px 2px rgba(var(--shadow-black), 0.1);
+            box-shadow: 0px 0px 2px rgba(var(--shadow-black), 0.1);
     min-width:300px;
 }
 
@@ -579,9 +584,9 @@ img.img_droite2{
         -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
     z-index: 1;
-    color: white;
+    color: rgb(var(--blanc));
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(var(--TEMPO-bat), 1);
     padding: 10px;
     border-radius: 15px;
     font-size: xx-large;
@@ -721,7 +726,7 @@ input[type="radio"]:checked + .radio-label {
     -webkit-transition-duration: 0.3s;
          -o-transition-duration: 0.3s;
             transition-duration: 0.3s;
-    color: white;
+    color: rgb(var(--blanc));
 }
 
 /*------------- Main (Page pour chaque batiment) -------------*/
@@ -844,8 +849,8 @@ input[type="radio"]:checked + .radio-label {
     background-position: center;
     background-size: cover;
     border-radius: 8px;
-    -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 4px 8px rgba(var(--shadow-black), 0.2);
+            box-shadow: 0 4px 8px rgba(var(--shadow-black), 0.2);
     cursor: pointer;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -902,7 +907,7 @@ input[type="radio"]:checked + .radio-label {
 
 /* Effet de fondu au survol */
 .salle::before {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(var(--blanc), 0.7);
     border-radius: 8px;
     bottom: 0;
     content: "";
@@ -929,7 +934,7 @@ input[type="radio"]:checked + .radio-label {
     background-color: var(--default-orange);
     border-radius: 4px;
     bottom: 10px;
-    color: #fff;
+    color: rgb(var(--blanc));
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1001,14 +1006,14 @@ d'un bâtiment mais appliqué à la page de la salle elle-même */
 }
 
 h1.infos {
-    color: #000;
+    color: rgb(var(--shadow-black));
     font-weight: bold;
     position: relative;
     top: -50%;
 }
 
 div.infos {
-    color: #000;
+    color: rgb(var(--shadow-black));
     font-weight: bold;
     position: absolute;
     visibility: hidden;
@@ -1053,7 +1058,7 @@ div.infos {
     width: 5rem;
     border: none;
     border-radius: 4px;
-    color: #fff;
+    color: rgb(var(--blanc));
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
@@ -1081,7 +1086,7 @@ div.infos {
     width: 4.5rem;
     border: none;
     border-radius: 4px;
-    color: #fff;
+    color: rgb(var(--blanc));
     font-size: 14px;
     font-weight: bold;
     margin-left: 10px;
@@ -1570,7 +1575,7 @@ div.infos {
     -webkit-transition-duration: 0.3s;
          -o-transition-duration: 0.3s;
             transition-duration: 0.3s;
-    color: white;
+    color: rgb(var(--blanc));
 }
 
 #profil .comments_container{
@@ -1581,7 +1586,7 @@ div.infos {
 #profil .comments_container p, #profil .comments_container h3{
     word-wrap: break-word; 
     word-break: break-word;
-    overflow-wrap: break-word; 
+    overflow-wrap: break-word;
     white-space: pre-wrap;
 }
 
@@ -1673,7 +1678,7 @@ footer div.gauche div{
             box-sizing: border-box;
     max-height:40.33px;
     margin:5px 20px 5px 20px;
-    background-color:white;
+    background-color: rgb(var(--blanc));
     
 }
 
@@ -1754,7 +1759,7 @@ footer .gauche div{
 #Newsletter button.btn-footer {
     border: none;
     background-color: var(--silver-blue);
-    color: white;
+    color: rgb(var(--white));
     font-size: 16px;
     cursor: pointer;
     border-radius: 0 4px 4px 0;
@@ -1773,8 +1778,8 @@ footer .gauche div{
 
 footer .btn-footer:hover {
     background-color: var(--gray-blue);
-    -webkit-box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
-            box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 3px 3px 7px rgba(var(--shadow-black), 0.3);
+            box-shadow: 3px 3px 7px rgba(var(--shadow-black), 0.3);
 }
 
 /* -------------- Notification de la Newsletter -------------- */
@@ -1785,12 +1790,12 @@ footer .btn-footer:hover {
     right: 20px;
     padding: 15px 20px;
     border-radius: 8px;
-    color: #fff;
+    color: rgb(var(--blanc));
     font-family: sans-serif;
     font-size: 14px;
     z-index: 9999;
-    -webkit-box-shadow: 0 0 15px rgba(0,0,0,0.3);
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 0 15px rgba(var(--shadow-black), 0.3);
+            box-shadow: 0 0 15px rgba(var(--shadow-black), 0.3);
     -webkit-animation: fadeOut 1s forwards;
             animation: fadeOut 1s forwards; /* Animation pour disparaître après 3 secondes */
     -webkit-animation-delay: 3s; /* Délai avant le début de l'animation */
@@ -2456,10 +2461,10 @@ footer .btn-footer:hover {
     left: 50%;
     transform: translateX(-50%);
     background-color: #4CAF50;
-    color: white;
+    color: rgb(var(--blanc));
     padding: 15px 30px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(var(--shadow-black), 0.1);
     font-weight: bold;
     z-index: 9999;
     animation: fadeOut 1s ease-in-out 2s forwards;
@@ -2495,7 +2500,7 @@ footer .btn-footer:hover {
     position: sticky;
     top: -1.5px;
     background-color: var(--horaire-border);
-    color: white;
+    color: rgb(var(--blanc));
     border-top:none;
 }
 
@@ -2519,14 +2524,14 @@ footer .btn-footer:hover {
 
 #panel_admin th {
     background-color: var(--horaire-border);
-    color: white;
+    color: rgb(var(--blanc));
 }
 
 #panel_admin img {
     width: 50px;
     height: 50px;
     object-fit: cover;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    box-shadow: 0 0 5px rgba(var(--shadow-black), 0.1);
 }
 
 #panel_admin form{
@@ -2605,18 +2610,18 @@ footer .btn-footer:hover {
 }
 
 .stats-card, .current-stats-card {
-    background-color: #f5f5fc;
+    background-color: var(--card-bg);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(var(--shadow-black), 0.1);
     text-align: center;
     transition: transform 0.2s ease;
     color: var(--horaire-border);
 }
 
 .current-stats-card {
-    border: solid 1.5px rgb(194, 60, 60);
-    box-shadow: rgb(194, 60, 60) 1px;
+    border: solid 1.5px rgb(var(--card-stat));
+    box-shadow: rgb(var(--card-stat)) 1px;
 }
 
 .stats-card:hover {
@@ -2642,7 +2647,7 @@ footer .btn-footer:hover {
 .current-stats-value {
     font-size: 32px;
     font-weight: bold;
-    color: rgb(194, 60, 60);
+    color: rgb(var(--card-stat));
 }
 
 @media (max-width: 900px) {
@@ -2669,14 +2674,14 @@ footer .btn-footer:hover {
     border-radius: 15px;
     font-size: 1em;
     border: solid var(--white-background) 2px;
-    background-color: #fff;
-    color: #222245;
+    background-color: rgb(var(--blanc));
+    color: var(--rich-black);
     cursor: pointer;
     margin-bottom: 10px;
   }
   
   input[type="file"]:focus {
-    outline: 0px #222245;
+    outline: 0px var(--rich-black);
   }
   
   input[type="file"]::file-selector-button {
@@ -2685,7 +2690,7 @@ footer .btn-footer:hover {
     border-radius: 10px;
     background: var(--silver-blue);
     padding: 8px 16px;
-    color: #fff;
+    color: rgb(var(--blanc));
     font-size: 1em;
     cursor: pointer;
     transition: background 0.3s ease;
@@ -2705,25 +2710,8 @@ footer .btn-footer:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 4px rgba(var(--shadow-black), 0.1);
   }
-
-  
-  
-  .horaire.libre {
-    background: #e8f5e9;
-  }
-  .horaire.reserve {
-    background: #ffebee;
-  }
-  .horaire.annulable {
-    background: #fff3e0;
-  }
-  .horaire.passe {
-    background: #eceff1;
-    color: #78909c;
-  }
-
   .btn-reserved:hover {
     background: #cf201d;
   }
@@ -2732,9 +2720,9 @@ footer .btn-footer:hover {
     background: #ff6f20;
   }
 
-  .btn-reserver { background: #43a047; color: #fff; }
-  .btn-reserved { background: #e53935; color: #fff; }
-  .btn-annuler { background: #ff9800; color: #fff; }
+  .btn-reserver { background: #43a047; color: rgb(var(--blanc)); }
+  .btn-reserved { background: #e53935; color: rgb(var(--blanc)); }
+  .btn-annuler { background: #ff9800; color: rgb(var(--blanc)); }
   
   #salles .days-nav {
     display: flex;
@@ -2755,7 +2743,7 @@ footer .btn-footer:hover {
     border-radius: 8px;
     font-weight: 500;
     transition: all 0.2s ease-in-out;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(var(--shadow-black), 0.05);
 }
 
 #salles .days-nav .day-button:hover {
@@ -2764,7 +2752,7 @@ footer .btn-footer:hover {
 
 #salles .days-nav .day-button.today {
     background-color: var(--horaire-border);
-    color: white;
+    color: rgb(var(--blanc));
 }
 
 #salles .days-nav .day-button.today:hover {
@@ -2778,7 +2766,7 @@ footer .btn-footer:hover {
     transform: translateX(-50%);
     padding: .8rem 1.2rem;
     border-radius: .3rem;
-    color: #fff;
+    color: rgb(var(--blanc));
     font-family: 'Satoshi-Regular', sans-serif;
     font-weight: bold;
     letter-spacing: 0.05em;

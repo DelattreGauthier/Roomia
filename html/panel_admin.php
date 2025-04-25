@@ -1,6 +1,6 @@
 <?php
     require_once "../php/connexion/connexionbd.php";
-    include "../php/header2.php";
+    include "../php/header.php";
     
     // Vérifier que l'utilisateur est connecté
     if (!isset($_SESSION["user"]["id"])) {
@@ -31,7 +31,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/styles.php">
     <title>Roomia - Panel Admin</title>
     <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
 </head>
@@ -165,6 +165,6 @@
             echo "</div>";
         ?>
     </main>
-    <?php include "../php/footer2.php"; ?>
+    <?php include "../php/footer.php"; ?>
 </body>
 </html>

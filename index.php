@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/styles.php">
         <title>Roomia - Accueil</title>
         <link rel="icon" href="images/Logo_Roomia.png" type="image/x-icon">
     </head>
@@ -13,9 +13,12 @@
         <header>
             <?php
                 session_start();
+
+                $theme = isset($_COOKIE["theme"]) ? $_COOKIE["theme"] : "noir";
+                $house = $theme === "noir" ? "images/logo_home_white.png" : "images/logo_home_black.png"
             ?>
 
-            <a class="logo_accueil_container" href="index.php"><img class="logo_accueil" onmouseout="this.src='images/logo_home_black.png';" onmouseover="this.src='images/logo_home_white.png';" src="images/logo_home_black.png" alt="ACCUEIL"></a>
+            <a class="logo_accueil_container" href="index.php"><img class="logo_accueil" onmouseout="this.src='<?= $house ?>';" onmouseover="this.src='images/logo_home_white.png';" src='<?= $house ?>' alt="ACCUEIL"></a>
             <nav>
                 <ul>
                     <li><a href="html/batiments.php">Choisir un bâtiment</a></li>
