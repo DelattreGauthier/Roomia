@@ -1,6 +1,7 @@
 <?php
 
 	session_start(); //Démarrer la session
+	unset($_SESSION["visited"]);
 	include "../php/cookies.php";
 	if(isset($_COOKIE["language_preference"])){
 		setcookie("language_preference", "", time() - 3600);

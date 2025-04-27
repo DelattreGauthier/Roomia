@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'admin' => $user['admin']
                 ];
 
-                $_SESSION["visited"] = ["connexion.php"];
+                $_SESSION["visited"] = $_SESSION["visited"] ?? [];
                 set_cookies($_SESSION["user"]);
                 include "../php/cookies.php";
 
