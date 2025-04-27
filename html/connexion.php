@@ -1,5 +1,5 @@
 <?php
-include 'fonctions.php';
+include '../php/fonctions.php';
 require_once '../php/connexion/connexionbd.php'; // Connexion à la BDD
 
 $errors = [];
@@ -44,12 +44,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 session_start();
                 $_SESSION['user'] = [
                     'id' => $user['id'],
+                    'genre' => $user['genre'],
                     'email' => $user['email'],
                     'fname' => $user['fname'],
                     'lname' => $user['lname'],
                     'profile_picture' => $user['profile_picture'],
                     'admin' => $user['admin']
                 ];
+
+                $_SESSION["visited"] = ["connexion.php"];
+                set_cookies($_SESSION["user"]);
+                include "../php/cookies.php";
 
                 header('Location: ../index.php');
                 exit;

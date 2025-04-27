@@ -10,7 +10,7 @@
   
   <body>
   		
-  	<?php include '../php/header.php' ?>
+  	<?php include "../php/header.php";include "../php/cookies.php"; ?>
 	
 <main id="page_cookies">
   <h1>Politique de Cookies</h1>

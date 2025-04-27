@@ -1,6 +1,8 @@
 <?php
     // Inclure la connexion à la base de données
     require_once '../php/connexion/connexionbd.php';
+    include '../php/cookies.php';
+    include '../php/cookies.php';
 
     // Vérifier si le formulaire a été soumis
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

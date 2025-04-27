@@ -1,7 +1,8 @@
 <!-- Fonctions de vérification des champs -->
 
 <?php
-include 'fonctions.php';
+include '../php/fonctions.php';
+include '../php/cookies.php';
 require_once '../php/connexion/connexionbd.php'; // Connexion à la BDD
 
 $errors = [];

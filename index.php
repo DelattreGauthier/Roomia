@@ -8,11 +8,10 @@
         <link rel="icon" href="images/Logo_Roomia.png" type="image/x-icon">
     </head>
     <body>
-        <?php // include "php/header1.php"; ?>
-
         <header>
             <?php
                 session_start();
+                include 'php/cookies.php';
 
                 $theme = isset($_COOKIE["theme"]) ? $_COOKIE["theme"] : "noir";
                 $house = $theme === "noir" ? "images/logo_home_white.png" : "images/logo_home_black.png"

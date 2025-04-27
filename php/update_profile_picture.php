@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "connexion/connexionbd.php";
-include "../html/fonctions.php";
+include "fonctions.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_SESSION['user']['id'];

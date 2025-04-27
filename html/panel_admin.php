@@ -1,6 +1,7 @@
 <?php
     require_once "../php/connexion/connexionbd.php";
     include "../php/header.php";
+    include "../php/cookies.php";
     
     // Vérifier que l'utilisateur est connecté
     if (!isset($_SESSION["user"]["id"])) {

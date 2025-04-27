@@ -1,8 +1,9 @@
 <?php
 
-session_start(); //Démarrer la session
-	if(isset($_COOKIE['language_preference'])){
-		setcookie('language_preference', "", time() - 3600);
+	session_start(); //Démarrer la session
+	include "../php/cookies.php";
+	if(isset($_COOKIE["language_preference"])){
+		setcookie("language_preference", "", time() - 3600);
 	}
 	if($_SESSION["user"]){ // si un utilisateur est authentifié (session en cours)
 		

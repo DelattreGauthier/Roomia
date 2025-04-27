@@ -1,6 +1,6 @@
 <?php
     require_once "../php/connexion/connexionbd.php";
-    include "fonctions.php";
+    include "../php/fonctions.php";
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +14,9 @@
     <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
 </head>
 <body>
-    <?php include "../php/header.php"; 
+    <?php
+        include "../php/header.php";
+        include "../php/cookies.php";
         if (!isset($_SESSION["user"]["id"])) {
             header("Location: ../index.php");
             exit();

@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once "connexion/connexionbd.php";
-    require_once "../html/fonctions.php";
+    require_once "fonctions.php";
 
     if (!isset($_SESSION["user"])) {
         header("Location: ../html/connexion.php");

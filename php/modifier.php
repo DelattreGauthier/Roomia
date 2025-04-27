@@ -1,5 +1,5 @@
 <?php
-include '../html/fonctions.php';
+include 'fonctions.php';
 require_once 'connexion/connexionbd.php';
 
 $errors = [];
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
 </head>
 <body>
-    <?php include '../php/header.php' ?>
+    <?php include '../php/header.php'; include '../php/cookies.php'; ?>
     
     <main id="page_connexion">
         <form class="form-container" method="POST" enctype="multipart/form-data">

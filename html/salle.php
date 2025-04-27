@@ -10,7 +10,7 @@
     $id = (int)$_GET["id"];
 
     require_once "../php/connexion/connexionbd.php";
-    include "fonctions.php";
+    include "../php/fonctions.php";
 
     // Récupération de informations de la salle
     $req = $conn->prepare("SELECT * FROM rooms WHERE id = :id");
@@ -24,8 +24,10 @@
     }
     
     include "../php/header.php"; // Instruction mise ici et pas plus haut pour éviter un affichage cassé
+    include "../php/cookies.php";
 
-    $salle = $room["name"];
+    $type = $room["type"];
+    $salle = $type === "salle" ? "Salle " . $room["name"] : "Amphithéâtre " . $room["name"];
     $avgNote = $room["rating"] ? "Note moyenne : ". $room["rating"] . " / 5" : "Pas encore de note.";
     $reviews = $room["reviews"];
     $places = $room["sits"];
@@ -34,10 +36,7 @@
     $retroprojecteurs = $room["proj"];
     $batiment_id = $room["batiment_id"];
     $image = $room["image"];
-    $img = $image ? "../php/getSalleImg.php?id=$id" : "../images/salle.jpg";
-
-    $type = "Salle";
-    // $horaires = gen_horaires("#");
+    $img = $image ? "../php/getSalleImg.php?id=$id" : ($type === "salle" ? "../images/salle.jpg" : "../images/AmphiType.jpg");
 
     $places_s = $places > 1 ? "s" : "";
     $tableaux_x = $tableaux > 1 ? "x" : "";
@@ -89,7 +88,7 @@
                 array_push($commentaires, "
                     <div class='commentaire'>
                         <div class='avatar-nom'>
-                            <a href='../php/user.php?id=$userID'><img src='$avatarURL' alt='Avatar de $username' class='avatar'></a>
+                            <a href='user.php?id=$userID'><img src='$avatarURL' alt='Avatar de $username' class='avatar'></a>
                             <h3>$username$note</h3> <span>$date</span>
                         </div>
                         $text
@@ -130,7 +129,7 @@
                     <td>$jour</td>
                     <td>$start</td>
                     <td>$end</td>
-                    <td><a href='../php/user.php?id=$userID'><img class='img_profil' src='$avatarURL' alt='Photo de profil de $username'><p>$username</p></a></td>
+                    <td><a href='user.php?id=$userID'><img class='img_profil' src='$avatarURL' alt='Photo de profil de $username'><p>$username</p></a></td>
                 </tr>");
         }
 
@@ -149,7 +148,7 @@
     </head>
     <body>
         <main id="salles">
-            <h1 class="texte_droite"><?= $type ?> <?= $salle ?></h1>
+            <h1 class="texte_droite"><?= $salle ?></h1>
             <h5 class="texte_droite">
                 <ul>
                     <li><?= $places ?> place<?= $places_s ?></li>
@@ -159,7 +158,7 @@
                     <li><?= $avgNote ?></li>
                 </ul>
             </h5>
-            <img class="img_gauche" src="<?= $img ?>" alt="Salle <?= $salle ?>">
+            <img class="img_gauche" src="<?= $img ?>" alt="<?= $salle ?>">
         
 
             <?php
@@ -223,7 +222,7 @@
 
             <?php if (isset($_SESSION["user"])): ?>
                 <div class="commentaires-submit-container">
-                    <form method="POST" class="form-commentaires" action="envoi_commentaire.php#commentaires">
+                    <form method="POST" class="form-commentaires" action="../php/envoi_commentaire.php#commentaires">
                         <input type="hidden" name="room_id" value="<?= $id ?>">
 
                         <label for="note"><h5>Note :</h5></label>

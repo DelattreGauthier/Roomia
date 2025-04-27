@@ -1,5 +1,5 @@
 <?php
-    include "fonctions.php";
+    include "../php/fonctions.php";
     require_once "../php/connexion/connexionbd.php";
 
     $batID = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
@@ -12,27 +12,24 @@
     $bat = $req->fetchAll(PDO::FETCH_ASSOC)[0]["name"];
 
     // Récupération des salles du bâtiment
-    $req = $conn->prepare("SELECT id, name, image FROM rooms WHERE batiment_id = :id ORDER BY name ASC");
+    $req = $conn->prepare("SELECT id, type, name, image FROM rooms WHERE batiment_id = :id ORDER BY name ASC");
     $req->bindParam(":id", $batID);
     $req->execute();
     $rooms = $req->fetchAll(PDO::FETCH_ASSOC);
-    if (count($rooms) === 0) header('Location: ../index.php');
+    if (count($rooms) === 0) header("Location: ../index.php");
 
     // Génération du code pour les salles
     $salles = [];
-    $i = 0;
     foreach ($rooms as $room) {
-        $i++;
-        if ($i === 46) break;   // Limite de 45 salles
+        if ($room["type"] !== "salle") continue; // Génération des salles classiques
         $id = $room["id"];
         $salle = $room["name"];
         $image = $room["image"];
         $img = $image ? "../php/getSalleImg.php?id=$id" : "../images/salle.jpg";
         $horaires = preview_horaires($id);
-        $days = date("G") > 20 ? 1 : 0; // Si l'heure est supérieure à 20h, on affiche le jour suivant
+        $days = date("G") > 19 ? 1 : 0; // Si l'heure est supérieure à 19h (plus possibilité de réserver 19h-20h), on affiche le jour suivant
 
-        $salles[] = "<!-- Salle $i -->
-                    <div class='salle'>
+        $salles[] = "                    <div class='salle'>
                         <a href='salle.php?id=$id' class='nom-salle'>Salle $salle</a>
                         <div class='img-container'><a href='salle.php?id=$id&days=$days'><img src='$img' alt='Salle $salle'></a></div>
                         <!-- Liste des équipements de la salle -->
@@ -40,7 +37,6 @@
                             <a href='salle.php?id=$id&days=$days'>Plus d'informations...</a>
                         </div>
                         
-                        <!-- Conteneur des horaires pour la salle -->
                         <div class='horaires-container'>
                             <ul>
                                 $horaires
@@ -52,22 +48,23 @@
 
     // Génération du code pour les amphithéâtres
     $amphis = [];
-    for ($i = 1; $i <= 15; $i++) {   // Limité à 15 amphithéâtres pour la démo
-        $id = 0;
+    foreach ($rooms as $room) {
+        if ($room["type"] !== "amphi") continue; // Génération des amphithéâtres
+        $id = $room["id"];
+        $amphi = $room["name"];
+        $image = $room["image"];
+        $img = $image ? "../php/getSalleImg.php?id=$id" : "../images/AmphiType.jpg";
         $horaires = preview_horaires($id);
-        $img = "../images/AmphiType.jpg";
-        $days = date("G") > 20 ? 1 : 0;
+        $days = date("G") > 19 ? 1 : 0;
 
-        $amphis[] = "<!-- Amphithéâtre $i -->
-                    <div class='salle'>
-                        <a href='salle.php?id=$id' class='nom-salle'>Amphithéâtre $i</a>
-                        <div class='img-container'><a href='salle.php?id=$id&days=$days'><img src='$img' alt='Amphithéâtre $i'></a></div>
+        $amphis[] = "                    <div class='salle'>
+                        <a href='salle.php?id=$id' class='nom-salle'>Amphithéâtre $amphi</a>
+                        <div class='img-container'><a href='salle.php?id=$id&days=$days'><img src='$img' alt='Amphithéâtre $amphi'></a></div>
                         <!-- Liste des équipements de l'amphithéâtre -->
                         <div class='infos'>
                             <a href='salle.php?id=$id&days=$days'>Plus d'informations...</a>
                         </div>
                         
-                        <!-- Conteneur des horaires pour l'amphithéâtre -->
                         <div class='horaires-container'>
                             <ul>
                                 $horaires
@@ -88,7 +85,7 @@
         <link rel="icon" href="../images/Logo_Roomia.png" type="image/x-icon">
     </head>
     <body>
-        <?php include "../php/header.php"; ?>   
+        <?php include "../php/header.php"; include "../php/cookies.php";?>   
         <main id="batiment">
             <div class="titre"> 
                 <h1>Bâtiment <?php echo $bat; ?></h1>
