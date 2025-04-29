@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate and sanitize inputs
     $vbat = nettoyer_donnees($_POST['bat'] ?? '');
     $vname = nettoyer_donnees($_POST['name'] ?? '');
+    $vtype = $_POST['type'] ?? '';
     $vsits = intval($_POST['sits'] ?? 0);
     $vsockets = intval($_POST['sockets'] ?? 0);
     $vboards = intval($_POST['boards'] ?? 0);
@@ -53,10 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $conn->query('SELECT 1');
             
             // Prepare statement with all parameters properly bound
-            $addsalle = $conn->prepare("INSERT INTO rooms (name, sits, sockets, boards, proj, batiment_id, image) 
-                                      VALUES (:name, :sits, :sockets, :boards, :proj, :batID, :photo_salle)");
+            $addsalle = $conn->prepare("INSERT INTO rooms (name, type, sits, sockets, boards, proj, batiment_id, image) 
+                                      VALUES (:name, :type, :sits, :sockets, :boards, :proj, :batID, :photo_salle)");
             
             $addsalle->bindParam(':name', $vname);
+            $addsalle->bindParam(':type', $vtype);
             $addsalle->bindParam(':sits', $vsits, PDO::PARAM_INT);
             $addsalle->bindParam(':sockets', $vsockets, PDO::PARAM_INT);
             $addsalle->bindParam(':boards', $vboards, PDO::PARAM_INT);
@@ -122,7 +124,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?= htmlspecialchars($errors['database']) ?>
                     </div>
                 <?php endif; ?>
-
+                <!-- Room type -->
+                <div class="form-group">
+                <label>Type :</label>
+                    <div class="radio-group">
+                        <input type="radio" id="salle" name="type" value="salle" <?= (isset($_POST['type']) && $_POST['type'] === 'salle') ? 'checked' : '' ?>>
+                        <label class="radio-label" for="salle">Salle</label>
+                        
+                        <input type="radio" id="amphi" name="type" value="amphi" <?= (isset($_POST['type']) && $_POST['type'] === 'amphi') ? 'checked' : '' ?>>
+                        <label class="radio-label" for="amphi">Amphithéâtre</label>
+                    </div>
+                </div>
                 <!-- Batiment -->
                 <div class="form-group">
                     <label for="bat">Nom du bâtiment :</label>

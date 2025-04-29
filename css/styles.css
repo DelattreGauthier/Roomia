@@ -327,9 +327,8 @@ header a:hover{
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    -webkit-backdrop-filter: blur(100px);
-    backdrop-filter: blur(100px);
-    background-color: rgba(232, 231, 245);
+    opacity: 1;
+    background-color: var(--white-background);
     z-index: 1;
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -1360,7 +1359,6 @@ div.infos {
             text-align: center;
             margin: auto;
             font-family: 'Satoshi-Bold', sans-serif;
-            color: green !important;
         }
 
         #salles .commentaire h5{

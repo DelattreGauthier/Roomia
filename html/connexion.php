@@ -111,8 +111,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php endif; ?>
                     </div>
 
-                    <p class="form-link">Mot de passe oublié ? <br><a href="../php/forgot_password.php">Réinitialiser mon mot de passe</a></p>
-
                     <!-- Boutons -->
                     <button type="submit" class="btn-submit">SE CONNECTER</button>
 

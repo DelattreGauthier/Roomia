@@ -59,7 +59,7 @@
             <a href="../php/connexion/log_out.php" class="btn-deconnexion">SE DECONNECTER</a>
             <form method="post">
                 <!-- Soit un bouton soit une slide bar -->
-                <button class="btn-deconnexion" type="submit" name="theme" value="<?= isset($_COOKIE["theme"] ) ? ($_COOKIE["theme"] === "blanc" ? "noir" : "blanc") : "blanc" ?>">Changer de thème</button>
+                <button class="btn-deconnexion" type="submit" name="theme" value="<?= isset($_COOKIE["theme"] ) ? ($_COOKIE["theme"] === "blanc" ? "noir" : "blanc") : "blanc" ?>">CHANGER DE THEME</button>
             </form>
 
             <!-- Ne fonctionne pas -->

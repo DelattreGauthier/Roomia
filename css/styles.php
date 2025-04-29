@@ -64,7 +64,10 @@ header("Content-Type: text/css");
         --shadow-black: 255, 255, 255;
         --gris: #7a7a7a;
         --card-bg: #0a0a03;
-        --card-stat: 61, 195, 195";
+        --card-stat: 61, 195, 195;
+        
+        input{color:#0D1321} !important;
+        ";
     }
 ?>
 }
@@ -368,9 +371,7 @@ header a:hover{
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    -webkit-backdrop-filter: blur(100px);
-    backdrop-filter: blur(100px);
-    background-color: rgba(232, 231, 245);
+    background-color: var(--white-background);
     z-index: 1;
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -670,7 +671,7 @@ img.img_droite2{
     padding-bottom : 70px;
 }
 
-#page_connexion .radio-label{
+#page_connexion .radio-label, ajouter_salle .radio-label {
     margin : 5px;
     cursor:pointer;
 }
@@ -1401,7 +1402,6 @@ div.infos {
             text-align: center;
             margin: auto;
             font-family: 'Satoshi-Bold', sans-serif;
-            color: green !important;
         }
 
         #salles .commentaire h5{
@@ -1521,10 +1521,17 @@ div.infos {
     align-items: center;
     justify-content: center;
     max-height: auto;
-    grid-template-rows: auto auto;
+    grid-template-rows: 250px 42px 42px 42px 42px;
     row-gap: 20px;
     position : relative;
-    max-height: 380px !important;
+    min-height: 500px !important;
+}
+
+#profil .btn-deconnexion{
+    margin-bottom:0px;
+    margin-top:0px !important;
+    width: 220px;
+    text-align:center;
 }
 
 #profil .camera_icon{

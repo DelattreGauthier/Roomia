@@ -67,10 +67,10 @@
                         if (is_array($result)) {
                             echo "<pre>╭ " . htmlspecialchars($command) . "\n|\n╰ " . htmlspecialchars(print_r($result, true)) . "</pre>";
                         } else {
-                            echo "<p>" . htmlspecialchars($command) . " => " . htmlspecialchars($result) . "</p>";
+                            echo "<p style='color:green;'>" . htmlspecialchars($command) . " => " . htmlspecialchars($result) . "</p>";
                         }
                     } catch (Throwable $e) {
-                        echo "<p>Erreur : " . htmlspecialchars($e->getMessage()) . "</p>";
+                        echo "<p style= 'color:red;'>Erreur : " . htmlspecialchars($e->getMessage()) . "</p>";
                     }
                 }
                 ?>
