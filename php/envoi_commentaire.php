@@ -73,7 +73,7 @@
 
                 // Redirection vers la page précédente avec un message de succès
                 $_SESSION["commentaire_success"] = "Votre avis a été envoyé avec succès !";
-                header("Location: salle.php?id=$room_id#commentaires");
+                header("Location: ../html/salle.php?id=$room_id#commentaires");
                 exit;
             }
             else {
