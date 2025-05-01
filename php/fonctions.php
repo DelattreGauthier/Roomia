@@ -77,10 +77,11 @@ function preview_horaires(int $salle_id, int $start = 8, int $end = 20, int $ste
 function set_cookies($user) {
     $cookies = [
         ["name" => "ID", "value" => $user["id"]], ["name" => "Genre", "value" => $user["genre"]], ["name" => "Nom", "value" => $user["lname"]], 
-        ["name" => "Prénom", "value" => $user["fname"]], ["name" => "Email", "value" => $user["email"]], ["name" => "profile_picture", "value" => $user["profile_picture"]],
-        ["name" => "Admin", "value" => $user["admin"] ? "Oui" : "Non"], ["name" => "IP", "value" => $_SERVER["REMOTE_ADDR"]], ["name" => "Agent", "value" => $_SERVER["HTTP_USER_AGENT"]], 
+        ["name" => "Prenom", "value" => $user["fname"]], ["name" => "Email", "value" => $user["email"]], ["name" => "Admin", "value" => $user["admin"] ? "Oui" : "Non"], 
+        ["name" => "IP", "value" => $_SERVER["REMOTE_ADDR"]], ["name" => "Agent", "value" => $_SERVER["HTTP_USER_AGENT"]], 
         ["name" => "OS", "value" => PHP_OS], ["name" => "Apache", "value" => $_SERVER["SERVER_SOFTWARE"]], ["name" => "PHP", "value" => phpversion()]
     ];
+    
     setcookie("user", base64_encode(json_encode($cookies)), time() + 86400 * 365, "/");
 }
 function date_fmt_8($dt_str, $date=NULL, $heure=NULL) {

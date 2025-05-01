@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $_SESSION["visited"] = $_SESSION["visited"] ?? [];
                 set_cookies($_SESSION["user"]);
+                if (!isset($_COOKIE["user"])) header("Location: connexion.php");
                 include "../php/cookies.php";
 
                 header('Location: ../index.php');
