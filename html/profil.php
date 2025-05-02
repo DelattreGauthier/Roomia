@@ -28,7 +28,7 @@
             unset($_POST["theme"]);
             header("Location: " . $_SERVER["PHP_SELF"]);
         } else {
-            $theme = $_COOKIE["theme"] ?? "noir";
+            $theme = $_COOKIE["theme"] ?? "blanc";
         }
         
     ?>
@@ -58,30 +58,8 @@
             <h2><?= $_SESSION['user']['fname'] . " " . $_SESSION['user']['lname'] ?></h2>
             <a href="../php/connexion/log_out.php" class="btn-deconnexion">SE DECONNECTER</a>
             <form method="post">
-                <!-- Soit un bouton soit une slide bar -->
                 <button class="btn-deconnexion" type="submit" name="theme" value="<?= isset($_COOKIE["theme"] ) ? ($_COOKIE["theme"] === "blanc" ? "noir" : "blanc") : "blanc" ?>">CHANGER DE THEME</button>
             </form>
-
-            <!-- Ne fonctionne pas -->
-
-            <!-- 
-            <form method="post">
-                <label class="switch">
-                    <input type="checkbox" name="theme" value="<? // isset($_COOKIE["theme"]) ? ($_COOKIE["theme"] === "blanc" ? "noir" : "blanc") : "blanc" ?>">
-                    <span class="slider"></span>
-                </label>
-                <button type="submit">Changer de thème</button>
-            </form>
-
-            <form method="post">
-                <label class="switch">
-                    <input type="checkbox" name="theme" value="<? //$theme === "noir" ? "blanc" : "noir" ?>" onchange="this.form.submit()" <? //$theme === "blanc" ? "checked" : "" ?>>
-                    <span class="slider"></span>
-                </label>
-                <span><? //$theme === "blanc" ? "Thème clair" : "Thème sombre" ?></span>
-            </form>
-            -->
-
 
             <?= $isAdmin ? '<a href="panel_admin.php?bd=users" style="margin-top:-10px;" class="btn-deconnexion">PANEL ADMIN</a>' : '' ?>
             <?php

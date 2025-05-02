@@ -52,9 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'admin' => $user['admin']
                 ];
 
-                $_SESSION["visited"] = $_SESSION["visited"] ?? [];
+                $_SESSION["visited"] = [];
                 set_cookies($_SESSION["user"]);
-                if (!isset($_COOKIE["user"])) header("Location: connexion.php");
+                if (!isset($_COOKIE["user"])) {
+                    header("Location: connexion.php");
+                    exit();
+                }
                 include "../php/cookies.php";
 
                 header('Location: ../index.php');

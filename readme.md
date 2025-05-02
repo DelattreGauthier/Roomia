@@ -1,7 +1,7 @@
 
 # Importation de la BDD dans phpMyAdmin
 
-Pour ce faire, il suffit d'ouvrir la console de requêtes SQL puis d'exécuter la ligne suivante :
+Pour permettre l'importation de la BDD (contenant des fichiers volumineux), il est nécessaire d'ouvrir la console de requêtes SQL puis d'exécuter la ligne suivante :
 
 ```sql
 SET GLOBAL max_allowed_packet=1073741824;
@@ -18,3 +18,10 @@ SET GLOBAL max_allowed_packet=1073741824;
 
 - Décommenter la ligne en retirant ";" s'il y en a
 - Enregistrer puis relancer MAMP s'il était déjà lancé
+
+
+
+| Compte admin |        email        | mot de passe |
+| ------------ | ------------------- | ------------ |
+|      Oui     |  <admin@admin.com>  | `admin1234`  |
+|      Non     | <client@client.com> | `client1234` |

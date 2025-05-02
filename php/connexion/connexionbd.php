@@ -8,5 +8,5 @@
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
     
     // Définit le mode d'erreur pour afficher les exceptions en cas d'erreur lors de l'exécution des requêtes SQL
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 ?>

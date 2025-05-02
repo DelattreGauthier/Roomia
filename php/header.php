@@ -2,7 +2,7 @@
     <?php
         session_start();
 
-        $theme = isset($_COOKIE["theme"]) ? $_COOKIE["theme"] : "noir";
+        $theme = isset($_COOKIE["theme"]) ? $_COOKIE["theme"] : "blanc";
         $house = $theme === "noir" ? "../images/logo_home_white.png" : "../images/logo_home_black.png"
 	?>
 

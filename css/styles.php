@@ -1,26 +1,28 @@
 <?php
 header("Content-Type: text/css");
+if (!isset($_COOKIE["theme"])) {
+    setcookie("theme", "blanc", time() + 86400 * 365, "/");
+    header("Location: " . $_SERVER["PHP_SELF"]);
+}
+
 ?>
 
-*{
+* {
     list-style: none;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
     <?php
-        $theme = "noir";
+        $theme = $_COOKIE["theme"];
         if ($theme === "blanc"){
-            echo "color: var(--white-background);";
-        } else {
             echo "color: var(--rich-black);";
+        } else {
+            echo "color: var(--white-background);";
         }
     ?>
 }
 
-:root{
+:root {
     <?php
-
-    $theme = isset($_COOKIE["theme"]) ? $_COOKIE["theme"] : "noir";
-
     if ($theme === "blanc") {
         echo "--blue-links:#1e88e5;
         --white-background:#e8e7f5;
@@ -49,7 +51,7 @@ header("Content-Type: text/css");
         --silver-blue:#748CAB;  /* #8b7354 */
         --gray-blue:#c1a389;
         --rich-black:#f2ecde;
-        --prussian-blue:#e2d2bb;
+        --prussian-blue: #e2d2bb;
         --default-orange: rgba(238, 105, 105, 0.89);  /* rgba(17, 150, 150, 0.89) */
 
         /* Couleurs des salles */
@@ -628,7 +630,7 @@ img.img_droite2{
     z-index: 1;
     color: rgb(var(--blanc));
     text-align: center;
-    background-color: rgba(var(--TEMPO-bat), 1);
+    background-color: rgba(0, 0, 0, .5);
     padding: 10px;
     border-radius: 15px;
     font-size: xx-large;
@@ -1365,7 +1367,7 @@ div.infos {
             font-size: 1em;
             border-radius: 5px;
             resize: none;
-            color:var(--rich-black);
+            color:black;
         }
         
         #salles form.form-commentaires{
@@ -1396,6 +1398,10 @@ div.infos {
             margin: auto;
             font-family: 'Satoshi-Bold', sans-serif;
             color: red;
+        }
+
+        .commentaire-connexion a {
+            color : blue;
         }
 
         #salles .commentaire-success, #panel_admin .result p{
@@ -2864,3 +2870,7 @@ footer .btn-footer:hover {
     transform: translateX(-50%) translateY(-20px); /* Je sais pas ce que c'est */
   }
   
+
+#profile_picture{
+    color:var(--shadow-black);
+}

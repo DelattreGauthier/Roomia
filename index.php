@@ -13,8 +13,8 @@
                 session_start();
                 include 'php/cookies.php';
 
-                $theme = isset($_COOKIE["theme"]) ? $_COOKIE["theme"] : "noir";
-                $house = $theme === "noir" ? "images/logo_home_white.png" : "images/logo_home_black.png"
+                $theme = isset($_COOKIE["theme"]) ? $_COOKIE["theme"] : "blanc";
+                $house = $theme === "blanc" ? "images/logo_home_black.png" : "images/logo_home_white.png";
             ?>
 
             <a class="logo_accueil_container" href="index.php"><img class="logo_accueil" onmouseout="this.src='<?= $house ?>';" onmouseover="this.src='images/logo_home_white.png';" src='<?= $house ?>' alt="ACCUEIL"></a>
