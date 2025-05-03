@@ -19,7 +19,7 @@ SET GLOBAL max_allowed_packet=1073741824;
 - Décommenter la ligne en retirant ";" s'il y en a
 - Enregistrer puis relancer MAMP s'il était déjà lancé
 
-
+# Comptes précréés (Possibilités de créer son compte)
 
 | Compte admin |        email        | mot de passe |
 | ------------ | ------------------- | ------------ |
